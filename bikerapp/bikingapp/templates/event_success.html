@@ -10,28 +10,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <title>Document</title>
 </head>
 
 <body>
-    <table>
-        <thead style="border: 1px solid black">
-            <th border: 1px solid black;>location</th>
-            <th border: 1px solid black;>date_time</th>
-            <th border: 1px solid black;>date_created</th>
-            <th border: 1px solid black;>public_private</th>
-            <th border: 1px solid black;>description</th>
-            <th border: 1px solid black;>created_by</th>
-        </thead>
-        <tr style="border: 1px solid black">
-            <td border: 1px solid black;>{{obj1.location}}</td>
-            <td border: 1px solid black;>{{obj1.date_time}}</td>
-            <td border: 1px solid black;>{{obj1.date_created}}</td>
-            <td border: 1px solid black;>{{obj1.public_private}}</td>
-            <td border: 1px solid black;>{{obj1.description}}</td>
-            <td >{{obj1.created_by}}</td>
-        </tr>
-    </table>
+    {% extends 'base.html' %}
+    {% block content %}
+        <div style="margin-top: 120px">
+            <div style="display: flex;justify-content: space-between;">
+                <h3 style="margin-left: 20px;">Events for you</h3>
+                <h6 style="float: right; margin-right: 20px; margin-top: 10px;">
+                    <li><a href="/event" style="text-decoration: none;">Create events
+                        <i class="bi bi-plus-circle"></i></a></li>
+                </h6>
+            </div>
+            <div class="col container d-flex flex-wrap align-items-center space-between">
+                {% for obj in obj1 %}
+                    <div class="card col-lg-3" style="margin: 15px;">
+                        <ul>
+                            <li class="card-body"><b>Location:</b> {{obj.location}}</li>
+                            <li class="card-body"><b>Event Date:</b> {{obj.date_time}}</li>
+                            <li class="card-body"><b>Created Date:</b> {{obj.date_created}}</li>
+                            <li class="card-body"><b>Event Type:</b> {{obj.public_private}}</li>
+                            <li class="card-body"><b>Description:</b> {{obj.description}}</li>
+                            <li class="card-body"><b>Created By:</b> {{obj.created_by}}</li>
+                        </ul>
+                    </div>
+                {% endfor %}
+                </div>
+        </div>
+    {% endblock content %}
 </body>
 
 </html>

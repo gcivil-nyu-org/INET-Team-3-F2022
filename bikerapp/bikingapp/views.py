@@ -28,12 +28,14 @@ def contact(request):
     form = EventForm()
     return render(request, 'form.html',{'form':form})
 '''
+def home(request):
+    return render(request, 'base.html')
 
 def event_detail(request):
 
     if request.method == "POST":
         form = EventForm(request.POST)
-        #print("Is it valid?")
+        print("Is it valid?")
         if form.is_valid():
             form.save()
             return redirect(success_page)
@@ -44,17 +46,25 @@ def event_detail(request):
     form = EventForm()
     return render(request, 'form.html',{'form':form})
 
+def create(request):
+
+    if request.method == "POST":
+        form = EventForm(request.POST)
+        print("Is it valid?")
+        if form.is_valid():
+            form.save()
+            return redirect(success_page)
+        else:   
+            print("Invalid Form")
+
 def success_page(request):
+    
     location1 = request.POST.get('location')
     created_by = request.POST.get('created_by')
     date_time = request.POST.get('date_time')
     date_created = request.POST.get('date_created')
 
-    mydata = models.Event.objects.filter(location=location1).values
-
-    obj = models.Event.objects.order_by('id').latest('id')
-
-    print(obj.location)
+    obj = models.Event.objects.order_by('id')
     context= {'obj1' : obj}
-
+  
     return render(request, 'event_success.html', context)
