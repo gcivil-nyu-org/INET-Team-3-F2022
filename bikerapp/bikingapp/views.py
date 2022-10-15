@@ -64,7 +64,8 @@ def success_page(request):
     date_time = request.POST.get('date_time')
     date_created = request.POST.get('date_created')
 
-    obj = models.Event.objects.order_by('id')
+    obj = models.Event.objects.order_by('id').latest('id')
+    print(obj.location)
     context= {'obj1' : obj}
   
     return render(request, 'event_success.html', context)
