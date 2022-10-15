@@ -7,7 +7,7 @@
   <title>Document</title>
 </head>
 <body>
-  <form method = "post"> 
+  <form method = "post" action=event_success > 
     {% csrf_token %}
     {{form}}
     <button type = "submit">Submit</button>
