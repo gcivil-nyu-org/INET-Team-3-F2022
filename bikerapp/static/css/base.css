@@ -1,0 +1,23 @@
+header {
+    background-color: rgb(104, 104, 223);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    display: flex;
+    align-items: center;
+}
+
+header * {
+    display: inline;
+}
+
+header li {
+    margin: 20px;
+}
+
+header li a {
+    color: whitesmoke;
+    text-decoration: none;
+}

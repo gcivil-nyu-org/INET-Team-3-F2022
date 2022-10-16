@@ -1,0 +1,7 @@
+bikerapp/__pycache__
+bikingapp/__pycache__
+bikingapp/migrations/__pycache__
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
