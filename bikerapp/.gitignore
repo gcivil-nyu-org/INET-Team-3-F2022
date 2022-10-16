@@ -5,3 +5,4 @@ bikingapp/migrations/__pycache__
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+**/.DS_Store
