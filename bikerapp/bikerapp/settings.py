@@ -25,7 +25,7 @@ SECRET_KEY = '0u4)+8j@w=qnyw$yut#m5)u@1_y=eyxw@j07y0d3g+fo%9&w&i'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['django-project-env.eba-mycpi7he.us-west-2.elasticbeanstalk.com']
+ALLOWED_HOSTS = ['django-project-env.eba-mycpi7he.us-west-2.elasticbeanstalk.com','127.0.0.1:8000','localhost']
 
 
 # Application definition
@@ -38,7 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'crispy_forms',
+    'widget_tweaks',
 ]
+SITE_ID = 1
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -66,6 +74,10 @@ TEMPLATES = [
             ],
         },
     },
+]
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 WSGI_APPLICATION = 'bikerapp.wsgi.application'
@@ -117,7 +129,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-
+ 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 

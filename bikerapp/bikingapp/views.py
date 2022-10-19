@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from bikingapp import models
 from .forms import EventForm
+
 '''
 , SnippetForm
 '''
@@ -69,3 +70,6 @@ def success_page(request):
     context= {'obj1' : obj}
   
     return render(request, 'event_success.html', context)
+def Signup(request):
+    return render(request, 'account/signup.html')
+
