@@ -59,10 +59,11 @@ def create(request):
 
 def success_page(request):
     
-    location1 = request.POST.get('location')
-    created_by = request.POST.get('created_by')
-    date_time = request.POST.get('date_time')
-    date_created = request.POST.get('date_created')
+    #location1 = request.POST.get('location')
+    #created_by = request.POST.get('created_by')
+    #date_time = request.POST.get('date')
+    #date_time = request.POST.get('time')
+    #date_created = request.POST.get('date_created')
 
     obj = models.Event.objects.order_by('id').latest('id')
     print(obj.location)
