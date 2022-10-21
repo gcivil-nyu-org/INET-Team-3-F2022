@@ -16,13 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path,re_path
 
-
 urlpatterns = [
     path('', include('bikingapp.urls')),
     path('admin/', admin.site.urls),
-    re_path(r'^accounts/', include('allauth.urls')), 
-
-  
-
-
+    #path('users/', include('users.urls')),
+    re_path(r'^accounts/', include('allauth.urls')),
 ]

@@ -46,6 +46,11 @@ INSTALLED_APPS = [
     'widget_tweaks',
 ]
 SITE_ID = 1
+ACCOUNT_AUTHENTICATION_METHOD='email'
+ACCOUNT_EMAIL_REQUIRED=True
+#ACCOUNT_EMAIL_UNIQUE=True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 
 MIDDLEWARE = [
@@ -57,6 +62,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 
 ROOT_URLCONF = 'bikerapp.urls'
 
@@ -92,6 +98,12 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+MAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' #new
+EMAIL_HOST = 'smtp.gmail.com' #new
+EMAIL_PORT = 587 #new
+EMAIL_HOST_USER = 'abhinav.dwarkani.nyu@gmail.com'  #new
+EMAIL_HOST_PASSWORD = "dbfgsfmhlvcykqin" #new
+EMAIL_USE_TLS = True #new
 
 
 # Password validation
