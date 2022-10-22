@@ -46,10 +46,10 @@ INSTALLED_APPS = [
     'widget_tweaks',
 ]
 SITE_ID = 1
-ACCOUNT_AUTHENTICATION_METHOD='email'
+ACCOUNT_AUTHENTICATION_METHOD='username'
 ACCOUNT_EMAIL_REQUIRED=True
 #ACCOUNT_EMAIL_UNIQUE=True
-ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 
@@ -145,3 +145,4 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
+login_url = '/accounts/login/'
