@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -70,3 +71,10 @@ def success_page(request):
     context= {'obj1' : obj}
   
     return render(request, 'event_success.html', context)
+
+def register_page(request):
+    return render(request,'account/signup.html')
+
+@login_required
+def profile(request):
+    return render(request, 'account/profile.html')
