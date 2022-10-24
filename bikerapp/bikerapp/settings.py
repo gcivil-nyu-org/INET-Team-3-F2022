@@ -28,6 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['django-project-env.eba-mycpi7he.us-west-2.elasticbeanstalk.com','127.0.0.1:8000','localhost']
 
 
+
 # Application definition
 
 INSTALLED_APPS = [
