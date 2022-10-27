@@ -4,4 +4,5 @@ python:
 install:
   - pip install -r bikerapp/requirements.txt
 script:
+  - python -m black . --check
   - python bikerapp/manage.py test bikingapp
