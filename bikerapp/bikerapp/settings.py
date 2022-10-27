@@ -28,6 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['django-project-env.eba-mycpi7he.us-west-2.elasticbeanstalk.com','127.0.0.1:8000','localhost:8000','127.0.0.1','localhost']
 
 
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -46,10 +47,10 @@ INSTALLED_APPS = [
     'widget_tweaks',
 ]
 SITE_ID = 1
-ACCOUNT_AUTHENTICATION_METHOD='email'
+ACCOUNT_AUTHENTICATION_METHOD='username'
 ACCOUNT_EMAIL_REQUIRED=True
 #ACCOUNT_EMAIL_UNIQUE=True
-ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 
@@ -145,3 +146,4 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
+login_url = '/accounts/login/'

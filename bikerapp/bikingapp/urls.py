@@ -10,5 +10,6 @@ urlpatterns = [
     path('create',views.create),
     path('event', views.event_detail),
     path('event_success', views.success_page),
-    path('register_user', views.register_page)
+    path('register_user', views.register_page),
+    path('accounts/profile/', views.profile),
 ]
