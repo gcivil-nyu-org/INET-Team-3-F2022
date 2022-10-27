@@ -3,6 +3,6 @@ python:
   - "3.7"
   - "3.11"
 install:
-  - pip install -r bikerapp/requirements.txt
+  - pip3 install -r bikerapp/requirements.txt
 script:
   - python bikerapp/manage.py test bikingapp
