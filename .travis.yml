@@ -1,8 +1,7 @@
 language: python
 python:  
-  - "3.7"
-  - "3.11"
+  - "3.8"
 install:
-  - pip install -r bikerapp/requirements.txt
+  - pip3 install -r bikerapp/requirements.txt
 script:
-  - python manage.py test bikingapp
+  - python manage.py test
