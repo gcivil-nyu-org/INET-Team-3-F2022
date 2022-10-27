@@ -4,4 +4,4 @@ python:
 install:
   - pip3 install -r bikerapp/requirements.txt
 script:
-  - python manage.py test
+  - python bikerapp/manage.py test
