@@ -12,4 +12,6 @@ urlpatterns = [
     path('event_success', views.success_page),
     path('register_user', views.register_page),
     path('accounts/profile/', views.profile),
+    path('browse_events', views.browse_events),
+    path('events/<int:id1>/', views.view_event),
 ]
