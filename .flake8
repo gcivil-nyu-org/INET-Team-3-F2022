@@ -1,0 +1,6 @@
+max-line-length = 95
+extend_ignore = F401,F811,E712,E265
+exclude =
+    .git,
+    __pycache__,
+    ./polls/migrations/0001_initial.py
