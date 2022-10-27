@@ -6,18 +6,26 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('bikingapp', '0002_event_created_by'),
+        ("bikingapp", "0002_event_created_by"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Snippet',
+            name="Snippet",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('location', models.CharField(max_length=200)),
-                ('date_time', models.DateTimeField(verbose_name='event date and time')),
-                ('public_private', models.CharField(max_length=200)),
-                ('description', models.CharField(max_length=500)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("location", models.CharField(max_length=200)),
+                ("date_time", models.DateTimeField(verbose_name="event date and time")),
+                ("public_private", models.CharField(max_length=200)),
+                ("description", models.CharField(max_length=500)),
             ],
         ),
     ]

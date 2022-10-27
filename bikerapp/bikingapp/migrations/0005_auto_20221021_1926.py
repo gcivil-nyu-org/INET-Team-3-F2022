@@ -7,32 +7,36 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('bikingapp', '0004_auto_20221014_0208'),
+        ("bikingapp", "0004_auto_20221014_0208"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='event',
-            name='date_time',
+            model_name="event",
+            name="date_time",
         ),
         migrations.AddField(
-            model_name='event',
-            name='date',
+            model_name="event",
+            name="date",
             field=models.DateField(default=django.utils.timezone.now),
         ),
         migrations.AddField(
-            model_name='event',
-            name='time',
+            model_name="event",
+            name="time",
             field=models.TimeField(default=django.utils.timezone.now),
         ),
         migrations.AlterField(
-            model_name='event',
-            name='date_created',
+            model_name="event",
+            name="date_created",
             field=models.DateTimeField(default=django.utils.timezone.now),
         ),
         migrations.AlterField(
-            model_name='event',
-            name='public_private',
-            field=models.CharField(choices=[('public', 'Public'), ('public', 'Private')], default='Public', max_length=200),
+            model_name="event",
+            name="public_private",
+            field=models.CharField(
+                choices=[("public", "Public"), ("public", "Private")],
+                default="Public",
+                max_length=200,
+            ),
         ),
     ]
