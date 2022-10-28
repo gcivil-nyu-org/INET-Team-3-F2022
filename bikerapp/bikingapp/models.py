@@ -7,7 +7,7 @@ class Event(models.Model):
     date           = models.DateField     (default=timezone.now)
     time           = models.TimeField     (default=timezone.now)
     date_created   = models.DateTimeField (default=timezone.now)
-    public_private = models.CharField     (max_length = 200, choices=[("public","Public"),("public","Private")], default="Public")
+    event_type     = models.CharField     (max_length = 200, choices=[("public","Public"),("public","Private")], default="Public")
     description    = models.CharField     (max_length = 500)
     created_by     = models.CharField     (max_length = 100, default = 'user')
     

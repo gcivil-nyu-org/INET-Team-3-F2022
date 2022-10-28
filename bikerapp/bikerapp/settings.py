@@ -25,7 +25,7 @@ SECRET_KEY = '0u4)+8j@w=qnyw$yut#m5)u@1_y=eyxw@j07y0d3g+fo%9&w&i'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['django-project-env.eba-mycpi7he.us-west-2.elasticbeanstalk.com','127.0.0.1:8000','localhost:8000','127.0.0.1','localhost']
+ALLOWED_HOSTS = ['django-project-env.eba-mycpi7he.us-west-2.elasticbeanstalk.com','127.0.0.1','localhost']
 
 
 

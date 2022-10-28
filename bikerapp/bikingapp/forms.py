@@ -5,7 +5,7 @@ from .models      import Event
 class EventForm(forms.ModelForm):
     class Meta:
         model   = Event
-        fields  = ('location','date', 'time', 'date_created', 'public_private','description','created_by')
+        fields  = ('location','date', 'time', 'date_created', 'event_type','description','created_by')
         widgets = {
             'location': TextInput(attrs={
                 'class': "form-control",
@@ -24,7 +24,7 @@ class EventForm(forms.ModelForm):
                 'class': "form-control", 
                 'style': 'max-width: 300px; margin-bottom: 10px;',
                 }),
-            'public_private': RadioSelect(attrs={
+            'event_type': RadioSelect(attrs={
                 'class': "custom-radio-list", 
                 #'style': 'max-width: 300px; margin-bottom: 10px;'
                 }),
