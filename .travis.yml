@@ -10,4 +10,4 @@ install:
 script:
   - python -m black . --check
   - coverage run bikerapp/manage.py test bikingapp
-  after_success coveralls
+after_success: coveralls
