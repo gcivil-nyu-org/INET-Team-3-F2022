@@ -11,3 +11,14 @@ script:
   - coverage run bikerapp/manage.py test bikingapp
 
 after_success: coveralls
+
+deploy:
+  provider: elasticbeanstalk
+  access_key_id: $ACCESSKEYID
+  secret_access_key: $SECRETACCESSKEY
+  region: "us-west-2"
+  app: "biker-app"
+  env: "bike-env"
+  bucket_name: "elasticbeanstalk-us-west-2-956591977180"
+  on:
+    branch: main
