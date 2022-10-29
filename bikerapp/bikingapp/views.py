@@ -84,4 +84,20 @@ def register_page(request):
 
 @login_required
 def profile(request):
-    return render(request, "account/profile.html")
+    return render(request, 'account/profile.html')
+
+def browse_events(request):
+    
+    obj_private = models.Event.objects.order_by('id').filter(event_type='private')
+    obj_public = models.Event.objects.order_by('id').filter(event_type='public')
+    
+    context= {'obj1' : obj_private, 'obj2' : obj_public}
+  
+    return render(request, 'browse_events.html', context)
+
+def view_event(request, id1):
+
+    obj= models.Event.objects.order_by('id').filter(id=id1)
+    context= {'obj1' : obj}
+  
+    return render(request, 'view_event.html', context)

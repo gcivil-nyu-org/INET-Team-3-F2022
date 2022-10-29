@@ -7,6 +7,7 @@ header {
     height: 80px;
     display: flex;
     align-items: center;
+    z-index: 100;
 }
 
 header * {
@@ -21,3 +22,7 @@ header li a {
     color: whitesmoke;
     text-decoration: none;
 }
+
+.custom:hover {
+    transform: scale(1.05);
+  }

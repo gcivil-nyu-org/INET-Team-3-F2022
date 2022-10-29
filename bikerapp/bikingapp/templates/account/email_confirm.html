@@ -7,15 +7,18 @@
 
 
 {% block content %}
+<div style = "margin-top: 100px; margin-left: 50px;">
 <h1>{% trans "Confirm E-mail Address" %}</h1>
+</div>
 
 {% if confirmation %}
 
+<div style = "margin-left: 50px;">
 {% user_display confirmation.email_address.user as user_display %}
 
 <p>{% blocktrans with confirmation.email_address.email as email %}Please confirm that <a href="mailto:{{ email }}">{{ email }}</a> is an e-mail address for user {{ user_display }}.{% endblocktrans %}</p>
-
-<form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
+</div>
+<form style = "margin-left: 50px;" method="post" action="{% url 'account_confirm_email' confirmation.key %}">
 {% csrf_token %}
     <button type="submit">{% trans 'Confirm' %}</button>
 </form>
