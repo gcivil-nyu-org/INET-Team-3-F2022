@@ -1,13 +1,14 @@
 language: python
+
 python:  
   - "3.8"
+
 install:
   - pip install -r bikerapp/requirements.txt
-  - pip install black
-  - pip install flake8
-  - pip install coverage
-  - pip install coveralls
+
+
 script:
   - python -m black . --check
   - coverage run bikerapp/manage.py test bikingapp
+
 after_success: coveralls
