@@ -21,4 +21,4 @@ deploy:
   env: "bike-env"
   bucket_name: "elasticbeanstalk-us-west-2-956591977180"
   on:
-    branch: main
+    branch: rutuj-test-branch
