@@ -1,0 +1,24 @@
+language: python
+
+python:  
+  - "3.8"
+
+install:
+  - pip install -r bikerapp/requirements.txt
+
+script:
+  - python -m black .
+  - coverage run bikerapp/manage.py test bikingapp
+
+after_success: coveralls
+
+deploy:
+  provider: elasticbeanstalk
+  access_key_id: $ACCESSKEYID
+  secret_access_key: $SECRETACCESSKEY
+  region: "us-west-2"
+  app: "bikingapp-dev"
+  env: "bikingapp-env"
+  bucket_name: "elasticbeanstalk-us-west-2-434236253957"
+  on:
+    branch: master
