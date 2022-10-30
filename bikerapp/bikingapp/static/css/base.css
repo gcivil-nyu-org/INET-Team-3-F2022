@@ -1,28 +1,28 @@
 header {
-    background-color: rgb(104, 104, 223);
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    z-index: 100;
+  background-color: rgb(104, 104, 223);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  z-index: 100;
 }
 
 header * {
-    display: inline;
+  display: inline;
 }
 
 header li {
-    margin: 20px;
+  margin: 20px;
 }
 
 header li a {
-    color: whitesmoke;
-    text-decoration: none;
+  color: whitesmoke;
+  text-decoration: none;
 }
 
 .custom:hover {
-    transform: scale(1.05);
-  }
+  transform: scale(1.05);
+}
