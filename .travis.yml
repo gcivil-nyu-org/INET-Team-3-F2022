@@ -5,6 +5,9 @@ python:
 
 install:
   - pip install -r bikerapp/requirements.txt
+  - pip install black
+  - pip install coverage
+  - pip install coveralls
 
 script:
   - python -m black .
