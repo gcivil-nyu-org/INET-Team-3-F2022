@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <style>
-    table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
-}
+    table,
+    th,
+    td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
 </style>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <title>Document</title>
 </head>
@@ -18,26 +22,30 @@
 <body>
     {% extends 'base.html' %}
     {% block content %}
-        <div style="margin-top: 120px">
-            <div class="col">
-                    <div class="alert alert-primary col-lg-6" role="alert" style="margin-left: 25px;">
-                        Event Details
-                    </div>
-                    {% for obj in obj1 %}
-                    <div class="card col-lg-6" style="margin: 25px;">
-                        <ul>
-                            <li class="card-body"><b>Location:</b> {{obj.location}}</li>
-                            <li class="card-body"><b>Event Date:</b> {{obj.date}}</li>
-                            <li class="card-body"><b>Event Date:</b> {{obj.time}}</li>
-                            <li class="card-body"><b>Created Date:</b> {{obj.date_created}}</li>
-                            <li class="card-body"><b>Event Type:</b> {{obj.event_type}}</li>
-                            <li class="card-body"><b>Description:</b> {{obj.description}}</li>
-                            <li class="card-body"><b>Created By:</b> {{obj.created_by}}</li>
-                        </ul>
-                    </div>
-                    {% endfor %}
-                </div>
+    <div style="margin-top: 120px">
+        <div class="col">
+            {% for obj in obj1 %}
+            <div class="alert alert-primary col-lg-6" role="alert"
+                style="margin-left: 25px;text-transform: capitalize;">
+                {{obj.title}}
+            </div>
+            <div class="card col-lg-6" style="margin: 25px;">
+                <ul class="list-group list-group-flush card-body">
+                    <li class="list-group-item"><b>Location:</b> {{obj.location}}</li>
+                    <li class="list-group-item"><b>Borough:</b> {{obj.borough}}</li>
+                    <li class="list-group-item"><b>State:</b> {{obj.state}}</li>
+                    <li class="list-group-item"><b>Zip:</b> {{obj.zipcode}}</li>
+                    <li class="list-group-item"><b>Event Date:</b> {{obj.date}}</li>
+                    <li class="list-group-item"><b>Event Time:</b> {{obj.time}}</li>
+                    <li class="list-group-item"><b>Created Date:</b> {{obj.date_created}}</li>
+                    <li class="list-group-item"><b>Event Type:</b> {{obj.event_type}}</li>
+                    <li class="list-group-item"><b>Description:</b> {{obj.description}}</li>
+                    <li class="list-group-item"><b>Created By:</b> {{obj.created_by}}</li>
+                </ul>
+            </div>
+            {% endfor %}
         </div>
+    </div>
     {% endblock content %}
 </body>
 

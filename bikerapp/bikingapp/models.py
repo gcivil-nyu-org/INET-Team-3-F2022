@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 class Event(models.Model):
     title          = models.CharField     (max_length = 50)
     location       = models.CharField     (max_length = 200)
+    borough        = models.CharField     (max_length = 20, choices=[("manhattan","Manhattan"),("queens","Queens"),("bronx","Bronx"),("staten island","Staten Island"),("brooklyn","Brooklyn")], default="Manhattan")
     date           = models.DateField     (default=timezone.now)
     time           = models.TimeField     (default=timezone.now)
     date_created   = models.DateTimeField (default=timezone.now)
