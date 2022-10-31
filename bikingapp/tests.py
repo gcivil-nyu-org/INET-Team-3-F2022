@@ -27,11 +27,18 @@ class QuestionModelTests(TestCase):
         event.save()
         self.assertEqual("John Doe", event.created_by)
 
-    def test_event_has_correct_title_and_location(self):
+    def test_event_has_correct_title(self):
         """Events are given title correctly when saving"""
         event = Event.objects.create(
             title="test event", location="test location", description="test description"
         )
         event.save()
         self.assertEqual("test event", event.title)
+
+    def test_event_has_correct_location(self):
+        """Events are given title correctly when saving"""
+        event = Event.objects.create(
+            title="test event", location="test location", description="test description"
+        )
+        event.save()
         self.assertEqual("test location", event.location)
