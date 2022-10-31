@@ -6,13 +6,23 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('bikingapp', '0007_auto_20221029_1616'),
+        ("bikingapp", "0007_auto_20221029_1616"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='event',
-            name='borough',
-            field=models.CharField(choices=[('manhattan', 'Manhattan'), ('queens', 'Queens'), ('bronx', 'Bronx'), ('staten island', 'Staten Island'), ('brooklyn', 'Brooklyn')], default='Manhattan', max_length=20),
+            model_name="event",
+            name="borough",
+            field=models.CharField(
+                choices=[
+                    ("manhattan", "Manhattan"),
+                    ("queens", "Queens"),
+                    ("bronx", "Bronx"),
+                    ("staten island", "Staten Island"),
+                    ("brooklyn", "Brooklyn"),
+                ],
+                default="Manhattan",
+                max_length=20,
+            ),
         ),
     ]
