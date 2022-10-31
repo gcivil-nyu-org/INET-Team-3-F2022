@@ -20,8 +20,8 @@ deploy:
   access_key_id: $ACCESSKEYID
   secret_access_key: $SECRETACCESSKEY
   region: "us-west-2"
-  app: "bikingapp-dev"
-  env: "bikingapp-env"
+  app: "dev-2"
+  env: "Dev2-env"
   bucket_name: "elasticbeanstalk-us-west-2-434236253957"
   on:
     repo: gcivil-nyu-org/INET-Team-3-F2022
