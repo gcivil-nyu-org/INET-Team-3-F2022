@@ -25,12 +25,19 @@ SECRET_KEY = "0u4)+8j@w=qnyw$yut#m5)u@1_y=eyxw@j07y0d3g+fo%9&w&i"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+#Master
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
-    "bikingapp-env.eba-hkiejaja.us-west-2.elasticbeanstalk.com",
     "bikingapp-master-env.eba-g2zmrwai.us-west-2.elasticbeanstalk.com",
 ]
+
+#Develop
+'''ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost",
+    "bikingapp-env.eba-hkiejaja.us-west-2.elasticbeanstalk.com",
+]'''
 
 
 # Application definition
