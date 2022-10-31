@@ -25,4 +25,4 @@ deploy:
   bucket_name: "elasticbeanstalk-us-west-2-434236253957"
   on:
     repo: gcivil-nyu-org/INET-Team-3-F2022
-    branch: master
+    branch: develop
