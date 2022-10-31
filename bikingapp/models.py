@@ -1,3 +1,4 @@
+from email.policy import default
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
@@ -11,8 +12,8 @@ class Event(models.Model):
     time           = models.TimeField     (default=timezone.now)
     date_created   = models.DateTimeField (default=timezone.now)
     event_type     = models.CharField     (max_length = 200, choices=[("public","Public"),("private","Private")], default="Public")
-    description    = models.CharField     (max_length = 500)
-    created_by     = models.CharField     (max_length = 100)
+    description    = models.CharField     (max_length = 500, null = True)
+    created_by     = models.CharField     (max_length = 100, default = "user")
     zipcode        = models.CharField     (max_length = 5,null=True)
     state          = models.CharField     (max_length = 10, default = 'New York')
     def __str__(self):
