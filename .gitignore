@@ -1,7 +1,6 @@
 bikerapp/__pycache__/*
 bikingapp/__pycache__/*
 bikingapp/migrations/__pycache__
-db.sqlite3
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
