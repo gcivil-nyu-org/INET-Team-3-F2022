@@ -10,7 +10,8 @@ install:
   - pip install coveralls
 
 script:
-  - python -m black .
+  - black --check .
+  - flake8 .
   - coverage run manage.py test bikingapp
 
 after_success: coveralls
