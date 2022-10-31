@@ -1,9 +1,8 @@
-bikerapp/bikerapp/__pycache__/*
-bikerapp/bikingapp/__pycache__/*
-bikerapp/bikingapp/migrations/__pycache__
-bikerapp/db.sqlite3
+bikerapp/__pycache__/*
+bikingapp/__pycache__/*
+bikingapp/migrations/__pycache__
 # Elastic Beanstalk Files
-bikerapp/.elasticbeanstalk/*
-bikerapp/!.elasticbeanstalk/*.cfg.yml
-bikerapp/!.elasticbeanstalk/*.global.yml
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
 **/.DS_Store

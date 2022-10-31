@@ -1,0 +1,7 @@
+{% autoescape off %}
+Welcome to NYC Biking App,
+
+We need to verify that you are the owner of this email address.
+
+To confirm this is correct, go to {{ activate_url }}
+{% endautoescape %}

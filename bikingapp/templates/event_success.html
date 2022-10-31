@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    table,
+    th,
+    td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+</style>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <title>Document</title>
+</head>
+
+<body>
+    {% extends 'base.html' %}
+    {% block content %}
+    <div style="margin-top: 120px">
+        <!-- <div style="display: flex;justify-content: space-between;">
+                <h3 style="margin-left: 20px;">Events for you</h3>
+                <h6 style="float: right; margin-right: 20px; margin-top: 10px;">
+                    <li><a href="/event" style="text-decoration: none;">Create events
+                        <i class="bi bi-plus-circle"></i></a></li>
+                </h6>
+            </div> -->
+        <div class="col">
+            <div class="alert alert-success col-lg-6" role="alert" style="margin-left: 25px;">
+                Event created successfully
+            </div>
+            <div class="card col-lg-6" style="margin: 25px;">
+                <ul>
+                    <li class="card-body"><b>Title:</b> {{obj1.title}}</li>
+                    <li class="card-body"><b>Location:</b> {{obj1.location}}</li>
+                    <li class="card-body"><b>Borough:</b> {{obj1.borough}}</li>
+                    <li class="card-body"><b>State:</b> {{obj1.state}}</li>
+                    <li class="card-body"><b>Zipcode:</b> {{obj1.zipcode}}</li>
+                    <li class="card-body"><b>Event Date:</b> {{obj1.date}}</li>
+                    <li class="card-body"><b>Event Time:</b> {{obj1.time}}</li>
+                    <li class="card-body"><b>Created Date:</b> {{obj1.date_created}}</li>
+                    <li class="card-body"><b>Event Type:</b> {{obj1.event_type}}</li>
+                    <li class="card-body"><b>Description:</b> {{obj1.description}}</li>
+                    <li class="card-body"><b>Created By:</b> {{obj1.created_by}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% endblock content %}
+</body>
+
+</html>
