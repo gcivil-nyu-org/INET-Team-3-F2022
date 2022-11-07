@@ -43,3 +43,15 @@ class BookmarkEvent(models.Model):
 
     def __str__(self):
         return str(self.user) + str(self.event) + str(self.date_added)
+
+
+class FriendMgmt(models.Model):
+    """
+    friends table
+    """
+
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    friend = models.ForeignKey(
+        User, related_name="friends", on_delete=models.SET_NULL, null=True, blank=True
+    )
+ 
