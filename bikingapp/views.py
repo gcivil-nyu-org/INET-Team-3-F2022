@@ -101,7 +101,7 @@ def register_page(request):
 
 @login_required
 def profile(request):
-    #adding friends code
+    # adding friends code
     obj = models.FriendMgmt.objects.get_or_create(
         user=request.user, friend=request.user
     )
@@ -127,8 +127,12 @@ def profile(request):
     else:
         form = FriendMgmtForm()
     friends1 = models.FriendMgmt.objects.filter(user=request.user)
-    return render(request, "account/profile.html", {"friends" : {"form": form, "friends_list": friends1}})
-    #return render(request, "account/profile.html")
+    return render(
+        request,
+        "account/profile.html",
+        {"friends": {"form": form, "friends_list": friends1}},
+    )
+    # return render(request, "account/profile.html")
 
 
 def browse_events(request):
@@ -184,14 +188,14 @@ def bookmark_event(request):
 #         # check whether it's valid:
 #         if form.is_valid():
 #             friend_username = form.cleaned_data["friend_username"]
-#             if models.User.objects.filter(username=friend_username).first() is not None:
+#             if models.User.objects.filter(username=friend_username).first() is not None: # noqa: E501
 #                 obj = models.FriendMgmt(
 #                     user=request.user,
-#                     friend=models.User.objects.filter(username=friend_username).first(),
+#                     friend=models.User.objects.filter(username=friend_username).first(), # noqa: E501
 #                 )
 #                 if not models.FriendMgmt.objects.filter(
 #                     user=request.user,
-#                     friend=models.User.objects.filter(username=friend_username).first(),
+#                     friend=models.User.objects.filter(username=friend_username).first(), # noqa: E501
 #                 ).exists():
 #                     obj.save()
 
@@ -200,5 +204,5 @@ def bookmark_event(request):
 #     else:
 #         form = FriendMgmtForm()
 #     friends1 = models.FriendMgmt.objects.filter(user=request.user)
-#     return render(request, "friends.html", {"form": form, "friends_list": friends1})
-#     # return {"requests":request, "friends":{"form": form, "friends_list": friends1}}
+#     return render(request, "friends.html", {"form": form, "friends_list": friends1}) # noqa: E501
+#     # return {"requests":request, "friends":{"form": form, "friends_list": friends1}} # noqa: E501
