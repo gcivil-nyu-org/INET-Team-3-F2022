@@ -6,7 +6,8 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.shortcuts import redirect
 from bikingapp import models
-from .forms import EventForm
+from .forms import EventForm, FriendMgmtForm
+from django.http import HttpResponseRedirect
 
 """
 , SnippetForm
@@ -143,3 +144,36 @@ def bookmark_event(request):
     if action == "unbookmark":
         bookmarkItem.delete()
     return JsonResponse("Event was bookmarked", safe=False)
+
+
+def view_friends(request):
+    # print(request.user)
+
+    obj = models.FriendMgmt.objects.get_or_create(
+        user=request.user, friend=request.user
+    )
+
+    # obj.save()
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = FriendMgmtForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            friend_username = form.cleaned_data['friend_username']
+            if models.User.objects.filter(username=friend_username).first() != None:
+                obj = models.FriendMgmt(
+                    user=request.user, friend=models.User.objects.filter(
+                        username=friend_username).first()
+                )
+                if not models.FriendMgmt.objects.filter(user=request.user, friend=models.User.objects.filter(username=friend_username).first()).exists():
+                    obj.save()
+
+            return HttpResponseRedirect('/view_friends')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = FriendMgmtForm()
+
+    friends1 = models.FriendMgmt.objects.filter(user=request.user)
+
+    return render(request, 'friends.html', {'form': form, 'friends_list': friends1})
