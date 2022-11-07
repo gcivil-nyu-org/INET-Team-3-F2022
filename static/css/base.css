@@ -21,8 +21,3 @@ header li a {
     color: rgb(235, 235, 235);
     text-decoration: none;
 }
-
-header li a:hover {
-    text-decoration: underline;
-    color: whitesmoke;
-  }
