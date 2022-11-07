@@ -23,6 +23,7 @@ header li a {
   text-decoration: none;
 }
 
-.custom:hover {
-  transform: scale(1.05);
+header li a:hover {
+  text-decoration: underline;
+  color: whitesmoke;
 }
