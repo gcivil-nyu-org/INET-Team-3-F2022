@@ -101,10 +101,34 @@ def register_page(request):
 
 @login_required
 def profile(request):
-    # result = view_friends(request)
-    # print(result)
-    # return render(result.requests, "account/profile.html",{"friends":result.friends})
-    return render(request, "account/profile.html")
+    #adding friends code
+    obj = models.FriendMgmt.objects.get_or_create(
+        user=request.user, friend=request.user
+    )
+    if request.method == "POST":
+        # create a form instance and populate it with data from the request:
+        form = FriendMgmtForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            friend_username = form.cleaned_data["friend_username"]
+            if models.User.objects.filter(username=friend_username).first() is not None:
+                obj = models.FriendMgmt(
+                    user=request.user,
+                    friend=models.User.objects.filter(username=friend_username).first(),
+                )
+                if not models.FriendMgmt.objects.filter(
+                    user=request.user,
+                    friend=models.User.objects.filter(username=friend_username).first(),
+                ).exists():
+                    obj.save()
+
+            return HttpResponseRedirect("/accounts/profile/")
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = FriendMgmtForm()
+    friends1 = models.FriendMgmt.objects.filter(user=request.user)
+    return render(request, "account/profile.html", {"friends" : {"form": form, "friends_list": friends1}})
+    #return render(request, "account/profile.html")
 
 
 def browse_events(request):
@@ -149,32 +173,32 @@ def bookmark_event(request):
     return JsonResponse("Event was bookmarked", safe=False)
 
 
-@login_required
-def view_friends(request):
-    obj = models.FriendMgmt.objects.get_or_create(
-        user=request.user, friend=request.user
-    )
-    if request.method == "POST":
-        # create a form instance and populate it with data from the request:
-        form = FriendMgmtForm(request.POST)
-        # check whether it's valid:
-        if form.is_valid():
-            friend_username = form.cleaned_data["friend_username"]
-            if models.User.objects.filter(username=friend_username).first() is not None:
-                obj = models.FriendMgmt(
-                    user=request.user,
-                    friend=models.User.objects.filter(username=friend_username).first(),
-                )
-                if not models.FriendMgmt.objects.filter(
-                    user=request.user,
-                    friend=models.User.objects.filter(username=friend_username).first(),
-                ).exists():
-                    obj.save()
+# @login_required
+# def view_friends(request):
+#     obj = models.FriendMgmt.objects.get_or_create(
+#         user=request.user, friend=request.user
+#     )
+#     if request.method == "POST":
+#         # create a form instance and populate it with data from the request:
+#         form = FriendMgmtForm(request.POST)
+#         # check whether it's valid:
+#         if form.is_valid():
+#             friend_username = form.cleaned_data["friend_username"]
+#             if models.User.objects.filter(username=friend_username).first() is not None:
+#                 obj = models.FriendMgmt(
+#                     user=request.user,
+#                     friend=models.User.objects.filter(username=friend_username).first(),
+#                 )
+#                 if not models.FriendMgmt.objects.filter(
+#                     user=request.user,
+#                     friend=models.User.objects.filter(username=friend_username).first(),
+#                 ).exists():
+#                     obj.save()
 
-            return HttpResponseRedirect("/add_friends")
-    # if a GET (or any other method) we'll create a blank form
-    else:
-        form = FriendMgmtForm()
-    friends1 = models.FriendMgmt.objects.filter(user=request.user)
-    return render(request, "friends.html", {"form": form, "friends_list": friends1})
-    # return {"requests":request, "friends":{"form": form, "friends_list": friends1}}
+#             return HttpResponseRedirect("/add_friends")
+#     # if a GET (or any other method) we'll create a blank form
+#     else:
+#         form = FriendMgmtForm()
+#     friends1 = models.FriendMgmt.objects.filter(user=request.user)
+#     return render(request, "friends.html", {"form": form, "friends_list": friends1})
+#     # return {"requests":request, "friends":{"form": form, "friends_list": friends1}}
