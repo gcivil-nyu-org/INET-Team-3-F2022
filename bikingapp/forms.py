@@ -101,3 +101,11 @@ class EventForm(forms.ModelForm):
                 }
             ),
         }
+
+
+class FriendMgmtForm(forms.Form):
+    """
+    Manages friends connections
+    """
+
+    friend_username = forms.CharField(max_length=100, required=False)
