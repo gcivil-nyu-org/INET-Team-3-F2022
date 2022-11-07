@@ -2,6 +2,7 @@ from django.test import TestCase
 from bikingapp.models import Event, BookmarkEvent
 from django.contrib.auth.models import User
 
+
 class QuestionModelTests(TestCase):
     def test_was_published_recently_with_future_question(self):
         self.assertIs(False, False)
@@ -42,15 +43,15 @@ class QuestionModelTests(TestCase):
         )
         event.save()
         self.assertEqual("test location", event.location)
-    
+
     def test_bookmarking_event_possible_user(self):
         """Check if bookmarking an event is working with specific user"""
         event = Event.objects.create(
             title="test event", location="test location", description="test description"
         )
         event.save()
-        user = User.objects.create_user(username='testuser', password='12345')
-        login = self.client.login(username='testuser', password='12345')
+        user = User.objects.create_user(username="testuser", password="12345")
+        # login = self.client.login(username="testuser", password="12345")
         bookmark_event = BookmarkEvent.objects.create(user=user, event=event)
         bookmark_event.save()
         self.assertEqual(user, bookmark_event.user)
@@ -61,15 +62,15 @@ class QuestionModelTests(TestCase):
             title="test event", location="test location", description="test description"
         )
         event.save()
-        user = User.objects.create_user(username='testuser', password='12345')
-        login = self.client.login(username='testuser', password='12345')
+        user = User.objects.create_user(username="testuser", password="12345")
+        # login = self.client.login(username="testuser", password="12345")
         bookmark_event = BookmarkEvent.objects.create(user=user, event=event)
         bookmark_event.save()
         self.assertEqual(event, bookmark_event.event)
 
     def test_create_user(self):
         """test if accoutn is being created"""
-        user = User.objects.create_user(username='testuser', password='12345')
-        get_user = User.objects.get(username='testuser')
-        self.assertEqual("testuser",get_user.username )
-
+        user = User.objects.create_user(username="testuser", password="12345")
+        user.save()
+        get_user = User.objects.get(username="testuser")
+        self.assertEqual("testuser", get_user.username)
