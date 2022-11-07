@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.shortcuts import redirect
 from bikingapp import models
-from .forms import EventForm
+from .forms import EventForm, FriendMgmtForm
 from django.http import HttpResponseRedirect
 
 """
@@ -145,6 +145,7 @@ def bookmark_event(request):
         bookmarkItem.delete()
     return JsonResponse("Event was bookmarked", safe=False)
 
+
 def view_friends(request):
     # print(request.user)
 
@@ -179,4 +180,3 @@ def view_friends(request):
     friends1 = models.FriendMgmt.objects.filter(user=request.user)
 
     return render(request, "friends.html", {"form": form, "friends_list": friends1})
-
