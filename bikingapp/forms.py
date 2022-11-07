@@ -30,20 +30,20 @@ class EventForm(forms.ModelForm):
             "title": TextInput(
                 attrs={
                     "class": "form-control",
-                    "style": "max-width:92%;margin-bottom:10px;display:inline-block;",
+                    "style": "max-width: 92%; margin-bottom: 10px;display: inline-block;",  # noqa: E501
                     "placeholder": "Title",
                 }
             ),
             "location": TextInput(
                 attrs={
                     "class": "form-control",
-                    "style": "max-width:88%;margin-bottom:10px;display:inline-block;",
+                    "style": "max-width: 88%; margin-bottom: 10px;display: inline-block;",  # noqa: E501
                 }
             ),
             "borough": Select(
                 attrs={
                     "class": "btn dropdown-toggle",
-                    "style": "max-width:35%;display:inline-block;border:1px solid lightgray;",  # noqa: E501
+                    "style": "max-width: 35%; display: inline-block; border: 1px solid lightgray;",  # noqa: E501
                 }
             ),
             "state": TextInput(
