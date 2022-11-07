@@ -57,6 +57,9 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "crispy_forms",
     "widget_tweaks",
+    'tinymce',
+    'fontawesomefree',
+    'captcha',
 ]
 SITE_ID = 1
 ACCOUNT_AUTHENTICATION_METHOD = "username"
@@ -111,7 +114,12 @@ DATABASES = {
         "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
     }
 }
-MAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"  # new
+
+RECAPTCHA_PUBLIC_KEY = '6LdW5eQiAAAAAMNgaG4Rf2OEGRPPgT6saH1niTRJ'
+RECAPTCHA_PRIVATE_KEY = '6LdW5eQiAAAAAMr3VNIWRtsfU3pRIwA1G2th6JjC'
+SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"  # new
 EMAIL_HOST = "smtp.gmail.com"  # new
 EMAIL_PORT = 587  # new
 EMAIL_HOST_USER = "dwarkani.abhinav1999@gmail.com"  # new
@@ -151,6 +159,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
@@ -158,4 +167,4 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = "/static/"
 
-login_url = "/accounts/login/"
+login_url = "login"
