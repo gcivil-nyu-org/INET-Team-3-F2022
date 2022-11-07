@@ -69,8 +69,21 @@ class QuestionModelTests(TestCase):
         self.assertEqual(event, bookmark_event.event)
 
     def test_create_user(self):
-        """test if accoutn is being created"""
+        """test if account is being created"""
         user = User.objects.create_user(username="testuser", password="12345")
         user.save()
         get_user = User.objects.get(username="testuser")
         self.assertEqual("testuser", get_user.username)
+
+    def test_create_event_after_creating_user(self):
+        """test if a new user is able to create events"""
+        user = User.objects.create_user(username="testuser", password="12345")
+        user.save()
+        event = Event.objects.create(
+            title="test event",
+            location="test location",
+            description="test description",
+            created_by=user.username,
+        )
+        event.save()
+        self.assertEqual(user.username, event.created_by)
