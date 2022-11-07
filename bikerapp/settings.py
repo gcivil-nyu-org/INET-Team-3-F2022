@@ -118,7 +118,6 @@ EMAIL_HOST_USER = "dwarkani.abhinav1999@gmail.com"  # new
 EMAIL_HOST_PASSWORD = "yxpshrffgvdxdgox"  # new
 EMAIL_USE_TLS = True  # new
 
-ACCOUNT_EMAIL_SUBJECT_PREFIX = ""
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
