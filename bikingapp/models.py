@@ -54,4 +54,3 @@ class FriendMgmt(models.Model):
     friend = models.ForeignKey(
         User, related_name="friends", on_delete=models.SET_NULL, null=True, blank=True
     )
- 
