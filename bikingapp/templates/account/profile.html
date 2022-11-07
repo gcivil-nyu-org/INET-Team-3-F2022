@@ -1,18 +1,54 @@
+{% extends '../base.html' %}
 <!DOCTYPE html>
-<html lang = "en">
+<html lang="en">
+<style>
+  table,
+  th,
+  td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+</style>
+
 <head>
-  <meta charset = "UTF-8">
-  <meta name = "viewport" content = "width=device-width,initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content = "ie=edge">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-  <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  {% load static %}
+  <link rel="stylesheet" href="{% static '/css/base.css' %}" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+  <title>Browse Events</title>
 </head>
+
 <body>
-    {% extends "base.html" %}
-
-    {% block content %}
-        <h1> Try this text </h1>
-    {% endblock content %}
+  {% block content %}
+  <div style="margin-left: 50px; margin-top:100px;">
+    <div class="row">
+      <h2 class="col-9">
+        Profile Info
+      </h2>
+      <!-- <div class="col-3">
+        <div class="card" style="margin: 15px; z-index: 99; max-width: 100%; min-width: 25%;">
+          <h4 class="card-title" style="text-align: center; text-transform: capitalize;">Friends</h4>
+          <h5 class=" card-subtitle list-group list-group-flush" style="padding: 2%;">
+            <form action="" method="post">
+              {% csrf_token %}
+              {{ friends.form }}
+              <input class="btn btn-outline-secondary btn-sm" type="submit" value="Search">
+            </form>
+          </h5>
+          {% for k in friends.friends_list %}
+          <ul class="card-body list-group list-group-flush">
+            <li class="list-group-item">{{k.friend.username}}</li>
+          </ul>
+          {% endfor %}
+        </div>
+      </div> -->
+    </div>
+  </div>
+  {% endblock content %}
 </body>
-</html>
 
+</html>

@@ -101,6 +101,9 @@ def register_page(request):
 
 @login_required
 def profile(request):
+    # result = view_friends(request)
+    # print(result)
+    # return render(result.requests, "account/profile.html",{"friends":result.friends})
     return render(request, "account/profile.html")
 
 
@@ -146,14 +149,11 @@ def bookmark_event(request):
     return JsonResponse("Event was bookmarked", safe=False)
 
 
+@login_required
 def view_friends(request):
-    # print(request.user)
-
     obj = models.FriendMgmt.objects.get_or_create(
         user=request.user, friend=request.user
     )
-
-    # obj.save()
     if request.method == "POST":
         # create a form instance and populate it with data from the request:
         form = FriendMgmtForm(request.POST)
@@ -171,12 +171,10 @@ def view_friends(request):
                 ).exists():
                     obj.save()
 
-            return HttpResponseRedirect("/view_friends")
-
+            return HttpResponseRedirect("/add_friends")
     # if a GET (or any other method) we'll create a blank form
     else:
         form = FriendMgmtForm()
-
     friends1 = models.FriendMgmt.objects.filter(user=request.user)
-
     return render(request, "friends.html", {"form": form, "friends_list": friends1})
+    # return {"requests":request, "friends":{"form": form, "friends_list": friends1}}
