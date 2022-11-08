@@ -206,3 +206,6 @@ def bookmark_event(request):
 #     friends1 = models.FriendMgmt.objects.filter(user=request.user)
 #     return render(request, "friends.html", {"form": form, "friends_list": friends1}) # noqa: E501
 #     # return {"requests":request, "friends":{"form": form, "friends_list": friends1}} # noqa: E501
+
+def display_map(request):
+    return render(request, "map.html")

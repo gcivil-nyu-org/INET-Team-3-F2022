@@ -12,4 +12,5 @@ urlpatterns = [
     path("events/<int:id1>/", views.view_event),
     path("bookmark_event/", views.bookmark_event),
     # path("add_friends", views.view_friends),
+    path("map", views.display_map),
 ]
