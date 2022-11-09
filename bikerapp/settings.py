@@ -37,7 +37,7 @@ ALLOWED_HOSTS = [
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
-    #    "bikingapp-env.eba-hkiejaja.us-west-2.elasticbeanstalk.com",
+    "bikingapp-env.eba-hkiejaja.us-west-2.elasticbeanstalk.com",
     "django-env.eba-imh97erc.us-west-2.elasticbeanstalk.com",
 ]
 

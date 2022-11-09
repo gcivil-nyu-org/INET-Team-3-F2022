@@ -22,9 +22,9 @@ deploy:
   access_key_id: $ACCESSKEYID
   secret_access_key: $SECRETACCESSKEY
   region: "us-west-2"
-  app: "reg-verify"
-  env: "django-env"
-  bucket_name: "elasticbeanstalk-us-west-2-032360129501"
+  app: "bikingapp-dev"
+  env: "bikingapp-env"
+  bucket_name: "elasticbeanstalk-us-west-2-434236253957"
   on:
     repo: gcivil-nyu-org/INET-Team-3-F2022
     branch: develop
