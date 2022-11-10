@@ -23,13 +23,24 @@
         >
         </script>
         <script>
+            var map;
             function initMap() {
 
             const uluru = { lat: 40.7237, lng: -73.9898 };
     
-            const map = new google.maps.Map(document.getElementById("map"), {
+            map = new google.maps.Map(document.getElementById("map"), {
             zoom: 9,
             center: uluru,
+            });
+            map.data.loadGeoJson("{% static 'json/bikeparking.geojson' %}");
+            
+            // const iconBase = "https://cdn-skill.splashmath.com/panel-uploads/GlossaryTerm/8bc0a422674548a48e2500b880628b91/1544077479_Circle-Shape.png";
+
+            map.data.setStyle(function(feature) {
+                return{
+                    icon: getCircle(),
+
+                }
             });
     
             const marker = new google.maps.Marker({
@@ -37,6 +48,18 @@
             map: map,
             });
         }
+
+        function getCircle() {
+            return {
+                path: google.maps.SymbolPath.CIRCLE,
+                fillColor: "red",
+                fillOpacity: 0.2,
+                scale: 2,
+                strokeColor: "white",
+                strokeWeight: 0.5,
+            };
+        }
+
         window.initMap = initMap;
         </script>
     {% endblock content %}
