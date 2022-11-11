@@ -6,15 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("bikingapp", "0005_auto_20221029_1850"),
+        ('bikingapp', '0005_auto_20221029_1850'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name="event",
-            name="event_type",
-            field=models.CharField(
-                choices=[("public", "Public"), ("public", "Private")], max_length=200
-            ),
+            model_name='event',
+            name='event_type',
+            field=models.CharField(choices=[('public', 'Public'), ('public', 'Private')], max_length=200),
         ),
     ]
