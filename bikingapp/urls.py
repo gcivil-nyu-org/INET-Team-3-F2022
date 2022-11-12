@@ -11,6 +11,7 @@ urlpatterns = [
     path("browse_events", views.browse_events),
     path("events/<int:id1>/", views.view_event),
     path("bookmark_event/", views.bookmark_event),
+    path("remove_friend/", views.remove_friend),
     # path("add_friends", views.view_friends),
     path("map", views.display_map),
 ]

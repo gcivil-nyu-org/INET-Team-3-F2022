@@ -93,6 +93,45 @@
 
                 });
         }
+
+        var remove_friendsBtns = document.getElementsByClassName("remove-friend");
+
+        for (var i = 0; i < remove_friendsBtns.length; i++) {
+            remove_friendsBtns[i].addEventListener("click", function () {
+                var friend_username = this.dataset.friend_username;
+                console.log("Friend Username:", friend_username);
+                if (user === "AnonymousUser") {
+                    console.log("not logged in");
+                } else {
+                    removeFreiend(friend_username);
+                }
+            });
+        }
+
+        function removeFreiend(friend_username) {
+            console.log("User is authenticated, sending data");
+            var url = "/remove_friend/";
+            console.log("URL:", url)
+            fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": csrftoken,
+                },
+                body: JSON.stringify({
+                    'friend_username': friend_username,
+                }),
+            })
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    location.reload();
+                    console.log("data:", data);
+
+                });
+        }
+
     </script>
 </body>
 

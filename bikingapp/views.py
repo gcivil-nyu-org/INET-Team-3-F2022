@@ -177,6 +177,27 @@ def bookmark_event(request):
     return JsonResponse("Event was bookmarked", safe=False)
 
 
+def remove_friend(request):
+    print(request.body)
+    data = json.loads(request.body)
+    friend_username = data["friend_username"]
+    print("Friend Username:", friend_username)
+    user = request.user
+    friend = models.User.objects.filter(username=friend_username).first()
+    if user != friend:
+        print("friend user object", friend)
+
+        friend1 = models.FriendMgmt.objects.get(user=request.user, friend=friend)
+
+        print("Friend management object user", friend1.user)
+
+        friend1.delete()
+
+        return JsonResponse("Friend was deleted", safe=False)
+    else:
+        return JsonResponse("Friend can't be deleted", safe=False)
+
+
 # @login_required
 # def view_friends(request):
 #     obj = models.FriendMgmt.objects.get_or_create(
