@@ -92,7 +92,4 @@ class QuestionModelTests(TestCase):
         form_data = self.valid_comment
         form = CommentForm(data=form_data)
         self.assertTrue(form.is_valid())
-    def test_comment_form_invalid(self):
-        form_data = self.invalid_comment
-        form = CommentForm(data=form_data)
-        self.assertFalse(form.is_valid())
+    
