@@ -32,16 +32,16 @@
             zoom: 9,
             center: uluru,
             });
-            map.data.loadGeoJson("{% static 'json/bikeparking.geojson' %}");
+            map.data.loadGeoJson("{% static 'json/bikeCollisions.geojson' %}");
             
             // const iconBase = "https://cdn-skill.splashmath.com/panel-uploads/GlossaryTerm/8bc0a422674548a48e2500b880628b91/1544077479_Circle-Shape.png";
 
-            map.data.setStyle(function(feature) {
-                return{
-                    icon: getCircle(),
+            //map.data.setStyle(function(feature) {
+            //    return{
+            //        icon: getCircle(),
 
-                }
-            });
+            //    }
+            //});
     
             const marker = new google.maps.Marker({
             position: uluru,
