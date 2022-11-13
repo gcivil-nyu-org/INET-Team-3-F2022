@@ -6,9 +6,10 @@ from django.forms import (
     Select,
     Textarea,
 )
-from .models import Event
+from .models import Event, Account
 from .widgets import DatePickerInput, TimePickerInput
 
+from allauth.account.forms import SignupForm
 
 class EventForm(forms.ModelForm):
     class Meta:
@@ -130,3 +131,14 @@ class FriendMgmtForm(forms.Form):
             }
         ),
     )
+
+class MyCustomSignupForm(SignupForm):
+    pronouns = forms.ChoiceField(choices=(('He/Him','He/Him'),('She/Her','She/Her'),('They/Them','They/Them'),('','Select your pronouns')))
+    description = forms.CharField(max_length=500, required=False)
+    def save(self, request):
+        user = super(MyCustomSignupForm, self).save(request)
+        account1 = Account.objects.create(user = user, pronouns = self.cleaned_data['pronouns'],description = self.cleaned_data['description'])
+        print(account1)
+        account1.save()
+        user.save()
+        return user

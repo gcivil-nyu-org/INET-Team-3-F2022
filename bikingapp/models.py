@@ -4,6 +4,16 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+class Account(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True, related_name='profile')
+    pronouns = models.CharField(
+        max_length=10,
+        choices =  [('He/Him','He/Him'),('She/Her','She/Her'),('They/Them','They/Them')],
+    )
+    description = models.CharField(max_length=500, default="Enter your description", null=True)
+
+    def __str__(self):
+        return str(self.user.username) + str(self.pronouns)
 
 class Event(models.Model):
     title = models.CharField(max_length=50)
