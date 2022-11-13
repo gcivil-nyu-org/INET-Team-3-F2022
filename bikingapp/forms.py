@@ -5,8 +5,9 @@ from django.forms import (
     RadioSelect,
     Select,
     Textarea,
+    NumberInput,
 )
-from .models import Event,Comment
+from .models import Event, Workout, Comment
 from .widgets import DatePickerInput, TimePickerInput
 
 
@@ -103,6 +104,69 @@ class EventForm(forms.ModelForm):
         }
 
 
+class WorkoutForm(forms.ModelForm):
+    class Meta:
+        model = Workout
+        fields = (
+            "title",
+            "miles",
+            "date",
+            "time",
+            "date_created",
+            "description",
+            "created_by",
+        )
+        widgets = {
+            "title": TextInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "max-width: 92%; margin-bottom: 10px;display: inline-block;",  # noqa: E501
+                    "placeholder": "Title",
+                }
+            ),
+            "miles": NumberInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "max-width: 92%; margin-bottom: 10px;display: inline-block;",  # noqa: E501
+                }
+            ),
+            "date": DatePickerInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "max-width: 30%; margin-bottom: 10px;display: inline-block;",  # noqa: E501
+                }
+            ),
+            "time": TimePickerInput(
+                attrs={
+                    "step": "any",
+                    "class": "form-control",
+                    "style": "max-width: 30%; margin-bottom: 10px;display: inline-block;",  # noqa: E501
+                }
+            ),
+            "date_created": DateTimeInput(
+                attrs={
+                    "readonly": "readonly",
+                    "class": "form-control",
+                    "style": "max-width: 58%; margin-bottom: 10px;display: inline-block;",  # noqa: E501
+                }
+            ),
+            "description": Textarea(
+                attrs={
+                    "class": "form-control",
+                    "rows": 4,
+                    "style": "max-width: 100%; margin-bottom: 10px;",
+                }
+            ),
+            "created_by": TextInput(
+                attrs={
+                    "class": "form-control",
+                    "readonly": "readonly",
+                    "style": "max-width: 65%; display: inline-block;",
+                }
+            ),
+        }
+
+
 class FriendMgmtForm(forms.Form):
     """
     Manages friends connections
@@ -130,7 +194,9 @@ class FriendMgmtForm(forms.Form):
             }
         ),
     )
+
+
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ('name', 'body')
+        fields = ("name", "body")

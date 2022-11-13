@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+  <style>
+    table,
+    th,
+    td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+  </style>
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/css/base.css' %}" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
+    />
+    <title>Workout History</title>
+  </head>
+
+  <body>
+    {% block content %}
+    <div style="margin-top: 120px">
+      <div style="display: flex; justify-content: space-between">
+        <h3 style="margin-left: 20px">Workout History</h3>
+      </div>
+      <div class="container d-flex flex-wrap align-items-center space-between">
+        {% for obj in obj1 %}
+        <div
+          class="card"
+          style="margin: 15px; z-index: 99; max-width: 25%; min-width: 25%"
+        >
+          <h4
+            class="card-title"
+            style="text-align: center; text-transform: capitalize"
+          >
+            <b>{{obj.title}}</b>
+          </h4>
+          <a
+            href="/workout_history/{{obj.id}}"
+            style="text-decoration: none; color: black"
+          >
+            <ul class="card-body list-group list-group-flush">
+              <li class="list-group-item"><b>Title:</b> {{obj.title}}</li>
+              <li class="list-group-item"><b>Miles:</b> {{obj.miles}}</li>
+              <li class="list-group-item"><b>Date:</b> {{obj.date}}</li>
+              <li class="list-group-item"><b>Time:</b> {{obj.time}}</li>
+              <li class="list-group-item">
+                <b>Created Date:</b> {{obj.date_created}}
+              </li>
+              <li class="list-group-item">
+                <b>Description:</b> {{obj.description}}
+              </li>
+              <li class="list-group-item">
+                <b>Created By:</b> {{obj.created_by}}
+              </li>
+            </ul>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endblock content %}
+  </body>
+</html>
