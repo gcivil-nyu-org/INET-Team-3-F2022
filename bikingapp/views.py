@@ -3,18 +3,14 @@ import pytz
 import json
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.shortcuts import render
 from django.shortcuts import redirect
 from bikingapp import models
-from .forms import EventForm, FriendMgmtForm, WorkoutForm, CommentForm
-from .models import Event
+from .forms import EventForm, FriendMgmtForm, WorkoutForm  # , CommentForm
+
+# from .models import Event
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render  # , get_object_or_404
 
-
-"""
-, SnippetForm
-"""
 
 # def index(request):
 #    return HttpResponse("Hello, world. You're at the Biking App index.")
