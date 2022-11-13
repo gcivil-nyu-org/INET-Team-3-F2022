@@ -1,5 +1,5 @@
 header {
-  background-color: rgb(104, 104, 223);
+  background-color: rgb(28, 70, 114);
   position: fixed;
   top: 0;
   left: 0;
@@ -26,4 +26,9 @@ header li a {
 header li a:hover {
   text-decoration: underline;
   color: whitesmoke;
+}
+
+body
+{
+  background-color: rgb(190, 190, 190);
 }

@@ -5,8 +5,9 @@ from django.forms import (
     RadioSelect,
     Select,
     Textarea,
+    NumberInput,
 )
-from .models import Event
+from .models import Event, Workout
 from .widgets import DatePickerInput, TimePickerInput
 
 
@@ -84,6 +85,69 @@ class EventForm(forms.ModelForm):
                 attrs={
                     "class": "custom-radio-list",
                     "style": "max-width: 300px; margin-bottom: 10px;",
+                }
+            ),
+            "description": Textarea(
+                attrs={
+                    "class": "form-control",
+                    "rows": 4,
+                    "style": "max-width: 100%; margin-bottom: 10px;",
+                }
+            ),
+            "created_by": TextInput(
+                attrs={
+                    "class": "form-control",
+                    "readonly": "readonly",
+                    "style": "max-width: 65%; display: inline-block;",
+                }
+            ),
+        }
+
+
+class WorkoutForm(forms.ModelForm):
+    class Meta:
+        model = Workout
+        fields = (
+            "title",
+            "miles",
+            "date",
+            "time",
+            "date_created",
+            "description",
+            "created_by",
+        )
+        widgets = {
+            "title": TextInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "max-width: 92%; margin-bottom: 10px;display: inline-block;",  # noqa: E501
+                    "placeholder": "Title",
+                }
+            ),
+            "miles": NumberInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "max-width: 92%; margin-bottom: 10px;display: inline-block;",  # noqa: E501
+                }
+            ),
+            "date": DatePickerInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "max-width: 30%; margin-bottom: 10px;display: inline-block;",  # noqa: E501
+                }
+            ),
+            "time": TimePickerInput(
+                attrs={
+                    "step": "any",
+                    "class": "form-control",
+                    "style": "max-width: 30%; margin-bottom: 10px;display: inline-block;",  # noqa: E501
+                }
+            ),
+            "date_created": DateTimeInput(
+                attrs={
+                    "readonly": "readonly",
+                    "class": "form-control",
+                    "style": "max-width: 58%; margin-bottom: 10px;display: inline-block;",  # noqa: E501
                 }
             ),
             "description": Textarea(

@@ -2,8 +2,6 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 
-# Create your models here.
-
 
 class Event(models.Model):
     title = models.CharField(max_length=50)
@@ -31,6 +29,19 @@ class Event(models.Model):
     created_by = models.CharField(max_length=100, default="user")
     zipcode = models.CharField(max_length=5, null=True)
     state = models.CharField(max_length=10, default="New York")
+
+    def __str__(self):
+        return str(self.description) + str(self.created_by)
+
+
+class Workout(models.Model):
+    title = models.CharField(max_length=50)
+    miles = models.DecimalField(max_digits=5, decimal_places=2)
+    date = models.DateField(default=timezone.now)
+    time = models.TimeField(default=timezone.now)
+    date_created = models.DateTimeField(default=timezone.now)
+    description = models.CharField(max_length=500, null=True)
+    created_by = models.CharField(max_length=100, default="user")
 
     def __str__(self):
         return str(self.description) + str(self.created_by)
