@@ -6,8 +6,11 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.shortcuts import redirect
 from bikingapp import models
-from .forms import EventForm, FriendMgmtForm, WorkoutForm
+from .forms import EventForm, FriendMgmtForm, WorkoutForm, CommentForm
+from .models import Event
 from django.http import HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
+
 
 """
 , SnippetForm
@@ -217,6 +220,27 @@ def profile(request):
         {"friends": {"form": form, "friends_list": friends1}},
     )
     # return render(request, "account/profile.html")
+
+
+def remove_friend(request):
+    print(request.body)
+    data = json.loads(request.body)
+    friend_username = data["friend_username"]
+    print("Friend Username:", friend_username)
+    user = request.user
+    friend = models.User.objects.filter(username=friend_username).first()
+    if user != friend:
+        print("friend user object", friend)
+
+        friend1 = models.FriendMgmt.objects.get(user=request.user, friend=friend)
+
+        print("Friend management object user", friend1.user)
+
+        friend1.delete()
+
+        return JsonResponse("Friend was deleted", safe=False)
+    else:
+        return JsonResponse("Friend can't be deleted", safe=False)
 
 
 # @login_required

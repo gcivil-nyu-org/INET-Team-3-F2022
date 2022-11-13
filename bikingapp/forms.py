@@ -7,7 +7,7 @@ from django.forms import (
     Textarea,
     NumberInput,
 )
-from .models import Event, Workout
+from .models import Event, Workout, Comment
 from .widgets import DatePickerInput, TimePickerInput
 
 
@@ -194,3 +194,7 @@ class FriendMgmtForm(forms.Form):
             }
         ),
     )
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('name', 'body')

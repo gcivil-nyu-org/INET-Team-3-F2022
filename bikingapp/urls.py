@@ -17,5 +17,6 @@ urlpatterns = [
     path("register_user", views.register_page),
     path("accounts/profile/", views.profile),
     # path("add_friends"      , views.view_friends),
+    path("remove_friend/", views.remove_friend),
     path("map", views.display_map),
 ]
