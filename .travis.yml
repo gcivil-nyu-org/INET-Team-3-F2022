@@ -24,7 +24,7 @@ deploy:
   region: "us-west-2"
   app: "bikingapp-dev"
   env: "bikingapp-env"
-  bucket_name: "elasticbeanstalk-us-west-2-434236253957"
+  bucket_name: "elasticbeanstalk-us-west-2-032360129501"
   on:
     repo: gcivil-nyu-org/INET-Team-3-F2022
     branch: develop
