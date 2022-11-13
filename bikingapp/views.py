@@ -41,6 +41,9 @@ def home(request):
 
 @login_required
 def log_workout(request):
+    """
+    Prompt user with log workout form
+    """
     tz_NY = pytz.timezone("America/New_York")
     form = WorkoutForm(
         {
@@ -55,7 +58,9 @@ def log_workout(request):
 
 @login_required
 def post_workout(request):
-    print("in post workout")
+    """
+    Attempt POST request after user submits form
+    """
     if request.method == "POST":
         form = WorkoutForm(request.POST)
         if form.is_valid():
@@ -67,9 +72,10 @@ def post_workout(request):
 
 @login_required
 def workout_success(request):
-
+    """
+    If form is valid, display workout success page
+    """
     obj = models.Event.objects.order_by("id").latest("id")
-    print(obj.title)
     context = {"obj1": obj}
 
     return render(request, "workout/workout_success.html", context)
@@ -77,17 +83,19 @@ def workout_success(request):
 
 @login_required
 def workout_history(request):
-
+    """
+    display workouts created by that user in sequential order
+    """
     obj = models.Workout.objects.filter(created_by=request.user).order_by("id")
     context = {"obj1": obj}
     return render(request, "workout/workout_history.html", context)
 
 
 def view_workout(request, id1):
-    obj = models.Workout.objects.order_by("id").filter(id=id1)
-    print("\n\n\nDEBUGGG\n\n\n")
-    print(id1)
-    # print(obj[0].created_by)
+    """
+    query db with id open workout page
+    """
+    obj = models.Workout.objects.filter(id=id1).order_by("id")
     context = {"obj1": obj}
     return render(request, "workout/view_workout.html", context)
 
@@ -117,10 +125,8 @@ def post_event(request):
     """
     if request.method == "POST":
         form = EventForm(request.POST)
-        print("init form...")
         if form.is_valid():
             form.save(commit=True)
-            print("form 2 saved")
             return redirect(event_success)
         else:
             print("Invalid Form")
@@ -131,7 +137,6 @@ def event_success(request):
     call success page if form successful
     """
     obj = models.Event.objects.order_by("id").latest("id")
-    print(obj.title)
     context = {"obj1": obj}
 
     return render(request, "event/event_success.html", context)
@@ -140,7 +145,6 @@ def event_success(request):
 def browse_events(request):
     obj_private = models.Event.objects.order_by("id").filter(event_type="private")
     obj_public = models.Event.objects.order_by("id").filter(event_type="public")
-    print("user", request.user)
     if request.user.is_anonymous:
         context = {"obj1": obj_private, "obj2": obj_public}
     else:
@@ -152,7 +156,6 @@ def browse_events(request):
             "obj2": obj_public,
             "bookmarked_events": bookmarked_events,
         }
-    print("outside if")
     return render(request, "event/browse_events.html", context)
 
 
@@ -163,12 +166,9 @@ def view_event(request, id1):
 
 
 def bookmark_event(request):
-    print(request.body)
     data = json.loads(request.body)
     eventId = data["eventId"]
     action = data["action"]
-    print("eventId", eventId)
-    print("action", action)
     user = request.user
     event = models.Event.objects.get(id=eventId)
     bookmarkItem, created = models.BookmarkEvent.objects.get_or_create(
