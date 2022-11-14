@@ -7,11 +7,8 @@ from django.shortcuts import redirect
 from bikingapp import models
 from .models import Event
 from .forms import EventForm, FriendMgmtForm, WorkoutForm, CommentForm
-from django.shortcuts import render, get_object_or_404  # , CommentForm
-
-# from .models import Event
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
-from django.shortcuts import render  # , get_object_or_404
 
 
 # def index(request):
