@@ -1,7 +1,6 @@
 from django.test import TestCase
 from bikingapp.models import Event, BookmarkEvent
 from django.contrib.auth.models import User
-from django.urls import reverse
 
 
 class QuestionModelTests(TestCase):
