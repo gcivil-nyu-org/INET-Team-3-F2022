@@ -16,15 +16,15 @@
 
 <body>
     {% block content %}
-        <div id="map" style="height: 400px; width: 50%; margin-top: 150px; margin-left: 25%;"></div>
-        <div style="margin-top: 15px; margin-left: 25%;">
-            <button type="button" id="btn1" class="btn btn-primary">Bike lanes</button>
-            <button type="button" id="btn2" class="btn btn-secondary">Bike parking</button>
-            <button type="button" id="btn3" class="btn btn-secondary">Bike collisions</button>
+        <div id="map" style="height: 600px; width: 75%; margin-top: 150px; margin-left: 10%;"></div>
+        <div style="margin-top: 15px; margin-left: 10%;">
+            <button type="button" id="btn1" class="btn btn-primary">Bike Lanes</button>
+            <button type="button" id="btn2" class="btn btn-secondary">Bike Parking</button>
+            <button type="button" id="btn3" class="btn btn-secondary">Bike Collisions</button>
         </div>
         <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlkwD4oZWgdqKf-wptm3M1cepVjtVUM-U&callback=initMap&v=weekly"
-        defer
+        async defer
         >
         </script>
         <script>
@@ -43,13 +43,8 @@
                 const uluru = { lat: 40.7237, lng: -73.9898 };
 
                 map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 11,
+                zoom: 15,
                 center: uluru,
-                });
-
-                const marker = new google.maps.Marker({
-                position: uluru,
-                map: map,
                 });
 
                 const bikeLayer = new google.maps.BicyclingLayer();
@@ -67,7 +62,7 @@
                 const uluru = { lat: 40.7237, lng: -73.9898 };
         
                 map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 11,
+                zoom: 15,
                 center: uluru,
                 });
                 map.data.loadGeoJson("{% static 'json/bikeparking.geojson' %}");
@@ -79,10 +74,6 @@
                 //    }
                 //});
         
-                const marker = new google.maps.Marker({
-                position: uluru,
-                map: map,
-                });
             });
 
             btn3.addEventListener('click', function onClick() {
@@ -96,7 +87,7 @@
                 const uluru = { lat: 40.7237, lng: -73.9898 };
         
                 map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 11,
+                zoom: 15,
                 center: uluru,
                 });
                 map.data.loadGeoJson("{% static 'json/bikeCollisions.geojson' %}");
@@ -109,11 +100,28 @@
 
                 //    }
                 //});
-        
-                const marker = new google.maps.Marker({
-                position: uluru,
-                map: map,
+
+                var infowindow = new google.maps.InfoWindow();
+                map.data.addListener('click', function(event){
+                    let date = event.feature.getProperty("CRASH DATE");
+                    let time = event.feature.getProperty("CRASH TIME");
+                    let borough = event.feature.getProperty("BOROUGH");
+                    let zip = event.feature.getProperty("ZIP CODE");
+                    let numKilled = event.feature.getProperty("NUMBER OF CYCLIST KILLED");
+                    let numInjured = event.feature.getProperty("NUMBER OF CYCLIST INJURED");
+
+                    let html = '<b>Crash Date:</b> ' + date + '<br>' +
+                                '<b>Crash Time (military time):</b> ' +  time + '<br>' +
+                                '<b>Borough:</b> ' + borough + '<br>' +
+                                '<b>Zipcode:</b> ' +  zip + '<br>' +
+                                '<b>Cyclists Injured:</b> ' + numInjured + '<br>' +
+                                '<b>Cyclists Killed:</b> ' +  numKilled + '<br>';
+                    infowindow.setContent(html);
+                    infowindow.setPosition(event.latLng);
+                    infowindow.setOptions({pixelOffset: new google.maps.Size(0,-30)});
+                    infowindow.open(map);
                 });
+
             });
           
         function initMap() {
