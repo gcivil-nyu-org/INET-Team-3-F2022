@@ -3,19 +3,109 @@ import pytz
 import json
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.shortcuts import render
 from django.shortcuts import redirect
 from bikingapp import models
-from .forms import EventForm, FriendMgmtForm, Account
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
+from .forms import EventForm, FriendMgmtForm, WorkoutForm, Account  # , CommentForm
+
+# from .models import Event
+from django.http import HttpResponseRedirect
+from django.shortcuts import render  # , get_object_or_404
+
+
+# def index(request):
+#    return HttpResponse("Hello, world. You're at the Biking App index.")
+"""
+def contact(request):
+
+    if request.method == "POST":
+        form = EventForm(request.POST)
+        #print("Is it valid?")
+        if form.is_valid():
+            location = form.cleaned_data['location']
+            date_time = form.cleaned_data['date_time']
+            public_private = form.cleaned_data['public_private']
+            description = form.cleaned_data['description']
+
+            print(location, date_time, public_private, description)
+
+
+    form = EventForm()
+    return render(request, 'form.html',{'form':form})
+"""
+
 
 def home(request):
     return render(request, "base.html", {"username":request.user})
 
 
 @login_required
-def event_detail(request):
+def log_workout(request):
+    """
+    Prompt user with log workout form
+    """
+    tz_NY = pytz.timezone("America/New_York")
+    form = WorkoutForm(
+        {
+            "created_by": request.user,
+            "date": datetime.now(tz_NY),
+            "date_created": datetime.now(tz_NY),
+            "time": datetime.now(tz_NY).time(),
+        }
+    )
+    return render(request, "workout/log_workout.html", {"form": form})
+
+
+@login_required
+def post_workout(request):
+    """
+    Attempt POST request after user submits form
+    """
+    if request.method == "POST":
+        form = WorkoutForm(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+            return redirect(workout_success)
+        else:
+            print("Invalid Form")
+
+
+@login_required
+def workout_success(request):
+    """
+    If form is valid, display workout success page
+    """
+    obj = models.Event.objects.order_by("id").latest("id")
+    context = {"obj1": obj}
+
+    return render(request, "workout/workout_success.html", context)
+
+
+@login_required
+def workout_history(request):
+    """
+    display workouts created by that user in sequential order
+    """
+    obj = models.Workout.objects.filter(created_by=request.user).order_by("id")
+    context = {"obj1": obj}
+    return render(request, "workout/workout_history.html", context)
+
+
+def view_workout(request, id1):
+    """
+    query db with id open workout page
+    """
+    obj = models.Workout.objects.filter(id=id1).order_by("id")
+    context = {"obj1": obj}
+    return render(request, "workout/view_workout.html", context)
+
+
+@login_required
+def create_event(request):
+    """
+    display form
+    """
     tz_NY = pytz.timezone("America/New_York")
     form = EventForm(
         {
@@ -26,29 +116,68 @@ def event_detail(request):
             "time": datetime.now(tz_NY).time(),
         }
     )
-    return render(request, "form.html", {"form": form})
+    return render(request, "event/event_info.html", {"form": form})
 
 
 @login_required
-def create_event(request):
+def post_event(request):
+    """
+    attempt POST Request after submitting EventForm
+    """
     if request.method == "POST":
         form = EventForm(request.POST)
-        print("form", form)
-        print("Is it valid?")
         if form.is_valid():
             form.save(commit=True)
-            print("form 2 saved")
-            return redirect(success_page)
+            return redirect(event_success)
         else:
             print("Invalid Form")
 
 
-def success_page(request):
+def event_success(request):
+    """
+    call success page if form successful
+    """
     obj = models.Event.objects.order_by("id").latest("id")
-    print(obj.title)
     context = {"obj1": obj}
 
-    return render(request, "event_success.html", context)
+    return render(request, "event/event_success.html", context)
+
+
+def browse_events(request):
+    obj_private = models.Event.objects.order_by("id").filter(event_type="private")
+    obj_public = models.Event.objects.order_by("id").filter(event_type="public")
+    if request.user.is_anonymous:
+        context = {"obj1": obj_private, "obj2": obj_public}
+    else:
+        bookmarked_events = models.BookmarkEvent.objects.filter(
+            user=request.user
+        ).values_list("event", flat=True)
+        context = {
+            "obj1": obj_private,
+            "obj2": obj_public,
+            "bookmarked_events": bookmarked_events,
+        }
+    return render(request, "event/browse_events.html", context)
+
+
+def view_event(request, id1):
+    obj = models.Event.objects.order_by("id").filter(id=id1)
+    context = {"obj1": obj}
+    return render(request, "event/view_event.html", context)
+
+
+def bookmark_event(request):
+    data = json.loads(request.body)
+    eventId = data["eventId"]
+    action = data["action"]
+    user = request.user
+    event = models.Event.objects.get(id=eventId)
+    bookmarkItem, created = models.BookmarkEvent.objects.get_or_create(
+        user=user, event=event
+    )
+    if action == "unbookmark":
+        bookmarkItem.delete()
+    return JsonResponse("Event was bookmarked", safe=False)
 
 
 def register_page(request):
@@ -99,46 +228,25 @@ def profile(request, username):
         return render(request,"account/profile.html",{"user_page":user_page,"user_account":user_account})
 
 
-def browse_events(request):
-    obj_private = models.Event.objects.order_by("id").filter(event_type="private")
-    obj_public = models.Event.objects.order_by("id").filter(event_type="public")
-    print("user", request.user)
-    if request.user.is_anonymous:
-        context = {"obj1": obj_private, "obj2": obj_public}
-    else:
-        bookmarked_events = models.BookmarkEvent.objects.filter(
-            user=request.user
-        ).values_list("event", flat=True)
-        context = {
-            "obj1": obj_private,
-            "obj2": obj_public,
-            "bookmarked_events": bookmarked_events,
-        }
-    print("outside if")
-    return render(request, "browse_events.html", context)
-
-
-def view_event(request, id1):
-    obj = models.Event.objects.order_by("id").filter(id=id1)
-    context = {"obj1": obj}
-    return render(request, "view_event.html", context)
-
-
-def bookmark_event(request):
+def remove_friend(request):
     print(request.body)
     data = json.loads(request.body)
-    eventId = data["eventId"]
-    action = data["action"]
-    print("eventId", eventId)
-    print("action", action)
+    friend_username = data["friend_username"]
+    print("Friend Username:", friend_username)
     user = request.user
-    event = models.Event.objects.get(id=eventId)
-    bookmarkItem, created = models.BookmarkEvent.objects.get_or_create(
-        user=user, event=event
-    )
-    if action == "unbookmark":
-        bookmarkItem.delete()
-    return JsonResponse("Event was bookmarked", safe=False)
+    friend = models.User.objects.filter(username=friend_username).first()
+    if user != friend:
+        print("friend user object", friend)
+
+        friend1 = models.FriendMgmt.objects.get(user=request.user, friend=friend)
+
+        print("Friend management object user", friend1.user)
+
+        friend1.delete()
+
+        return JsonResponse("Friend was deleted", safe=False)
+    else:
+        return JsonResponse("Friend can't be deleted", safe=False)
 
 
 # @login_required

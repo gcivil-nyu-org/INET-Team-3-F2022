@@ -46,6 +46,8 @@
           {% for k in friends.friends_list %}
           <ul class="card-body list-group list-group-flush">
             <li class="list-group-item"><a href="/accounts/profile/{{k.friend.username}}">{{k.friend.username}}</a></li>
+            <li class="list-group-item"><button data-friend_username="{{k.friend.username}}"
+                class="btn btn-danger add-btn remove-friend">Remove Friend</button></li>
           </ul>
           {% endfor %}
         </div>
