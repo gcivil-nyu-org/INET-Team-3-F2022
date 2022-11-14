@@ -181,7 +181,7 @@ def view_event(request, id1):
         "new_comment": new_comment,
         "comment_form": comment_form,
     }
-    return render(request, "view_event.html", context)
+    return render(request, "event/view_event.html", context)
 
 
 def bookmark_event(request):
