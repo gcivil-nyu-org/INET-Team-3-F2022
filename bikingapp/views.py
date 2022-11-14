@@ -5,9 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from bikingapp import models
-from .models import Event
-from .forms import EventForm, FriendMgmtForm, WorkoutForm,CommentForm 
-from django.shortcuts import render, get_object_or_404 # , CommentForm
+from .forms import EventForm, FriendMgmtForm, WorkoutForm, CommentForm
+from django.shortcuts import render, get_object_or_404  # , CommentForm
 
 # from .models import Event
 from django.http import HttpResponseRedirect
@@ -161,7 +160,7 @@ def browse_events(request):
 
 
 def view_event(request, id1):
-    obj= models.Event.objects.order_by('id').filter(id=id1)
+    obj = models.Event.objects.order_by("id").filter(id=id1)
     post = get_object_or_404(Event, id=id1)
     comments = post.comments.filter(active=True).order_by("-created_on")
     new_comment = None
@@ -177,11 +176,14 @@ def view_event(request, id1):
             new_comment.save()
     else:
         comment_form = CommentForm()
-    context= {'obj1' : obj,"post": post,
-            "comments": comments,
-            "new_comment": new_comment,
-            "comment_form": comment_form,}
-    return render(request, 'view_event.html', context)
+    context = {
+        "obj1": obj,
+        "post": post,
+        "comments": comments,
+        "new_comment": new_comment,
+        "comment_form": comment_form,
+    }
+    return render(request, "view_event.html", context)
 
 
 def bookmark_event(request):
