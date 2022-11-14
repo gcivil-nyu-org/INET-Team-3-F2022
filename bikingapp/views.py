@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from bikingapp import models
+from .models import Event
 from .forms import EventForm, FriendMgmtForm, WorkoutForm, CommentForm
 from django.shortcuts import render, get_object_or_404  # , CommentForm
 

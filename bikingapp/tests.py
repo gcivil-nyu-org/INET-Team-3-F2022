@@ -2,7 +2,6 @@ from django.test import TestCase
 from bikingapp.models import Event, BookmarkEvent
 from django.contrib.auth.models import User
 from django.urls import reverse
-from .forms import EventForm, FriendMgmtForm, WorkoutForm, CommentForm
 
 
 class QuestionModelTests(TestCase):
