@@ -7,11 +7,10 @@ from django.shortcuts import redirect
 from bikingapp import models
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
-from .forms import EventForm, FriendMgmtForm, WorkoutForm, Account  # , CommentForm
-
-# from .models import Event
+from .forms import EventForm, FriendMgmtForm, WorkoutForm, Account, CommentForm 
+from .models import Event
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
-from django.shortcuts import render  # , get_object_or_404
 
 
 # def index(request):
@@ -162,7 +161,28 @@ def browse_events(request):
 
 def view_event(request, id1):
     obj = models.Event.objects.order_by("id").filter(id=id1)
-    context = {"obj1": obj}
+    post = get_object_or_404(Event, id=id1)
+    comments = post.comments.filter(active=True).order_by("-created_on")
+    new_comment = None
+    # Comment posted
+    if request.method == "POST":
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            # Create Comment object but don't save to database yet
+            new_comment = comment_form.save(commit=False)
+            # Assign the current post to the comment
+            new_comment.post = post
+            # Save the comment to the database
+            new_comment.save()
+    else:
+        comment_form = CommentForm()
+    context = {
+        "obj1": obj,
+        "post": post,
+        "comments": comments,
+        "new_comment": new_comment,
+        "comment_form": comment_form,
+    }
     return render(request, "event/view_event.html", context)
 
 

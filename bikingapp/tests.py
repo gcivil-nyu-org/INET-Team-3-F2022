@@ -15,6 +15,10 @@ class QuestionModelTests(TestCase):
         response = self.client.get("/browse_events")
         self.assertEqual(response.status_code, 200)
 
+    def test_map_loads_properly(self):
+        response = self.client.get("/map")
+        self.assertEqual(response.status_code, 200)
+
     def test_register_user_loads_properly(self):
         response = self.client.get("/register_user")
         self.assertEqual(response.status_code, 200)
@@ -87,9 +91,3 @@ class QuestionModelTests(TestCase):
         )
         event.save()
         self.assertEqual(user.username, event.created_by)
-
-    def test_comment_form_valid(self):
-        # form_data = self.valid_comment
-        # form = CommentForm(data=form_data)
-        # self.assertTrue(form.is_valid())
-        pass
