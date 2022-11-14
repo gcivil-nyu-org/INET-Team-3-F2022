@@ -7,18 +7,18 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('bikingapp', '0014_merge_20221114_1050'),
+        ("bikingapp", "0014_merge_20221114_1050"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='workout',
-            old_name='time',
-            new_name='time_end',
+            model_name="workout",
+            old_name="time",
+            new_name="time_end",
         ),
         migrations.AddField(
-            model_name='workout',
-            name='time_start',
+            model_name="workout",
+            name="time_start",
             field=models.TimeField(default=django.utils.timezone.now),
         ),
     ]
