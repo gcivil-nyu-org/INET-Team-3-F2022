@@ -113,7 +113,8 @@ class WorkoutForm(forms.ModelForm):
             "title",
             "miles",
             "date",
-            "time",
+            "time_start",
+            "time_end",
             "date_created",
             "description",
             "created_by",
@@ -138,7 +139,14 @@ class WorkoutForm(forms.ModelForm):
                     "style": "max-width: 30%; margin-bottom: 10px;display: inline-block;",  # noqa: E501
                 }
             ),
-            "time": TimePickerInput(
+            "time_start": TimePickerInput(
+                attrs={
+                    "step": "any",
+                    "class": "form-control",
+                    "style": "max-width: 30%; margin-bottom: 10px;display: inline-block;",  # noqa: E501
+                }
+            ),
+            "time_end": TimePickerInput(
                 attrs={
                     "step": "any",
                     "class": "form-control",
