@@ -7,10 +7,9 @@ from django.shortcuts import redirect
 from bikingapp import models
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
-from .forms import EventForm, FriendMgmtForm, WorkoutForm, Account, CommentForm 
+from .forms import EventForm, FriendMgmtForm, WorkoutForm, Account, CommentForm
 from .models import Event
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect
 
 
 # def index(request):
@@ -36,7 +35,7 @@ def contact(request):
 
 
 def home(request):
-    return render(request, "base.html", {"username":request.user})
+    return render(request, "base.html", {"username": request.user})
 
 
 @login_required
@@ -203,14 +202,19 @@ def bookmark_event(request):
 def register_page(request):
     return render(request, "account/signup.html")
 
+
 @login_required
 def current_user_profile(request):
-    return redirect('/accounts/profile/'+str(request.user.username), username=request.user.username)
+    return redirect(
+        "/accounts/profile/" + str(request.user.username),
+        username=request.user.username,
+    )
+
 
 @login_required
 def profile(request, username):
-    user_page = User.objects.get(username= username)
-    user_account = Account.objects.get(user = user_page)
+    user_page = User.objects.get(username=username)
+    user_account = Account.objects.get(user=user_page)
     if request.user.username == username:
         print("equal")
         obj = models.FriendMgmt.objects.get_or_create(
@@ -222,14 +226,21 @@ def profile(request, username):
             # check whether it's valid:
             if form.is_valid():
                 friend_username = form.cleaned_data["friend_username"]
-                if models.User.objects.filter(username=friend_username).first() is not None:
+                if (
+                    models.User.objects.filter(username=friend_username).first()
+                    is not None
+                ):
                     obj = models.FriendMgmt(
                         user=request.user,
-                        friend=models.User.objects.filter(username=friend_username).first(),
+                        friend=models.User.objects.filter(
+                            username=friend_username
+                        ).first(),
                     )
                     if not models.FriendMgmt.objects.filter(
                         user=request.user,
-                        friend=models.User.objects.filter(username=friend_username).first(),
+                        friend=models.User.objects.filter(
+                            username=friend_username
+                        ).first(),
                     ).exists():
                         obj.save()
 
@@ -241,11 +252,18 @@ def profile(request, username):
         return render(
             request,
             "account/profile.html",
-            {"friends": {"form": form, "friends_list": friends1},
-            "user_page":user_page, "user_account":user_account},
+            {
+                "friends": {"form": form, "friends_list": friends1},
+                "user_page": user_page,
+                "user_account": user_account,
+            },
         )
     else:
-        return render(request,"account/profile.html",{"user_page":user_page,"user_account":user_account})
+        return render(
+            request,
+            "account/profile.html",
+            {"user_page": user_page, "user_account": user_account},
+        )
 
 
 def remove_friend(request):

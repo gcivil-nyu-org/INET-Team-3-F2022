@@ -14,7 +14,7 @@ urlpatterns = [
     path("browse_events", views.browse_events),
     path("browse_events/<int:id1>/", views.view_event),
     path("register_user", views.register_page),
-    path("accounts/profile/",views.current_user_profile),
+    path("accounts/profile/", views.current_user_profile),
     path("accounts/profile/<str:username>/", views.profile),
     # path("events/<int:id1>/", views.view_event),
     path("bookmark_event/", views.bookmark_event),

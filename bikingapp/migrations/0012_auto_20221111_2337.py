@@ -6,18 +6,23 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('bikingapp', '0011_account'),
+        ("bikingapp", "0011_account"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='account',
-            name='description',
-            field=models.CharField(default='Enter your description', max_length=500, null=True),
+            model_name="account",
+            name="description",
+            field=models.CharField(
+                default="Enter your description", max_length=500, null=True
+            ),
         ),
         migrations.AlterField(
-            model_name='account',
-            name='pronouns',
-            field=models.CharField(choices=[('he', 'He/Him'), ('she', 'She/Her'), ('they', 'They/Them')], max_length=10),
+            model_name="account",
+            name="pronouns",
+            field=models.CharField(
+                choices=[("he", "He/Him"), ("she", "She/Her"), ("they", "They/Them")],
+                max_length=10,
+            ),
         ),
     ]

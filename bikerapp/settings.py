@@ -59,14 +59,14 @@ INSTALLED_APPS = [
     "crispy_forms",
     "widget_tweaks",
 ]
-ACCOUNT_FORMS = {'signup': 'bikingapp.forms.MyCustomSignupForm'}
+ACCOUNT_FORMS = {"signup": "bikingapp.forms.MyCustomSignupForm"}
 SITE_ID = 1
 ACCOUNT_AUTHENTICATION_METHOD = "username"
 ACCOUNT_EMAIL_REQUIRED = True
 # ACCOUNT_EMAIL_UNIQUE=True
 ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
-#LOGIN_REDIRECT_URL = '/account/profile/<str:username>'
+# LOGIN_REDIRECT_URL = '/account/profile/<str:username>'
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

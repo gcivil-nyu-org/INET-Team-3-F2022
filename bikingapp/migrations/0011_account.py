@@ -9,17 +9,47 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('bikingapp', '0010_friendmgmt'),
+        ("bikingapp", "0010_friendmgmt"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Account',
+            name="Account",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('pronouns', models.CharField(choices=[('he', 'He/Him'), ('she', 'She/Her'), ('they', 'They/Them'), ('', 'select your pronouns')], default='select your pronouns', max_length=10)),
-                ('description', models.CharField(default='Enter your description', max_length=500)),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='profile', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "pronouns",
+                    models.CharField(
+                        choices=[
+                            ("he", "He/Him"),
+                            ("she", "She/Her"),
+                            ("they", "They/Them"),
+                            ("", "select your pronouns"),
+                        ],
+                        default="select your pronouns",
+                        max_length=10,
+                    ),
+                ),
+                (
+                    "description",
+                    models.CharField(default="Enter your description", max_length=500),
+                ),
+                (
+                    "user",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="profile",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
     ]
