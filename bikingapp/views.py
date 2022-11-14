@@ -60,6 +60,7 @@ def post_workout(request):
     """
     Attempt POST request after user submits form
     """
+    print("\n\nIN POST\n\n")
     if request.method == "POST":
         form = WorkoutForm(request.POST)
         if form.is_valid():
@@ -74,7 +75,7 @@ def workout_success(request):
     """
     If form is valid, display workout success page
     """
-    obj = models.Event.objects.order_by("id").latest("id")
+    obj = models.Workout.objects.order_by("id").latest("id")
     context = {"obj1": obj}
 
     return render(request, "workout/workout_success.html", context)

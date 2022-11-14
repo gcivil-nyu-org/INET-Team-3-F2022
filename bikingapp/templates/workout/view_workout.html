@@ -41,18 +41,11 @@
         <div class="card col-lg-6" style="margin: 25px">
           <ul class="list-group list-group-flush card-body">
             <li class="list-group-item"><b>Title:</b> {{obj.title}}</li>
-            <li class="list-group-item"><b>Miles:</b> {{obj.miles}}</li>
             <li class="list-group-item"><b>Date:</b> {{obj.date}}</li>
-            <li class="list-group-item"><b>Time:</b> {{obj.time}}</li>
-            <li class="list-group-item">
-              <b>Created Date:</b> {{obj.date_created}}
-            </li>
-            <li class="list-group-item">
-              <b>Description:</b> {{obj.description}}
-            </li>
-            <li class="list-group-item">
-              <b>Created By:</b> {{obj.created_by}}
-            </li>
+            <li class="list-group-item"><b>Miles:</b> {{obj.miles}}</li>
+            <li class="list-group-item"><b>Start Time:</b> {{obj.time_start}}</li>       
+            <li class="list-group-item"><b>End Time:</b> {{obj.time_end}}</li>
+            <li class="list-group-item"><b>Description:</b> {{obj.description}}</li>
           </ul>
         </div>
         {% endfor %}
