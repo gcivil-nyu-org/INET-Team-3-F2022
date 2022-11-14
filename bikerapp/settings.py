@@ -66,7 +66,7 @@ ACCOUNT_EMAIL_REQUIRED = True
 # ACCOUNT_EMAIL_UNIQUE=True
 ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
-# LOGIN_REDIRECT_URL = '/account/profile/<str:username>'
+LOGIN_REDIRECT_URL = "/"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
