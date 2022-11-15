@@ -52,9 +52,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.sites",
-    "allauth",
-    "allauth.account",
-    "allauth.socialaccount",
+    # "allauth",
+    # "allauth.account",
+    # "allauth.socialaccount",
     "crispy_forms",
     "widget_tweaks",
     'tinymce',
@@ -99,7 +99,7 @@ TEMPLATES = [
 ]
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
-    "allauth.account.auth_backends.AuthenticationBackend",
+    # "allauth.account.auth_backends.AuthenticationBackend",
 ]
 
 WSGI_APPLICATION = "bikerapp.wsgi.application"
@@ -122,8 +122,8 @@ SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"  # new
 EMAIL_HOST = "smtp.gmail.com"  # new
 EMAIL_PORT = 587  # new
-EMAIL_HOST_USER = "dwarkani.abhinav1999@gmail.com"  # new
-EMAIL_HOST_PASSWORD = "yxpshrffgvdxdgox"  # new
+EMAIL_HOST_USER = "mg060894nyu@gmail.com"  # new
+EMAIL_HOST_PASSWORD = "ecfshgchtgtkgoqb"  # new
 EMAIL_USE_TLS = True  # new
 
 
@@ -167,4 +167,5 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = "/static/"
 
-login_url = "login"
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "/"

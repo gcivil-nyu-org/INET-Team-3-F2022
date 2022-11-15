@@ -65,7 +65,7 @@ def register(request):
             user.is_active=False
             user.save()
             activateEmail(request, user, form.cleaned_data.get('email'))
-            return redirect("")
+            return redirect("homepage")
 
         else:
             for error in list(form.errors.values()):
@@ -84,7 +84,7 @@ def register(request):
 def custom_logout(request):
     logout(request)
     messages.info(request, "Logged out successfully!")
-    return redirect("")
+    return redirect("homepage")
 
 @user_not_authenticated
 def custom_login(request):
@@ -99,7 +99,7 @@ def custom_login(request):
             if user is not None:
                 login(request, user)
                 messages.success(request, f"Hello <b>{user.username}</b>! You have been logged in")
-                return redirect("")
+                return redirect("homepage")
 
         else:
             for key, error in list(form.errors.items()):
