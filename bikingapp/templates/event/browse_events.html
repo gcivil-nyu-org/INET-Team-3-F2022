@@ -89,6 +89,42 @@
         </div>
     </div>
     {% endif %}
+
+    {% if bookmarked_events is not None %}
+    <div style="margin-top: 120px">
+        <div style="display: flex;justify-content: space-between;">
+            <h3 style="margin-left: 20px;">Invited Events</h3>
+        </div>
+        <div class="container d-flex flex-wrap align-items-center space-between">
+            {% for obj in obj3 %}
+            <!-- <li> -->
+            <div class="card card1 custom" style="margin: 15px; max-width: 25%; min-width: 25%;">
+                <h4 class="card-title" style="text-align: center; text-transform: capitalize;"><b>{{obj.event.title}}</b></h4>
+                <a href="/browse_events/{{obj.event.id}}" style="text-decoration: none; color: black;">
+                    <ul class="card-body list-group list-group-flush">
+                        <li class="list-group-item"><b>Location:</b> {{obj.event.location}}</li>
+                        <li class="list-group-item"><b>Zipcode:</b> {{obj.event.zipcode}}</li>
+                        <li class="list-group-item"><b>Event Date:</b> {{obj.event.date}}</li>
+                        <li class="list-group-item"><b>Event Time:</b> {{obj.event.time}}</li>
+                        <li class="list-group-item"><b>Created By:</b> {{obj.event.created_by}}</li>
+                        <li class="list-group-item"><b>Event Type:</b> {{obj.event.event_type}}</li>
+                        
+                    </ul>
+                </a>
+                {% if obj.event.id not in bookmarked_events %}
+                <button data-event="{{obj.event.id}}" data-action="bookmark"
+                    class="btn btn-success add-btn event-bookmark">Bookmark this
+                    event</button>
+                {% else%}
+                <button data-event="{{obj.event.id}}" data-action="unbookmark"
+                    class="btn btn-danger add-btn event-bookmark">Unbookmark</button>
+                {% endif %}
+            </div>
+            <!-- </li> -->
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
     {% endblock content %}
 </body>
 

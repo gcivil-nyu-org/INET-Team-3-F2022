@@ -126,7 +126,31 @@ def post_event(request):
     if request.method == "POST":
         form = EventForm(request.POST)
         if form.is_valid():
+            friends_invited = form.data.get('friends_invited')
+            event_title = form.cleaned_data.get('title')
+            #print("frinds invited ", friends_invited)
+            friends_list = friends_invited.split(' ')
+            #print(type(friends_list))
             form.save(commit=True)
+            for friend_username in friends_list:
+                print(friend_username)
+                if (
+                    models.User.objects.filter(username=friend_username).first()
+                    is not None
+                ):
+                    event = models.Event.objects.get(title = event_title)
+                    obj = models.EventFriendMgmt(
+                        event = event,
+                        friend=models.User.objects.filter(username=friend_username).first()
+                        )
+                    print("Event:", event.title)
+                    print("Friend", models.User.objects.filter(username=friend_username).first())
+                    obj.save()
+
+
+                    
+                    
+
             return redirect(event_success)
         else:
             print("Invalid Form")
@@ -145,6 +169,11 @@ def event_success(request):
 def browse_events(request):
     obj_private = models.Event.objects.order_by("id").filter(event_type="private")
     obj_public = models.Event.objects.order_by("id").filter(event_type="public")
+    if(request.user.is_anonymous ):
+        obj_invited = []
+    else:
+        obj_invited = models.EventFriendMgmt.objects.order_by("id").filter(friend= request.user)
+
     if request.user.is_anonymous:
         context = {"obj1": obj_private, "obj2": obj_public}
     else:
@@ -154,6 +183,7 @@ def browse_events(request):
         context = {
             "obj1": obj_private,
             "obj2": obj_public,
+            "obj3": obj_invited,
             "bookmarked_events": bookmarked_events,
         }
     return render(request, "event/browse_events.html", context)
