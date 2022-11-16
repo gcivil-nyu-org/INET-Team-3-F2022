@@ -65,14 +65,15 @@
                 zoom: 15,
                 center: uluru,
                 });
-                map.data.loadGeoJson("{% static 'json/bikeparking.geojson' %}");
                 
-                //map.data.setStyle(function(feature) {
-                //    return{
-                //        icon: getCircle(),
+                
+                // map.data.setStyle(function(feature) {
+                //     return{
+                //         icon: getCircle(),
 
                 //    }
-                //});
+                // });
+                map.data.loadGeoJson("{% static 'json/bikeparking.geojson' %}");
         
             });
 
@@ -129,13 +130,8 @@
         const uluru = { lat: 40.7237, lng: -73.9898 };
 
         map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 9,
+        zoom: 11,
         center: uluru,
-        });
-
-        const marker = new google.maps.Marker({
-        position: uluru,
-        map: map,
         });
 
         const bikeLayer = new google.maps.BicyclingLayer();
