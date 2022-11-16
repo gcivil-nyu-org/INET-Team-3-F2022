@@ -14,6 +14,8 @@ from allauth.account.forms import SignupForm
 
 
 class EventForm(forms.ModelForm):
+    friends_invited = forms.CharField(label="extra_field", required=False)
+
     class Meta:
         model = Event
         fields = (
@@ -101,6 +103,12 @@ class EventForm(forms.ModelForm):
                     "class": "form-control",
                     "readonly": "readonly",
                     "style": "max-width: 65%; display: inline-block;",
+                }
+            ),
+            "friends_invited": TextInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "max-width: 92%; margin-bottom: 10px;display: inline-block;",
                 }
             ),
         }

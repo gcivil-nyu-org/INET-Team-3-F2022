@@ -104,3 +104,11 @@ class Comment(models.Model):
 
     def __str__(self):
         return "Comment {} by {}".format(self.body, self.name)
+
+
+class EventFriendMgmt(models.Model):
+
+    event = models.ForeignKey(Event, on_delete=models.SET_NULL, null=True, blank=True)
+    friend = models.ForeignKey(
+        User, related_name="friends2", on_delete=models.SET_NULL, null=True, blank=True
+    )
