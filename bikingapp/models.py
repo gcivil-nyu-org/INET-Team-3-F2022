@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User, AbstractUser
 from django.template.defaultfilters import slugify
 import os
+from django.conf import settings
 
 # Create your models here.
 
@@ -39,7 +40,7 @@ class Event(models.Model):
 
 
 class BookmarkEvent(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
     event = models.ForeignKey(Event, on_delete=models.SET_NULL, null=True)
     date_added = models.DateTimeField(auto_now_add=True)
 

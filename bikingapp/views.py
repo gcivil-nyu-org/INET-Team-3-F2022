@@ -43,7 +43,7 @@ def activateEmail(request, user, to_email):
     mail_subject = "Activate your user account."
     message = render_to_string("template_activate_account.html", {
         'user': user.username,
-        'domain': get_current_site(request).domain,
+        'domain': request.get_host(),
         'uid': urlsafe_base64_encode(force_bytes(user.pk)),
         'token': account_activation_token.make_token(user),
         "protocol": 'https' if request.is_secure() else 'http'
@@ -90,7 +90,7 @@ def custom_logout(request):
 def custom_login(request):
     if request.method == "POST":
         form = UserLoginForm(request=request, data=request.POST)
-        public_key = settings.RECAPTCHA_PUBLIC_KEY
+        # public_key = settings.RECAPTCHA_PUBLIC_KEY
         if form.is_valid():
             user = authenticate(
                 username=form.cleaned_data["username"],

@@ -1,0 +1,25 @@
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags == 'success' %}
+            <div style = "margin-top: 100px" class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" onclick="window.open('', '_self', ''); window.close();">&times;</button>
+                {{ message|safe|escape }}
+            </div>
+        {% elif message.tags == 'error' %}
+            <div style = "margin-top: 100px" class="alert alert-danger alert-dismissible" role="alert">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{ message|safe|escape }}
+            </div>
+        {% elif message.tags == 'info' %}
+            <div style = "margin-top: 100px" class="alert alert-info alert-dismissible" role="alert">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{ message|safe|escape }}
+            </div>
+        {% elif message.tags == 'warning' %}
+            <div style = "margin-top: 100px" class="alert alert-warning alert-dismissible" role="alert">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{ message|safe|escape }}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
