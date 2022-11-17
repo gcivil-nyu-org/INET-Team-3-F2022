@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from allauth.account.forms import SignupForm
 
 
-
 class QuestionModelTests(TestCase):
     def test_was_published_recently_with_future_question(self):
         self.assertIs(False, False)
@@ -94,7 +93,6 @@ class QuestionModelTests(TestCase):
         event.save()
         self.assertEqual(user.username, event.created_by)
 
-# Create your tests hereclass TestIsUserAuth(TestCase):
     def setUp(self):
         self.form =SignupForm
         self.user = User.objects.create_user(
