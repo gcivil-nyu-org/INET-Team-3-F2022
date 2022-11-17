@@ -92,13 +92,6 @@ class QuestionModelTests(TestCase):
         )
         event.save()
         self.assertEqual(user.username, event.created_by)
-from django.test import TestCase
-from bikingapp.models import Event, BookmarkEvent
-from django.contrib.auth.models import User
-from allauth.account.forms import SignupForm
-
-
-
 class QuestionModelTests(TestCase):
     def test_was_published_recently_with_future_question(self):
         self.assertIs(False, False)
