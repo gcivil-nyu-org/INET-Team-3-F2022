@@ -134,7 +134,7 @@ class QuestionModelTests(TestCase):
             }
         )
         self.assertFalse(form.is_valid())
-        self.assertEquals(form.errors["username"], ["Username is already taken"])
+        self.assertEquals(form.errors["username"], ["A user with that username already exists."])
 
     # def test_cant_login_with_email_that_is_taken(self):
     #
