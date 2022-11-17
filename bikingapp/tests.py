@@ -94,7 +94,7 @@ class QuestionModelTests(TestCase):
         self.assertEqual(user.username, event.created_by)
 
     def setUp(self):
-        self.form =SignupForm
+        self.form = SignupForm
         self.user = User.objects.create_user(
             username="test", password="test", email="test@test.com"
         )
