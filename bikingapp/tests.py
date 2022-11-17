@@ -92,9 +92,7 @@ class QuestionModelTests(TestCase):
         )
         event.save()
         self.assertEqual(user.username, event.created_by)
-
-
-class QuestionModelTests(TestCase):
+    
     def test_was_published_recently_with_future_question(self):
         self.assertIs(False, False)
 
@@ -223,8 +221,7 @@ class QuestionModelTests(TestCase):
             }
         )
         self.assertFormError(
-            form, "username", "A user with that username already exists."
-        )
+            form, "username", "A user with that username already exists." )
 
     # def test_cant_login_with_email_that_is_taken(self):
     #
