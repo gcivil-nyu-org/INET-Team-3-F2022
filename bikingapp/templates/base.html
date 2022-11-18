@@ -46,12 +46,14 @@
                 <li><a href="/login">Log In</a></li>
                 {% endif %}
             </ul>
-        </nav>
-        {% include 'messaging.html' %}
+        </nav>  
     </header>
-    
-    {% block content %}
-    {% endblock content %}
+   
+    <div style = "margin-top: 100px; margin-left: 40px" class="row">
+            {% include 'messaging.html' %}
+            {% block content %}
+            {% endblock content%}
+    </div>
     <script type="text/javascript">
         var bookmarkBtns = document.getElementsByClassName("event-bookmark");
 
