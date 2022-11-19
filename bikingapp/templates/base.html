@@ -39,7 +39,7 @@
                 <li><a href="/event">Create Events</a></li>
                 <li><a href="/browse_events">Browse Events</a></li>
                 {% if user.is_authenticated %}
-                <li><a href="/accounts/profile">Profile</a></li>
+                <li><a href="{% url 'profile' user.username %}">Profile</a></li>
                 <li><a href="/logout">Log Out</a></li>
                 {% else %}
                 <li><a href="/register">Register</a></li>
@@ -49,7 +49,7 @@
         </nav>  
     </header>
    
-    <div style = "margin-top: 100px; margin-left: 40px" class="row">
+    <div style = "margin-top: 100px; margin-left: 40px">
             {% include 'messaging.html' %}
             {% block content %}
             {% endblock content%}
