@@ -11,7 +11,8 @@ from django.forms import (
 )
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, SetPasswordForm, PasswordResetForm
 from django.contrib.auth import get_user_model
-from .models import Event, Account, Workout, Comment
+from .models import Event, Workout, Comment
+# from .models import Account
 from .widgets import DatePickerInput, TimePickerInput
 
 

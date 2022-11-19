@@ -7,7 +7,7 @@ from django.conf import settings
 
 # Create your models here.
 
-
+'''
 class Account(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, unique=True, related_name="profile"
@@ -26,7 +26,7 @@ class Account(models.Model):
 
     def __str__(self):
         return str(self.user.username) + str(self.pronouns)
-
+'''
 
 class Event(models.Model):
     title = models.CharField(max_length=50)
@@ -108,7 +108,7 @@ class FriendMgmt(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
     friend = models.ForeignKey(
-        User, related_name="friends", on_delete=models.SET_NULL, null=True, blank=True
+        settings.AUTH_USER_MODEL, related_name="friends", on_delete=models.SET_NULL, null=True, blank=True
     )
 
 

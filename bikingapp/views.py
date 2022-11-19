@@ -17,7 +17,8 @@ from django.core.mail import EmailMessage
 from django.db.models.query_utils import Q
 from .models import Event
 from django.shortcuts import render, get_object_or_404, redirect
-from .forms import EventForm, UserRegistrationForm, UserLoginForm, UserUpdateForm, SetPasswordForm, PasswordResetForm, FriendMgmtForm, WorkoutForm, Account, CommentForm
+from .forms import EventForm, UserRegistrationForm, UserLoginForm, UserUpdateForm, SetPasswordForm, PasswordResetForm, FriendMgmtForm, WorkoutForm, CommentForm
+# from .forms import Account
 from .decorators import user_not_authenticated
 from .tokens import account_activation_token
 
@@ -235,6 +236,7 @@ def profile(request, username):
     
     return redirect("homepage")
 
+'''
 @login_required
 def profile_alt(request, username):
     user_page = User.objects.get(username=username)
@@ -288,6 +290,7 @@ def profile_alt(request, username):
             "account/profile.html",
             {"user_page": user_page, "user_account": user_account},
         )
+'''
 
 @login_required
 def create_event(request):
@@ -324,20 +327,20 @@ def post_event(request):
             for friend_username in friends_list:
                 print(friend_username)
                 if (
-                    models.User.objects.filter(username=friend_username).first()
+                    models.CustomUser.objects.filter(username=friend_username).first()
                     is not None
                 ):
                     event = models.Event.objects.get(title=event_title)
                     obj = models.EventFriendMgmt(
                         event=event,
-                        friend=models.User.objects.filter(
+                        friend=models.CustomUser.objects.filter(
                             username=friend_username
                         ).first(),
                     )
                     print("Event:", event.title)
                     print(
                         "Friend",
-                        models.User.objects.filter(username=friend_username).first(),
+                        models.CustomUser.objects.filter(username=friend_username).first(),
                     )
                     obj.save()
 
@@ -353,7 +356,7 @@ def event_success(request):
     obj = models.Event.objects.order_by("id").latest("id")
     context = {"obj1": obj}
 
-    return render(request, "event_success.html", context)
+    return render(request, "event/event_success.html", context)
 
 def browse_events(request):
     obj_private = models.Event.objects.order_by("id").filter(event_type="private")

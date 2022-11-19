@@ -62,7 +62,7 @@ INSTALLED_APPS = [
     'fontawesomefree',
     'captcha',
 ]
-ACCOUNT_FORMS = {"signup": "bikingapp.forms.MyCustomSignupForm"}
+# ACCOUNT_FORMS = {"signup": "bikingapp.forms.MyCustomSignupForm"}
 SITE_ID = 1
 ACCOUNT_AUTHENTICATION_METHOD = "username"
 ACCOUNT_EMAIL_REQUIRED = True
@@ -70,6 +70,8 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 LOGIN_REDIRECT_URL = "/"
+LOGIN_URL = "login"
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -128,7 +130,7 @@ EMAIL_HOST_USER = "mg060894nyu@gmail.com"  # new
 EMAIL_HOST_PASSWORD = "ecfshgchtgtkgoqb"  # new
 EMAIL_USE_TLS = True  # new
 
-ACCOUNT_EMAIL_SUBJECT_PREFIX = ""
+# ACCOUNT_EMAIL_SUBJECT_PREFIX = ""
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -172,5 +174,4 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = "/static/"
 
-LOGIN_URL = "login"
-LOGIN_REDIRECT_URL = "/"
+

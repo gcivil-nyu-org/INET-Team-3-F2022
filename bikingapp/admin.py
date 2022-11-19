@@ -1,9 +1,10 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import Event, FriendMgmt, Account, Workout, Comment, CustomUser
+from .models import Event, FriendMgmt, Workout, Comment, CustomUser
+# from .models import Account
 from django.contrib.auth.models import User
 
-
+'''
 class AccountInline(admin.StackedInline):
     model = Account
     can_delete = False
@@ -16,6 +17,7 @@ class CustomizedUserAdmin(UserAdmin):
 
 admin.site.unregister(User)
 admin.site.register(User, CustomizedUserAdmin)
+'''
 admin.site.register(Event)
 admin.site.register(CustomUser)
 # admin.site.register(Snippet)
