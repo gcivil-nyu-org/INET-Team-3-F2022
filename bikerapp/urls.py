@@ -20,5 +20,4 @@ urlpatterns = [
     path("", include("bikingapp.urls")),
     path("admin/", admin.site.urls),
     # path('users/', include('users.urls')),
-    re_path(r"^accounts/", include("allauth.urls")),
 ]
