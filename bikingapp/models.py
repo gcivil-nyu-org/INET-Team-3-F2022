@@ -145,7 +145,7 @@ class EventFriendMgmt(models.Model):
 
     event = models.ForeignKey(Event, on_delete=models.SET_NULL, null=True, blank=True)
     friend = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
+        CustomUser,
         related_name="friends2",
         on_delete=models.SET_NULL,
         null=True,
