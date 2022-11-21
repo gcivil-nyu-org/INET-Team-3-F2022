@@ -7,17 +7,19 @@
             <legend class="border-bottom mb-4">Profile Information:</legend>
             <form method="POST" enctype="multipart/form-data">
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-5">
                         {% csrf_token %}
                         <div class="media">
                             {% if user.username == form.instance.username %}
                             <input id="id_image" type="file" name="image" hidden />
                             <label for="id_image">
                                 <img class="rounded-circle account-img profile-image" style="cursor: pointer"
-                                    src="{{ form.instance.image.url }}" title="Upload new image">
+                                    width="180px" height="170px" src="{{ form.instance.image.url }}"
+                                    title="Upload new image">
                             </label>
                             {% else %}
-                            <img class="rounded-circle account-img profile-image" , src="{{ form.instance.image.url }}">
+                            <img width="180px" height="170px" class="rounded-circle account-img profile-image" ,
+                                src="{{ form.instance.image.url }}">
                             {% endif %}
                             <div class="media-body">
                                 <h2 class="account-heading">{{ form.instance.username }}
@@ -31,9 +33,9 @@
                         </div>
                     </div>
                     {% if user.username == form.instance.username %}
-                    <div class="col-6">
+                    <div class="col-7">
                         <fieldset class="form-group">
-                            <legend class="border-bottom mb-4">Edit Profile Information</legend>
+                            <!-- <legend class="border-bottom mb-4">Edit Profile Information</legend> -->
                             <div class="form-group col-md-6 mb-0">
                                 {{ form.first_name|as_crispy_field }}
                             </div>
@@ -49,7 +51,7 @@
                             <a href="{% url 'password_change' %}">Change password?</a>
                         </fieldset>
                         <div class="form-group">
-                            <button class="btn btn-outline-info" name="update_description" type="submit">Update</button>
+                            <button class="btn btn-secondary" name="update_description" type="submit">Update</button>
                         </div>
                     </div>
                     {% endif %}
@@ -75,7 +77,7 @@
                     <li class="list-group-item">
                         <div class="row">
                             <div class="col-10">
-                                <b><a href="/accounts/profile/{{k.friend.username}}">{{k.to_user.username}}</a></b>
+                                <b><a href="/profile/{{k.to_user.username}}">{{k.to_user.username}}</a></b>
                             </div>
                             <div class="col-2">
                                 <button data-friend_username="{{k.to_user.username}}"

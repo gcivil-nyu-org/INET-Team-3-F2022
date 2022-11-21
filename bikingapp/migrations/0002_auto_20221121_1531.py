@@ -8,26 +8,38 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('bikingapp', '0001_initial'),
+        ("bikingapp", "0001_initial"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='friendmgmt',
-            name='friend',
+            model_name="friendmgmt",
+            name="friend",
         ),
         migrations.RemoveField(
-            model_name='friendmgmt',
-            name='user',
+            model_name="friendmgmt",
+            name="user",
         ),
         migrations.AddField(
-            model_name='friendmgmt',
-            name='from_user',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='from_user', to=settings.AUTH_USER_MODEL),
+            model_name="friendmgmt",
+            name="from_user",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="from_user",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='friendmgmt',
-            name='to_user',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='to_user', to=settings.AUTH_USER_MODEL),
+            model_name="friendmgmt",
+            name="to_user",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="to_user",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
     ]

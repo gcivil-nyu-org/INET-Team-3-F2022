@@ -9,58 +9,82 @@ from django.forms import (
     Textarea,
     NumberInput,
 )
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, SetPasswordForm, PasswordResetForm
+from django.contrib.auth.forms import (
+    UserCreationForm,
+    AuthenticationForm,
+    SetPasswordForm,
+    PasswordResetForm,
+)
 from django.contrib.auth import get_user_model
 from .models import Event, Workout, Comment
+
 # from .models import Account
 from .widgets import DatePickerInput, TimePickerInput
 
 
 class UserRegistrationForm(UserCreationForm):
-    email = forms.EmailField(help_text='A valid email address, please.', required=True)
+    email = forms.EmailField(help_text="A valid email address, please.", required=True)
 
     class Meta:
         model = get_user_model()
-        fields = ['first_name', 'last_name', 'username', 'email', 'password1', 'password2']
+        fields = [
+            "first_name",
+            "last_name",
+            "username",
+            "email",
+            "password1",
+            "password2",
+        ]
 
     def save(self, commit=True):
         user = super(UserRegistrationForm, self).save(commit=False)
-        user.email = self.cleaned_data['email']
+        user.email = self.cleaned_data["email"]
         if commit:
             user.save()
 
         return user
 
+
 class UserLoginForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
         super(UserLoginForm, self).__init__(*args, **kwargs)
 
-    username = forms.CharField(widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': 'Username or Email'}),
-        label="Username or Email*")
+    username = forms.CharField(
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "Username or Email"}
+        ),
+        label="Username or Email*",
+    )
 
-    password = forms.CharField(widget=forms.PasswordInput(
-        attrs={'class': 'form-control', 'placeholder': 'Password'}))
+    password = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={"class": "form-control", "placeholder": "Password"}
+        )
+    )
 
     captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox())
+
 
 class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField()
 
     class Meta:
         model = get_user_model()
-        fields = ['first_name', 'last_name', 'email', 'image', 'description']
+        fields = ["first_name", "last_name", "email", "image", "description"]
+
 
 class SetPasswordForm(SetPasswordForm):
     class Meta:
         model = get_user_model()
-        fields = ['new_password1', 'new_password2']
+        fields = ["new_password1", "new_password2"]
+
 
 class PasswordResetForm(PasswordResetForm):
     def __init__(self, *args, **kwargs):
         super(PasswordResetForm, self).__init__(*args, **kwargs)
 
     captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox())
+
 
 class EventForm(forms.ModelForm):
     friends_invited = forms.CharField(label="extra_field", required=False)
@@ -238,6 +262,7 @@ class FriendMgmtForm(forms.Form):
     """
     Manages friends connections
     """
+
     friend_username = forms.CharField(
         max_length=100,
         required=False,
@@ -250,7 +275,8 @@ class FriendMgmtForm(forms.Form):
         ),
     )
 
-'''
+
+"""
 class MyCustomSignupForm(SignupForm):
     pronouns = forms.ChoiceField(
         choices=(
@@ -273,7 +299,8 @@ class MyCustomSignupForm(SignupForm):
         account1.save()
         user.save()
         return user
-'''
+"""
+
 
 class CommentForm(forms.ModelForm):
     class Meta:
