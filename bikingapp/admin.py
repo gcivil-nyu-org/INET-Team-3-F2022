@@ -1,10 +1,11 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import Event, FriendMgmt, Workout, Comment, CustomUser
+
 # from .models import Account
 from django.contrib.auth.models import User
 
-'''
+"""
 class AccountInline(admin.StackedInline):
     model = Account
     can_delete = False
@@ -17,10 +18,11 @@ class CustomizedUserAdmin(UserAdmin):
 
 admin.site.unregister(User)
 admin.site.register(User, CustomizedUserAdmin)
-'''
+"""
 admin.site.register(Event)
 admin.site.register(CustomUser)
 # admin.site.register(Snippet)
+
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
@@ -28,6 +30,6 @@ class CommentAdmin(admin.ModelAdmin):
     list_filter = ("active", "created_on")
     search_fields = ("name", "body")
     actions = ["approve_comments"]
-    
+
     def approve_comments(self, request, queryset):
         queryset.update(active=True)

@@ -58,9 +58,9 @@ INSTALLED_APPS = [
     # "allauth.socialaccount",
     "crispy_forms",
     "widget_tweaks",
-    'tinymce',
-    'fontawesomefree',
-    'captcha',
+    "tinymce",
+    "fontawesomefree",
+    "captcha",
 ]
 # ACCOUNT_FORMS = {"signup": "bikingapp.forms.MyCustomSignupForm"}
 SITE_ID = 1
@@ -119,9 +119,12 @@ DATABASES = {
     }
 }
 
-RECAPTCHA_PUBLIC_KEY = '6LdW5eQiAAAAAMNgaG4Rf2OEGRPPgT6saH1niTRJ'
-RECAPTCHA_PRIVATE_KEY = '6LdW5eQiAAAAAMr3VNIWRtsfU3pRIwA1G2th6JjC'
-SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
+RECAPTCHA_PUBLIC_KEY = "6LdW5eQiAAAAAMNgaG4Rf2OEGRPPgT6saH1niTRJ"
+RECAPTCHA_PRIVATE_KEY = "6LdW5eQiAAAAAMr3VNIWRtsfU3pRIwA1G2th6JjC"
+SILENCED_SYSTEM_CHECKS = ["captcha.recaptcha_test_key_error"]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/"
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"  # new
 EMAIL_HOST = "smtp.gmail.com"  # new
@@ -166,12 +169,10 @@ USE_L10N = True
 
 USE_TZ = True
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = "/static/"
-
-

@@ -26,3 +26,9 @@ header li a:hover {
     text-decoration: underline;
     color: whitesmoke;
 }
+
+.profile-image {
+    width: 125px;
+    height: 125px;
+    padding: 5px;
+  }
