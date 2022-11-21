@@ -1,10 +1,12 @@
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
+import os
+from django.conf import settings
 
 # Create your models here.
 
-
+"""
 class Account(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, unique=True, related_name="profile"
@@ -23,6 +25,7 @@ class Account(models.Model):
 
     def __str__(self):
         return str(self.user.username) + str(self.pronouns)
+"""
 
 
 class Event(models.Model):
@@ -71,7 +74,9 @@ class Workout(models.Model):
 
 
 class BookmarkEvent(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True
+    )
     event = models.ForeignKey(Event, on_delete=models.SET_NULL, null=True)
     date_added = models.DateTimeField(auto_now_add=True)
 
@@ -79,20 +84,50 @@ class BookmarkEvent(models.Model):
         return str(self.user) + str(self.event) + str(self.date_added)
 
 
-class FriendMgmt(models.Model):
-    """
-    friends table
-    """
+class CustomUser(AbstractUser):
+    def image_upload_to(self, instance=None):
+        if instance:
+            return os.path.join("Users", self.username, instance)
+        return None
 
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
-    friend = models.ForeignKey(
-        User, related_name="friends", on_delete=models.SET_NULL, null=True, blank=True
+    STATUS = (
+        ("regular", "regular"),
+        ("subscriber", "subscriber"),
+        ("moderator", "moderator"),
+    )
+    email = models.EmailField(unique=True)
+    status = models.CharField(max_length=100, choices=STATUS, default="regular")
+    description = models.TextField(
+        "Description", max_length=600, default="", blank=True
+    )
+    image = models.ImageField(default="default/user.jpg", upload_to=image_upload_to)
+
+    def __str__(self):
+        return self.username
+
+
+class FriendMgmt(models.Model):
+    from_user = models.ForeignKey(
+        CustomUser,
+        related_name="from_user",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+    to_user = models.ForeignKey(
+        CustomUser,
+        related_name="to_user",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
     )
 
 
 class Comment(models.Model):
     post = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="comments")
-    name = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    name = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True
+    )
     # name = models.CharField(max_length=80)
     # email = models.EmailField()
     body = models.TextField()
@@ -110,5 +145,9 @@ class EventFriendMgmt(models.Model):
 
     event = models.ForeignKey(Event, on_delete=models.SET_NULL, null=True, blank=True)
     friend = models.ForeignKey(
-        User, related_name="friends2", on_delete=models.SET_NULL, null=True, blank=True
+        CustomUser,
+        related_name="friends2",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
     )

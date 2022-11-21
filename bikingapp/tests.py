@@ -1,7 +1,7 @@
 from django.test import TestCase
 from bikingapp.models import Event, BookmarkEvent
-from django.contrib.auth.models import User
-from allauth.account.forms import SignupForm
+from bikingapp.models import CustomUser
+from bikingapp.forms import UserRegistrationForm
 
 
 class QuestionModelTests(TestCase):
@@ -21,7 +21,7 @@ class QuestionModelTests(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_register_user_loads_properly(self):
-        response = self.client.get("/register_user")
+        response = self.client.get("/register")
         self.assertEqual(response.status_code, 200)
 
     def test_event_has_correct_author(self):
@@ -55,7 +55,7 @@ class QuestionModelTests(TestCase):
             title="test event", location="test location", description="test description"
         )
         event.save()
-        user = User.objects.create_user(username="testuser", password="12345")
+        user = CustomUser.objects.create_user(username="testuser", password="12345")
         # login = self.client.login(username="testuser", password="12345")
         bookmark_event = BookmarkEvent.objects.create(user=user, event=event)
         bookmark_event.save()
@@ -67,7 +67,7 @@ class QuestionModelTests(TestCase):
             title="test event", location="test location", description="test description"
         )
         event.save()
-        user = User.objects.create_user(username="testuser", password="12345")
+        user = CustomUser.objects.create_user(username="testuser", password="12345")
         # login = self.client.login(username="testuser", password="12345")
         bookmark_event = BookmarkEvent.objects.create(user=user, event=event)
         bookmark_event.save()
@@ -75,14 +75,14 @@ class QuestionModelTests(TestCase):
 
     def test_create_user(self):
         """test if account is being created"""
-        user = User.objects.create_user(username="testuser", password="12345")
+        user = CustomUser.objects.create_user(username="testuser", password="12345")
         user.save()
-        get_user = User.objects.get(username="testuser")
+        get_user = CustomUser.objects.get(username="testuser")
         self.assertEqual("testuser", get_user.username)
 
     def test_create_event_after_creating_user(self):
         """test if a new user is able to create events"""
-        user = User.objects.create_user(username="testuser", password="12345")
+        user = CustomUser.objects.create_user(username="testuser", password="12345")
         user.save()
         event = Event.objects.create(
             title="test event",
@@ -94,8 +94,8 @@ class QuestionModelTests(TestCase):
         self.assertEqual(user.username, event.created_by)
 
     def setUp(self):
-        self.form = SignupForm
-        self.user = User.objects.create_user(
+        self.form = UserRegistrationForm
+        self.user = CustomUser.objects.create_user(
             username="test", password="test", email="test@test.com"
         )
         self.request = self.client.get("signup")
@@ -123,7 +123,7 @@ class QuestionModelTests(TestCase):
         assert response.status_code == 404
 
     def test_cant_login_with_username_that_is_taken(self):
-        form = SignupForm(
+        form = UserRegistrationForm(
             {
                 "username": "test",
                 "first_name": "James",
@@ -152,7 +152,7 @@ class QuestionModelTests(TestCase):
     #     self.assertFormError(form, "email", "A user with that email already exists.")
 
     def test_form_errors(self):
-        form = SignupForm(
+        form = UserRegistrationForm(
             {
                 "username": "test",
                 "first_name": "James",

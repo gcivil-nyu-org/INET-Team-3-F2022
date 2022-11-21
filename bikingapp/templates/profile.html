@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="content-section col-lg-12 col-md-12 col-sm-12 tutorial-style" style="min-height:65vh;">
+    <div class="row">
+        <div class="col-9">
+            <legend class="border-bottom mb-4">Profile Information:</legend>
+            <form method="POST" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-5">
+                        {% csrf_token %}
+                        <div class="media">
+                            {% if user.username == form.instance.username %}
+                            <input id="id_image" type="file" name="image" hidden />
+                            <label for="id_image">
+                                <img class="rounded-circle account-img profile-image" style="cursor: pointer"
+                                    width="180px" height="170px" src="{{ form.instance.image.url }}"
+                                    title="Upload new image">
+                            </label>
+                            {% else %}
+                            <img width="180px" height="170px" class="rounded-circle account-img profile-image" ,
+                                src="{{ form.instance.image.url }}">
+                            {% endif %}
+                            <div class="media-body">
+                                <h2 class="account-heading">{{ form.instance.username }}
+                                    <small class="text-muted">({{ form.instance.status }})</small>
+                                </h2>
+                                <p class="text-secondary">{{ form.instance.first_name }} {{ form.instance.last_name }}
+                                </p>
+                                <p class="text-secondary">{{ form.instance.email }}</p>
+                                <p class="text-secondary">{{ form.instance.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% if user.username == form.instance.username %}
+                    <div class="col-7">
+                        <fieldset class="form-group">
+                            <!-- <legend class="border-bottom mb-4">Edit Profile Information</legend> -->
+                            <div class="form-group col-md-6 mb-0">
+                                {{ form.first_name|as_crispy_field }}
+                            </div>
+                            <div class="form-group col-md-6 mb-0">
+                                {{ form.last_name|as_crispy_field }}
+                            </div>
+                            <div class="form-group col-md-6 mb-0">
+                                {{ form.email|as_crispy_field }}
+                            </div>
+                            <div class="form-group col-md-6 mb-0">
+                                {{ form.description|as_crispy_field }}
+                            </div>
+                            <a href="{% url 'password_change' %}">Change password?</a>
+                        </fieldset>
+                        <div class="form-group">
+                            <button class="btn btn-secondary" name="update_description" type="submit">Update</button>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+
+
+            </form>
+        </div>
+
+        <div class="col-3">
+            {% if user.username == form.instance.username %}
+            <div class="card" style="margin: 15px; z-index: 99; max-width: 100%; min-width: 25%;">
+                <h4 class="card-title" style="text-align: center; text-transform: capitalize;">Friends</h4>
+                <h5 class=" card-subtitle list-group list-group-flush" style="padding: 2%;">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        {{ friends.form }}
+                        <input class="btn btn-primary btn-sm" name="add_friends" type="submit" value="Search">
+                    </form>
+                </h5>
+                {% for k in friends.friends_list %}
+                <ul class="card-body list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-10">
+                                <b><a href="/profile/{{k.to_user.username}}">{{k.to_user.username}}</a></b>
+                            </div>
+                            <div class="col-2">
+                                <button data-friend_username="{{k.to_user.username}}"
+                                    class="btn btn-danger add-btn remove-friend"
+                                    style="padding: 5px;padding-top:1px;padding-bottom:3px"><svg
+                                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-x" viewBox="0 0 16 16">
+                                        <path
+                                            d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                                    </svg></button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

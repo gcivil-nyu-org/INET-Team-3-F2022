@@ -53,13 +53,16 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.sites",
-    "allauth",
-    "allauth.account",
-    "allauth.socialaccount",
+    # "allauth",
+    # "allauth.account",
+    # "allauth.socialaccount",
     "crispy_forms",
     "widget_tweaks",
+    "tinymce",
+    "fontawesomefree",
+    "captcha",
 ]
-ACCOUNT_FORMS = {"signup": "bikingapp.forms.MyCustomSignupForm"}
+# ACCOUNT_FORMS = {"signup": "bikingapp.forms.MyCustomSignupForm"}
 SITE_ID = 1
 ACCOUNT_AUTHENTICATION_METHOD = "username"
 ACCOUNT_EMAIL_REQUIRED = True
@@ -67,6 +70,8 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 LOGIN_REDIRECT_URL = "/"
+LOGIN_URL = "login"
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -98,7 +103,7 @@ TEMPLATES = [
 ]
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
-    "allauth.account.auth_backends.AuthenticationBackend",
+    # "allauth.account.auth_backends.AuthenticationBackend",
 ]
 
 WSGI_APPLICATION = "bikerapp.wsgi.application"
@@ -113,17 +118,27 @@ DATABASES = {
         "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
     }
 }
-MAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"  # new
+
+RECAPTCHA_PUBLIC_KEY = "6LdW5eQiAAAAAMNgaG4Rf2OEGRPPgT6saH1niTRJ"
+RECAPTCHA_PRIVATE_KEY = "6LdW5eQiAAAAAMr3VNIWRtsfU3pRIwA1G2th6JjC"
+SILENCED_SYSTEM_CHECKS = ["captcha.recaptcha_test_key_error"]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/"
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"  # new
 EMAIL_HOST = "smtp.gmail.com"  # new
 EMAIL_PORT = 587  # new
-EMAIL_HOST_USER = "dwarkani.abhinav1999@gmail.com"  # new
-EMAIL_HOST_PASSWORD = "yxpshrffgvdxdgox"  # new
+EMAIL_HOST_USER = "mg060894nyu@gmail.com"  # new
+EMAIL_HOST_PASSWORD = "ecfshgchtgtkgoqb"  # new
 EMAIL_USE_TLS = True  # new
 
-ACCOUNT_EMAIL_SUBJECT_PREFIX = ""
+# ACCOUNT_EMAIL_SUBJECT_PREFIX = ""
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
+
+AUTH_USER_MODEL = "bikingapp.CustomUser"
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -154,11 +169,10 @@ USE_L10N = True
 
 USE_TZ = True
 
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = "/static/"
-
-login_url = "/accounts/login/"

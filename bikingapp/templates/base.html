@@ -34,29 +34,33 @@
 </head>
 
 <body>
-  <header>
-    <nav role="navigation">
-      <ul>
-        <li><a href="/"> Home </a></li>
-        <li><a href="/log_workout"> Log Workout </a></li>
-        <li><a href="/workout_history"> Workout History </a></li>
-        <li><a href="/create_event"> Create Event </a></li>
-        <li><a href="/browse_events"> Browse Events </a></li>
-        <li><a href="/map"> Map </a></li>
-        {% if user.is_authenticated %}
-        <li><a href="/accounts/profile/{{username}}"> Profile </a></li>
-        <!-- <li><a href="/add_friends"> Add Friends  </a></li> -->
-        <li><a href="/accounts/logout"> Log Out </a></li>
-        {% else %}
-        <li><a href="/accounts/signup"> Register </a></li>
-        <li><a href="/accounts/login"> Log In </a></li>
-        {% endif %}
-      </ul>
-    </nav>
-  </header>
-  {% block content %} {% endblock content %}
-  <script type="text/javascript">
-    var bookmarkBtns = document.getElementsByClassName("event-bookmark");
+    <header>
+        <nav role = "navigation">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/log_workout"> Log Workout </a></li>
+                <li><a href="/workout_history"> Workout History </a></li>
+                <li><a href="/create_event">Create Events</a></li>
+                <li><a href="/browse_events">Browse Events</a></li>
+                <li><a href="/map"> Map </a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'profile' user.username %}">Profile</a></li>
+                <li><a href="/logout">Log Out</a></li>
+                {% else %}
+                <li><a href="/register">Register</a></li>
+                <li><a href="/login">Log In</a></li>
+                {% endif %}
+            </ul>
+        </nav>  
+    </header>
+   
+    <div style = "margin-top: 100px; margin-left: 40px">
+            {% include 'messaging.html' %}
+            {% block content %}
+            {% endblock content%}
+    </div>
+    <script type="text/javascript">
+        var bookmarkBtns = document.getElementsByClassName("event-bookmark");
 
     for (var i = 0; i < bookmarkBtns.length; i++) {
       bookmarkBtns[i].addEventListener("click", function () {
