@@ -92,7 +92,6 @@ class CustomUser(AbstractUser):
         ('subscriber', 'subscriber'),
         ('moderator', 'moderator'),
     )
-
     email = models.EmailField(unique=True)
     status = models.CharField(max_length=100, choices=STATUS, default='regular')
     description = models.TextField("Description", max_length=600, default='', blank=True)
@@ -102,14 +101,8 @@ class CustomUser(AbstractUser):
         return self.username
 
 class FriendMgmt(models.Model):
-    """
-    friends table
-    """
-
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
-    friend = models.ForeignKey(
-        settings.AUTH_USER_MODEL, related_name="friends", on_delete=models.SET_NULL, null=True, blank=True
-    )
+    from_user = models.ForeignKey(CustomUser,related_name="from_user", on_delete=models.SET_NULL, null=True, blank=True)
+    to_user = models.ForeignKey(CustomUser, related_name="to_user", on_delete=models.SET_NULL, null=True, blank=True)
 
 
 class Comment(models.Model):

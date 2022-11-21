@@ -238,18 +238,6 @@ class FriendMgmtForm(forms.Form):
     """
     Manages friends connections
     """
-
-    # class Meta:
-    #     model = Event
-    #     fields = ("friend_username")
-    #     widgets = {
-    #         "friend_username":TextInput(
-    #             attrs={
-    #                 "class": "form-control",
-    #                 "style": "max-width: 88%; margin-bottom: 10px;display: inline-block;",  # noqa: E501
-    #             }
-    #         ),
-    #     }
     friend_username = forms.CharField(
         max_length=100,
         required=False,
@@ -257,7 +245,7 @@ class FriendMgmtForm(forms.Form):
         widget=forms.TextInput(
             attrs={
                 "placeholder": "Username",
-                "style": "width:45%;border: 1px solid gray; border-radius:5px;padding-bottom:4px;padding-left:6px;margin-left:10px",  # noqa: E501
+                "style": "width:50%;border: 1px solid gray; border-radius:5px;padding-bottom:4px;padding-left:6px;margin-left:10px",  # noqa: E501
             }
         ),
     )

@@ -214,24 +214,49 @@ def passwordResetConfirm(request, uidb64, token):
 @login_required
 def profile(request, username):
     if request.method == "POST":
-        user = request.user
-        form = UserUpdateForm(request.POST, request.FILES, instance=user)
-        if form.is_valid():
-            user_form = form.save()
-            messages.success(request, f'{user_form.username}, Your profile has been updated!')
-            return redirect("profile", user_form.username)
+        if 'update_description' in request.POST:    
+            user = request.user
+            form = UserUpdateForm(request.POST, request.FILES, instance=user)
+            if form.is_valid():
+                user_form = form.save()
+                messages.success(request, f'{user_form.username}, Your profile has been updated!')
+                return redirect("profile", user_form.username)
 
-        for error in list(form.errors.values()):
-            messages.error(request, error)
-
+            for error in list(form.errors.values()):
+                messages.error(request, error)
+        elif 'add_friends' in request.POST:
+            form = FriendMgmtForm(request.POST)
+            if form.is_valid():
+                friend_username = form.cleaned_data["friend_username"]
+                if (
+                    models.CustomUser.objects.filter(username=friend_username).first()
+                    is not None
+                ):
+                    obj = models.FriendMgmt(
+                        from_user=request.user,
+                        to_user=models.CustomUser.objects.filter(
+                            username=friend_username
+                        ).first(),
+                    )
+                    if not models.FriendMgmt.objects.filter(
+                        from_user=request.user,
+                        to_user=models.CustomUser.objects.filter(
+                            username=friend_username
+                        ).first(),
+                    ).exists():
+                        obj.save()
+                return HttpResponseRedirect("/profile/"+username)
+    else:
+        friendsform = FriendMgmtForm()
     user = get_user_model().objects.filter(username=username).first()
     if user:
-        form = UserUpdateForm(instance=user)
-        form.fields['description'].widget.attrs = {'rows': 1}
+        update_profile_form = UserUpdateForm(instance=user)
+        update_profile_form.fields['description'].widget.attrs = {'rows': 1}
+        friends1 = models.FriendMgmt.objects.filter(from_user=request.user)
         return render(
             request=request,
             template_name="profile.html",
-            context={"form": form}
+            context={"form": update_profile_form, "friends": {"form": friendsform, "friends_list": friends1}}
             )
     
     return redirect("homepage")
@@ -425,21 +450,17 @@ def bookmark_event(request):
 
 
 def remove_friend(request):
-    print(request.body)
+    #print(request.body)
     data = json.loads(request.body)
     friend_username = data["friend_username"]
-    print("Friend Username:", friend_username)
+    #print("Friend Username:", friend_username)
     user = request.user
-    friend = models.User.objects.filter(username=friend_username).first()
+    friend = models.CustomUser.objects.filter(username=friend_username).first()
     if user != friend:
-        print("friend user object", friend)
-
-        friend1 = models.FriendMgmt.objects.get(user=request.user, friend=friend)
-
-        print("Friend management object user", friend1.user)
-
+        #print("friend user object", friend)
+        friend1 = models.FriendMgmt.objects.get(from_user=request.user, to_user=friend)
+        #print("Friend management object user", friend1.from_user)
         friend1.delete()
-
         return JsonResponse("Friend was deleted", safe=False)
     else:
         return JsonResponse("Friend can't be deleted", safe=False)
