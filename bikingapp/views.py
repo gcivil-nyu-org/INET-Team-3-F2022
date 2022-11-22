@@ -16,7 +16,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.core.mail import EmailMessage
 from django.db.models.query_utils import Q
-from .models import Event,Comment
+from .models import Event, Comment
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import (
     EventForm,
@@ -461,16 +461,18 @@ def view_event(request, id1):
     obj = models.Event.objects.order_by("id").filter(id=id1)
     post = get_object_or_404(Event, id=id1)
     comments = post.comments.filter(active=True).order_by("-created_on")
-    new_comment=None
+    new_comment = None
     # Comment posted
     if request.method == "POST":
         comment_form = CommentForm(request.POST or None)
         if comment_form.is_valid():
-            body=request.POST.get('body')
-            new_comment=Comment.objects.create(post=post,name=request.user,body=body)
+            body = request.POST.get("body")
+            new_comment = Comment.objects.create(
+                post=post, name=request.user, body=body
+            )
             new_comment.save()
             comment_form = CommentForm()
-           
+
     else:
         comment_form = CommentForm()
     context = {
