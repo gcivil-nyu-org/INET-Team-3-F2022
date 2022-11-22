@@ -50,7 +50,7 @@
                     class="btn btn-danger add-btn event-bookmark">Unbookmark</button>
                 {% endif %}
                 {% else %}
-                <a href="/accounts/login" class="btn btn-secondary">Login to Bookmark this event</a>
+                <a href="/login" class="btn btn-secondary">Login to Bookmark this event</a>
                 {% endif %}
             </div>
             {% endfor %}
@@ -99,7 +99,8 @@
             {% for obj in obj3 %}
             <!-- <li> -->
             <div class="card card1 custom" style="margin: 15px; max-width: 25%; min-width: 25%;">
-                <h4 class="card-title" style="text-align: center; text-transform: capitalize;"><b>{{obj.event.title}}</b></h4>
+                <h4 class="card-title" style="text-align: center; text-transform: capitalize;">
+                    <b>{{obj.event.title}}</b></h4>
                 <a href="/browse_events/{{obj.event.id}}" style="text-decoration: none; color: black;">
                     <ul class="card-body list-group list-group-flush">
                         <li class="list-group-item"><b>Location:</b> {{obj.event.location}}</li>
@@ -108,7 +109,7 @@
                         <li class="list-group-item"><b>Event Time:</b> {{obj.event.time}}</li>
                         <li class="list-group-item"><b>Created By:</b> {{obj.event.created_by}}</li>
                         <li class="list-group-item"><b>Event Type:</b> {{obj.event.event_type}}</li>
-                        
+
                     </ul>
                 </a>
                 {% if obj.event.id not in bookmarked_events %}
