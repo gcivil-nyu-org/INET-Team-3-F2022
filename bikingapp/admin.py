@@ -1,10 +1,11 @@
 from django.contrib import admin
-from .models import Event, FriendMgmt, Workout, Comment, CustomUser
+from .models import Event, FriendMgmt, Workout, Comment, CustomUser, Post
 
 admin.site.register(Event)
 admin.site.register(FriendMgmt)
 admin.site.register(Workout)
 admin.site.register(CustomUser)
+admin.site.register(Post)
 # admin.site.register(Snippet)
 
 

@@ -43,7 +43,9 @@
                 <li><a href="/create_event">Create Events</a></li>
                 <li><a href="/browse_events">Browse Events</a></li>
                 <li><a href="/map"> Map </a></li>
+                <li><a href="/post">Discussion Forum</a></li>
                 {% if user.is_authenticated %}
+                <li><a href="/post/new">Create Post</a></li>
                 <li><a href="{% url 'profile' user.username %}">Profile</a></li>
                 <li><a href="/logout">Log Out</a></li>
                 {% else %}
