@@ -1,5 +1,12 @@
 from django.urls import path
 from . import views
+from .views import (
+    PostListView,
+    PostDetailView,
+    PostCreateView,
+    PostUpdateView,
+    PostDeleteView,
+)
 
 urlpatterns = [
     path("", views.home, name="homepage"),
@@ -30,4 +37,9 @@ urlpatterns = [
     # path("add_friends", views.view_friends),
     path("remove_friend/", views.remove_friend),
     path("map", views.display_map),
+    path("post", PostListView.as_view(), name="forum"),
+    path("post/<int:pk>/", PostDetailView.as_view(), name="post-detail"),
+    path("post/new/", PostCreateView.as_view(), name="post-create"),
+    path("post/<int:pk>/update/", PostUpdateView.as_view(), name="post-update"),
+    path("post/<int:pk>/delete/", PostDeleteView.as_view(), name="post-delete"),
 ]
