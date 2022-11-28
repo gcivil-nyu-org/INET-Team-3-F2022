@@ -297,6 +297,8 @@ def profile(request, username):
                 return HttpResponseRedirect("/profile/" + username)
     else:
         friendsform = FriendMgmtForm()
+    created_events = models.Event.objects.filter(created_by=username)
+    bookmarked_events = models.BookmarkEvent.objects.filter(user=request.user)
     user = get_user_model().objects.filter(username=username).first()
     if user:
         update_profile_form = UserUpdateForm(instance=user)
@@ -308,6 +310,9 @@ def profile(request, username):
             context={
                 "form": update_profile_form,
                 "friends": {"form": friendsform, "friends_list": friends1},
+                "created_events": created_events,
+                "bookmarked_events": bookmarked_events,
+                "page_user": user,
             },
         )
 
