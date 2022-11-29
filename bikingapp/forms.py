@@ -51,9 +51,9 @@ class UserLoginForm(AuthenticationForm):
 
     username = forms.CharField(
         widget=forms.TextInput(
-            attrs={"class": "form-control", "placeholder": "Username or Email"}
+            attrs={"class": "form-control", "placeholder": "Username"}
         ),
-        label="Username or Email*",
+        label="Username",
     )
 
     password = forms.CharField(
@@ -66,11 +66,11 @@ class UserLoginForm(AuthenticationForm):
 
 
 class UserUpdateForm(forms.ModelForm):
-    email = forms.EmailField()
+    # email = forms.EmailField()
 
     class Meta:
         model = get_user_model()
-        fields = ["first_name", "last_name", "email", "image", "description"]
+        fields = ["first_name", "last_name", "image", "description"]
 
 
 class SetPasswordForm(SetPasswordForm):
