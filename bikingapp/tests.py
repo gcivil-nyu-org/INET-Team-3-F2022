@@ -206,13 +206,24 @@ class QuestionModelTests(TestCase):
         work.save()
         self.assertEqual("test description", work.description)
 
-    def test_workout_has_correct_desc(self):
+    def test_workout_has_correct_starttime(self):
         """Events are given title correctly when saving"""
         work = Workout.objects.create(
             title="test title",
             miles="1",
             description="test description",
-            date="2022-11-15",
+            time_start="16:11:40",
         )
         work.save()
-        self.assertEqual("test description", work.description)
+        self.assertEqual("16:11:40", work.time_start)
+
+    def test_workout_has_correct_endtime(self):
+        """Events are given title correctly when saving"""
+        work = Workout.objects.create(
+            title="test title",
+            miles="1",
+            description="test description",
+            time_end="16:50:40",
+        )
+        work.save()
+        self.assertEqual("16:50:40", work.time_end)
