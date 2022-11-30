@@ -1,5 +1,5 @@
 from django.test import TestCase
-from bikingapp.models import Event, BookmarkEvent,Workout
+from bikingapp.models import Event, BookmarkEvent, Workout
 from bikingapp.models import CustomUser
 from bikingapp.forms import UserRegistrationForm
 
@@ -164,6 +164,7 @@ class QuestionModelTests(TestCase):
         )
         self.assertFalse(form.is_valid())
         self.assertEquals(form.errors["email"], ["Enter a valid email address."])
+
     def test_workout_has_correct_title(self):
         """Events are given title correctly when saving"""
         work = Workout.objects.create(
@@ -171,32 +172,47 @@ class QuestionModelTests(TestCase):
         )
         work.save()
         self.assertEqual("test title", work.title)
+
     def test_workout_has_correct_date(self):
         """Events are given title correctly when saving"""
         work = Workout.objects.create(
-            title="test title", miles="1", description="test description",date="2022-11-15"
+            title="test title",
+            miles="1",
+            description="test description",
+            date="2022-11-15",
         )
         work.save()
         self.assertEqual("2022-11-15", work.date)
+
     def test_workout_has_correct_miles(self):
         """Events are given title correctly when saving"""
         work = Workout.objects.create(
-            title="test title", miles="1", description="test description",date="2022-11-15"
+            title="test title",
+            miles="1",
+            description="test description",
+            date="2022-11-15",
         )
         work.save()
         self.assertEqual("1", work.miles)
+
     def test_workout_has_correct_desc(self):
         """Events are given title correctly when saving"""
         work = Workout.objects.create(
-            title="test title", miles="1", description="test description",date="2022-11-15"
+            title="test title",
+            miles="1",
+            description="test description",
+            date="2022-11-15",
         )
         work.save()
         self.assertEqual("test description", work.description)
+
     def test_workout_has_correct_desc(self):
         """Events are given title correctly when saving"""
         work = Workout.objects.create(
-            title="test title", miles="1", description="test description",date="2022-11-15"
+            title="test title",
+            miles="1",
+            description="test description",
+            date="2022-11-15",
         )
         work.save()
         self.assertEqual("test description", work.description)
-    
