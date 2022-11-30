@@ -16,9 +16,34 @@ class QuestionModelTests(TestCase):
         response = self.client.get("/browse_events")
         self.assertEqual(response.status_code, 200)
 
+    def test_create_events_notloads_properly(self):
+        self.client.login(username="test", password="test")
+        response = self.client.get("/create_event")
+        self.assertEqual(response.status_code, 200)
+
     def test_map_loads_properly(self):
         response = self.client.get("/map")
         self.assertEqual(response.status_code, 200)
+
+    def test_workout_history_loads_properly(self):
+        self.client.login(username="test", password="test")
+        response = self.client.get("/workout_history")
+        self.assertEqual(response.status_code, 200)
+
+    def test_log_workout_loads_properly(self):
+        self.client.login(username="test", password="test")
+        response = self.client.get("/log_workout")
+        self.assertEqual(response.status_code, 200)
+
+    def test_discussion_loads_properly(self):
+        self.client.login(username="test", password="test")
+        response = self.client.get("/post")
+        self.assertEqual(response.status_code, 200)
+
+    def test_discussion_new_notloads_properly(self):
+        self.client.login(username="test", password="test")
+        response = self.client.get("/post/new")
+        self.assertEqual(response.status_code, 301)
 
     def test_register_user_loads_properly(self):
         response = self.client.get("/register")
