@@ -1,5 +1,5 @@
 from django.test import TestCase
-from bikingapp.models import Event, BookmarkEvent
+from bikingapp.models import Event, BookmarkEvent, Workout
 from bikingapp.models import CustomUser
 from bikingapp.forms import UserRegistrationForm
 
@@ -16,9 +16,34 @@ class QuestionModelTests(TestCase):
         response = self.client.get("/browse_events")
         self.assertEqual(response.status_code, 200)
 
+    def test_create_events_notloads_properly(self):
+        self.client.login(username="test", password="test")
+        response = self.client.get("/create_event")
+        self.assertEqual(response.status_code, 200)
+
     def test_map_loads_properly(self):
         response = self.client.get("/map")
         self.assertEqual(response.status_code, 200)
+
+    def test_workout_history_loads_properly(self):
+        self.client.login(username="test", password="test")
+        response = self.client.get("/workout_history")
+        self.assertEqual(response.status_code, 200)
+
+    def test_log_workout_loads_properly(self):
+        self.client.login(username="test", password="test")
+        response = self.client.get("/log_workout")
+        self.assertEqual(response.status_code, 200)
+
+    def test_discussion_loads_properly(self):
+        self.client.login(username="test", password="test")
+        response = self.client.get("/post")
+        self.assertEqual(response.status_code, 200)
+
+    def test_discussion_new_notloads_properly(self):
+        self.client.login(username="test", password="test")
+        response = self.client.get("/post/new")
+        self.assertEqual(response.status_code, 301)
 
     def test_register_user_loads_properly(self):
         response = self.client.get("/register")
@@ -164,3 +189,85 @@ class QuestionModelTests(TestCase):
         )
         self.assertFalse(form.is_valid())
         self.assertEquals(form.errors["email"], ["Enter a valid email address."])
+
+    def test_workout_has_correct_title(self):
+        """Events are given title correctly when saving"""
+        work = Workout.objects.create(
+            title="test title", miles="1", description="test description"
+        )
+        work.save()
+        self.assertEqual("test title", work.title)
+
+    def test_workout_has_correct_date(self):
+        """Events are given title correctly when saving"""
+        work = Workout.objects.create(
+            title="test title",
+            miles="1",
+            description="test description",
+            date="2022-11-15",
+        )
+        work.save()
+        self.assertEqual("2022-11-15", work.date)
+
+    def test_workout_has_correct_miles(self):
+        """Events are given title correctly when saving"""
+        work = Workout.objects.create(
+            title="test title",
+            miles="1",
+            description="test description",
+            date="2022-11-15",
+        )
+        work.save()
+        self.assertEqual("1", work.miles)
+
+    def test_workout_has_correct_desc(self):
+        """Events are given title correctly when saving"""
+        work = Workout.objects.create(
+            title="test title",
+            miles="1",
+            description="test description",
+            date="2022-11-15",
+        )
+        work.save()
+        self.assertEqual("test description", work.description)
+
+    def test_workout_has_correct_starttime(self):
+        """Events are given title correctly when saving"""
+        work = Workout.objects.create(
+            title="test title",
+            miles="1",
+            description="test description",
+            time_start="16:11:40",
+        )
+        work.save()
+        self.assertEqual("16:11:40", work.time_start)
+
+    def test_workout_has_correct_endtime(self):
+        """Events are given title correctly when saving"""
+        work = Workout.objects.create(
+            title="test title",
+            miles="1",
+            description="test description",
+            time_end="16:50:40",
+        )
+        work.save()
+        self.assertEqual("16:50:40", work.time_end)
+
+    def test_first_name_label(self):
+        author = CustomUser.objects.get(id=1)
+        field_label = author._meta.get_field("first_name").verbose_name
+        self.assertEqual(field_label, "first name")
+
+    def test_last_name_label(self):
+        author = CustomUser.objects.get(id=1)
+        field_label = author._meta.get_field("last_name").verbose_name
+        self.assertEqual(field_label, "last name")
+
+    def test_desc_name_label(self):
+        author = CustomUser.objects.get(id=1)
+        field_label = author._meta.get_field("description").verbose_name
+        self.assertEqual(field_label, "Description")
+    def _test_get_logout(self, url):
+        self.logout()
+        self.response = self.client.get(url)
+        self.assertEqual(self.response.status_code, 302)
