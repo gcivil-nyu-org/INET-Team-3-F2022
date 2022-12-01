@@ -1,7 +1,7 @@
 from django.test import TestCase
-from bikingapp.models import Event, BookmarkEvent, Workout
+from bikingapp.models import Event, BookmarkEvent, Workout, Comment
 from bikingapp.models import CustomUser
-from bikingapp.forms import UserRegistrationForm
+from bikingapp.forms import UserRegistrationForm, CommentForm
 
 
 class QuestionModelTests(TestCase):
@@ -252,3 +252,18 @@ class QuestionModelTests(TestCase):
         )
         work.save()
         self.assertEqual("16:50:40", work.time_end)
+
+    def test_first_name_label(self):
+        author = CustomUser.objects.get(id=1)
+        field_label = author._meta.get_field("first_name").verbose_name
+        self.assertEqual(field_label, "first name")
+
+    def test_last_name_label(self):
+        author = CustomUser.objects.get(id=1)
+        field_label = author._meta.get_field("last_name").verbose_name
+        self.assertEqual(field_label, "last name")
+
+    def test_desc_name_label(self):
+        author = CustomUser.objects.get(id=1)
+        field_label = author._meta.get_field("description").verbose_name
+        self.assertEqual(field_label, "Description")
