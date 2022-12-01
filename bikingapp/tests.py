@@ -1,7 +1,7 @@
 from django.test import TestCase
-from bikingapp.models import Event, BookmarkEvent, Workout, Comment
+from bikingapp.models import Event, BookmarkEvent, Workout
 from bikingapp.models import CustomUser
-from bikingapp.forms import UserRegistrationForm, CommentForm
+from bikingapp.forms import UserRegistrationForm
 
 
 class QuestionModelTests(TestCase):
