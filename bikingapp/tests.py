@@ -270,4 +270,4 @@ class QuestionModelTests(TestCase):
     def test_first_name_max_length(self):
         author = CustomUser.objects.get(id=1)
         max_length = author._meta.get_field('first_name').max_length
-        self.assertEqual(max_length, 150)
+        self.assertFalse(max_length, 150)
