@@ -267,7 +267,7 @@ class QuestionModelTests(TestCase):
         author = CustomUser.objects.get(id=1)
         field_label = author._meta.get_field("description").verbose_name
         self.assertEqual(field_label, "Description")
-    def test_first_name_max_length(self):
-        author = CustomUser.objects.get(id=1)
-        max_length = author._meta.get_field('first_name').max_length
-        self.assertFalse(max_length, 150)
+    def _test_get_logout(self, url):
+        self.logout()
+        self.response = self.client.get(url)
+        self.assertEqual(self.response.status_code, 302)
