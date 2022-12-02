@@ -656,6 +656,7 @@ class PostDetailView(FormMixin, DetailView):
         context["comments"] = models.DiscForumComment.objects.order_by("id").filter(
             post=self.object
         )
+        context["userLoggedIn"] = not self.request.user.is_anonymous
         return context
 
     def get_success_url(self):
