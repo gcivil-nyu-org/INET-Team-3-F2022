@@ -282,7 +282,7 @@ def profile(request, username):
                 friend_username = form.cleaned_data["friend_username"]
                 if (
                     models.CustomUser.objects.filter(username=friend_username).first()
-                    is not None
+                    is not None and friend_username != request.user.username
                 ):
                     obj = models.FriendMgmt(
                         from_user=request.user,
