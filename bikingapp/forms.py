@@ -16,7 +16,7 @@ from django.contrib.auth.forms import (
     PasswordResetForm,
 )
 from django.contrib.auth import get_user_model
-from .models import Event, Workout, Comment
+from .models import Event, Workout, Comment, DiscForumComment
 
 # from .models import Account
 from .widgets import DatePickerInput, TimePickerInput
@@ -305,4 +305,9 @@ class MyCustomSignupForm(SignupForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
+        fields = ("body",)
+
+class DiscForumCommentForm(forms.ModelForm):
+    class Meta:
+        model = DiscForumComment
         fields = ("body",)
