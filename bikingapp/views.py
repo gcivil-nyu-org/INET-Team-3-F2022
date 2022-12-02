@@ -20,6 +20,7 @@ from .models import Event, Comment, Post
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import (
     EventForm,
+    IssueForm,
     UserRegistrationForm,
     UserLoginForm,
     UserUpdateForm,
@@ -683,3 +684,37 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == post.author:
             return True
         return False
+
+def report_issue(request):
+    
+    form = IssueForm(
+        {
+            "author": request.user,
+        }
+    )
+    return render(request, "issue_form.html", {"form": form})
+
+@login_required
+def post_issue(request):
+    """
+    Attempt POST request after user submits form
+    """
+    print("\n\nIN POST\n\n")
+    if request.method == "POST":
+        form = IssueForm(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+            return redirect(issue_success)
+        else:
+            print("Invalid Form")
+
+
+@login_required
+def issue_success(request):
+    """
+    If form is valid, display workout success page
+    """
+    obj = models.Issue.objects.order_by("id").latest("id")
+    context = {"obj1": obj}
+
+    return render(request, "issue_success.html", context)

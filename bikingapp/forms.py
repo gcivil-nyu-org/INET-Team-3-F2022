@@ -1,3 +1,4 @@
+# from bikingapp.views import IssueCreateView
 from captcha.fields import ReCaptchaField
 from captcha.widgets import ReCaptchaV2Checkbox
 from django import forms
@@ -16,7 +17,7 @@ from django.contrib.auth.forms import (
     PasswordResetForm,
 )
 from django.contrib.auth import get_user_model
-from .models import Event, Workout, Comment
+from .models import Event, Workout, Comment, Issue
 
 # from .models import Account
 from .widgets import DatePickerInput, TimePickerInput
@@ -306,3 +307,49 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ("body",)
+
+class IssueForm(forms.ModelForm):
+    class Meta:
+        model = Issue
+        fields = (
+            "title",
+            "content",
+            "author",
+            "latitude",
+            "longitude"
+        )
+        widgets = {
+            "title": TextInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "max-width: 92%; margin-bottom: 10px;display: inline-block;",  # noqa: E501
+                    "placeholder": "Title",
+                }
+            ),
+            "content": Textarea(
+                attrs={
+                    "class": "form-control",
+                    "rows": 4,
+                    "style": "max-width: 100%; margin-bottom: 10px;",
+                }
+            ),
+            "author": TextInput(
+                attrs={
+                    "class": "form-control",
+                    "readonly": "readonly",
+                    "style": "max-width: 65%; display: inline-block;",
+                }
+            ),
+            "latitude": NumberInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "max-width: 92%; margin-bottom: 10px;display: inline-block;",  # noqa: E501
+                }
+            ),
+            "longitude": NumberInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "max-width: 92%; margin-bottom: 10px;display: inline-block;",  # noqa: E501
+                }
+            ),
+        }

@@ -153,7 +153,6 @@ class EventFriendMgmt(models.Model):
         blank=True,
     )
 
-
 class Post(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
@@ -165,3 +164,13 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse("post-detail", kwargs={"pk": self.pk})
+
+class Issue(models.Model):
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    author = models.CharField(max_length=100, default="user")
+    latitude = models.DecimalField(max_digits=3, decimal_places=0)
+    longitude = models.DecimalField(max_digits=3, decimal_places=0)
+
+    def __str__(self):
+        return self.title
