@@ -4,7 +4,7 @@ import json
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from bikingapp import models
-from django.http import HttpResponseRedirect, HttpResponseForbidden
+from django.http import HttpResponseRedirect
 
 # from typing import Protocol
 from django.contrib.auth import login, logout, authenticate, get_user_model
@@ -35,21 +35,16 @@ from .forms import (
 from .decorators import user_not_authenticated
 from .tokens import account_activation_token
 from django.views.generic import (
-    View,
     ListView,
     DetailView,
     CreateView,
     UpdateView,
     DeleteView,
-    FormView,
 )
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
-from django.views.generic.detail import SingleObjectMixin
-
-from django.urls import reverse
-
 from django.views.generic.edit import FormMixin
+
 
 def home(request):
     return render(request, "home.html")
@@ -654,14 +649,17 @@ class PostDetailView(FormMixin, DetailView):
     model = Post
     template_name = "discforum/post_detail.html"
     form_class = DiscForumCommentForm
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form'] = DiscForumCommentForm
-        context['comments'] = models.DiscForumComment.objects.order_by("id").filter(post = self.object)
+        context["form"] = DiscForumCommentForm
+        context["comments"] = models.DiscForumComment.objects.order_by("id").filter(
+            post=self.object
+        )
         return context
 
     def get_success_url(self):
-        return '#'
+        return "#"
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -672,11 +670,14 @@ class PostDetailView(FormMixin, DetailView):
             return self.form_invalid(form)
 
     def form_valid(self, form):
-        #print(self.object)
+        # print(self.object)
         body = form.cleaned_data["body"]
-        comment = models.DiscForumComment(author = self.request.user, post = self.object, body = body)
+        comment = models.DiscForumComment(
+            author=self.request.user, post=self.object, body=body
+        )
         comment.save()
         return super(PostDetailView, self).form_valid(form)
+
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post

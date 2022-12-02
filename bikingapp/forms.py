@@ -307,6 +307,7 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ("body",)
 
+
 class DiscForumCommentForm(forms.ModelForm):
     class Meta:
         model = DiscForumComment

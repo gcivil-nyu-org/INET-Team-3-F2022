@@ -267,6 +267,7 @@ class QuestionModelTests(TestCase):
         author = CustomUser.objects.get(id=1)
         field_label = author._meta.get_field("description").verbose_name
         self.assertEqual(field_label, "Description")
+
     def _test_get_logout(self, url):
         self.logout()
         self.response = self.client.get(url)
