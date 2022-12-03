@@ -6,19 +6,27 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('bikingapp', '0004_post'),
+        ("bikingapp", "0004_post"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Issue',
+            name="Issue",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=100)),
-                ('content', models.TextField()),
-                ('author', models.CharField(default='user', max_length=100)),
-                ('latitude', models.DecimalField(decimal_places=0, max_digits=3)),
-                ('longitude', models.DecimalField(decimal_places=0, max_digits=3)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=100)),
+                ("content", models.TextField()),
+                ("author", models.CharField(default="user", max_length=100)),
+                ("latitude", models.DecimalField(decimal_places=0, max_digits=3)),
+                ("longitude", models.DecimalField(decimal_places=0, max_digits=3)),
             ],
         ),
     ]

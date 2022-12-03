@@ -308,16 +308,11 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ("body",)
 
+
 class IssueForm(forms.ModelForm):
     class Meta:
         model = Issue
-        fields = (
-            "title",
-            "content",
-            "author",
-            "latitude",
-            "longitude"
-        )
+        fields = ("title", "content", "author", "latitude", "longitude")
         widgets = {
             "title": TextInput(
                 attrs={
