@@ -1,21 +1,21 @@
-const btn1 = document.getElementById("btn1");
-const btn2 = document.getElementById("btn2");
-const btn3 = document.getElementById("btn3");
-const btn4 = document.getElementById("btn4");
+const btn1BikeLane = document.getElementById("btn1");
+const btn2BikePark = document.getElementById("btn2");
+const btn3BikeColl = document.getElementById("btn3");
+const btn4RepIssue = document.getElementById("btn4");
 
 /*
   BUTTON 1: Bike Lanes
 */
 
-btn1.addEventListener("click", function onClick() {
-  btn1.classList.remove("btn-secondary");
-  btn1.classList.add("btn-primary");
-  btn2.classList.remove("btn-primary");
-  btn3.classList.remove("btn-primary");
-  btn4.classList.remove("btn-primary");
-  btn2.classList.add("btn-secondary");
-  btn3.classList.add("btn-secondary");
-  btn4.classList.add("btn-secondary");
+btn1BikeLane.addEventListener("click", function onClick() {
+  btn1BikeLane.classList.remove("btn-secondary");
+  btn1BikeLane.classList.add("btn-primary");
+  btn2BikePark.classList.remove("btn-primary");
+  btn3BikeColl.classList.remove("btn-primary");
+  btn4RepIssue.classList.remove("btn-primary");
+  btn2BikePark.classList.add("btn-secondary");
+  btn3BikeColl.classList.add("btn-secondary");
+  btn4RepIssue.classList.add("btn-secondary");
 
   const uluru = { lat: 40.7237, lng: -73.9898 };
 
@@ -32,15 +32,15 @@ btn1.addEventListener("click", function onClick() {
   BUTTON 2: Bike Parking
 */
 
-btn2.addEventListener("click", function onClick() {
-  btn2.classList.remove("btn-secondary");
-  btn2.classList.add("btn-primary");
-  btn1.classList.remove("btn-primary");
-  btn3.classList.remove("btn-primary");
-  btn4.classList.remove("btn-primary");
-  btn1.classList.add("btn-secondary");
-  btn3.classList.add("btn-secondary");
-  btn4.classList.add("btn-secondary");
+btn2BikePark.addEventListener("click", function onClick() {
+  btn2BikePark.classList.remove("btn-secondary");
+  btn2BikePark.classList.add("btn-primary");
+  btn1BikeLane.classList.remove("btn-primary");
+  btn3BikeColl.classList.remove("btn-primary");
+  btn4RepIssue.classList.remove("btn-primary");
+  btn1BikeLane.classList.add("btn-secondary");
+  btn3BikeColl.classList.add("btn-secondary");
+  btn4RepIssue.classList.add("btn-secondary");
 
   const uluru = { lat: 40.7237, lng: -73.9898 };
 
@@ -62,15 +62,15 @@ btn2.addEventListener("click", function onClick() {
   BUTTON 3: Bike Collisions
 */
 
-btn3.addEventListener("click", function onClick() {
-  btn3.classList.remove("btn-secondary");
-  btn3.classList.add("btn-primary");
-  btn1.classList.remove("btn-primary");
-  btn2.classList.remove("btn-primary");
-  btn4.classList.remove("btn-primary");
-  btn1.classList.add("btn-secondary");
-  btn2.classList.add("btn-secondary");
-  btn4.classList.add("btn-secondary");
+btn3BikeColl.addEventListener("click", function onClick() {
+  btn3BikeColl.classList.remove("btn-secondary");
+  btn3BikeColl.classList.add("btn-primary");
+  btn1BikeLane.classList.remove("btn-primary");
+  btn2BikePark.classList.remove("btn-primary");
+  btn4RepIssue.classList.remove("btn-primary");
+  btn1BikeLane.classList.add("btn-secondary");
+  btn2BikePark.classList.add("btn-secondary");
+  btn4RepIssue.classList.add("btn-secondary");
 
   const uluru = { lat: 40.7237, lng: -73.9898 };
 
@@ -122,16 +122,16 @@ btn3.addEventListener("click", function onClick() {
   BUTTON 4: Reported Lane Issues
 */
 // write code here
-btn4.addEventListener("click", function onClick() {
-  btn4.classList.remove("btn-secondary");
-  btn4.classList.add("btn-primary");
-  btn3.classList.remove("btn-secondary");
-  btn1.classList.remove("btn-primary");
-  btn2.classList.remove("btn-primary");
-  btn3.classList.remove("btn-primary");
-  btn1.classList.add("btn-secondary");
-  btn2.classList.add("btn-secondary");
-  btn3.classList.add("btn-secondary");
+btn4RepIssue.addEventListener("click", function onClick() {
+  btn4RepIssue.classList.remove("btn-secondary");
+  btn4RepIssue.classList.add("btn-primary");
+  btn3BikeColl.classList.remove("btn-secondary");
+  btn1BikeLane.classList.remove("btn-primary");
+  btn2BikePark.classList.remove("btn-primary");
+  btn3BikeColl.classList.remove("btn-primary");
+  btn1BikeLane.classList.add("btn-secondary");
+  btn2BikePark.classList.add("btn-secondary");
+  btn3BikeColl.classList.add("btn-secondary");
 
   const uluru = { lat: 40.7237, lng: -73.9898 };
 
