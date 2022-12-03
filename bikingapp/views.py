@@ -16,7 +16,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.core.mail import EmailMessage
 from django.db.models.query_utils import Q
-from .models import Event, Comment, Post
+from .models import Event, Comment, Post, Issue
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import (
     EventForm,
@@ -42,7 +42,7 @@ from django.views.generic import (
     DeleteView,
 )
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-
+from django.core import serializers
 
 def home(request):
     return render(request, "home.html")
@@ -561,7 +561,9 @@ def remove_friend(request):
 
 
 def display_map(request):
-    return render(request, "map.html")
+    issue_objs = models.Issue.objects.order_by("id") # query for issues
+    data = serializers.serialize('json', issue_objs) # MUST serialize to JSON inorder to use in JS
+    return render(request, "map.html", {"issueCoords":data})
 
 
 @login_required
