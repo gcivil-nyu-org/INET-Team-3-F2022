@@ -146,9 +146,38 @@ btn4RepIssue.addEventListener("click", function onClick() {
     }
   });
 
-  for (let i = 0; i < issueCoordinates.length; i++) {
-    console.log(issueCoordinates[i]);
+  let locations = [];
+  for (let i = 0; i < issueObjsJson.length; i++) {
+    console.log(issueObjsJson[i]);
+    let t1 = {};
+    t1['lat'] = parseFloat(issueObjsJson[i]['fields']['latitude']);
+    t1['lng'] = parseFloat(issueObjsJson[i]['fields']['longitude']);
+    locations.push(t1);
   }
+
+  const labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+  // Add some markers to the map.
+  const markers = locations.map((position, i) => {
+    console.log(position);
+    const label = labels[i % labels.length];
+    const marker = new google.maps.Marker({
+      position,
+      label,
+    });
+
+    // markers can only be keyboard focusable when they have click listeners
+    // open info window when marker is clicked
+    marker.addListener("click", () => {
+      infoWindow.setContent(label);
+      infoWindow.open(map, marker);
+    });
+
+    return marker;
+  });
+
+  // Add a marker clusterer to manage the markers.
+  // new MarkerClusterer({ markers, map });
 
  });
 
