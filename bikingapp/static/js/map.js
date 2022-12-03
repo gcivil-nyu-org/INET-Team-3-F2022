@@ -148,18 +148,17 @@ btn4RepIssue.addEventListener("click", function onClick() {
 
   let locations = [];
   for (let i = 0; i < issueObjsJson.length; i++) {
-    console.log(issueObjsJson[i]);
     let t1 = {};
     t1['lat'] = parseFloat(issueObjsJson[i]['fields']['latitude']);
     t1['lng'] = parseFloat(issueObjsJson[i]['fields']['longitude']);
     locations.push(t1);
   }
+  console.log(locations);
 
   const labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
   // Add some markers to the map.
-  const markers = locations.map((position, i) => {
-    console.log(position);
+  var markers = locations.map((position, i) => {
     const label = labels[i % labels.length];
     const marker = new google.maps.Marker({
       position,
@@ -177,7 +176,9 @@ btn4RepIssue.addEventListener("click", function onClick() {
   });
 
   // Add a marker clusterer to manage the markers.
-  // new MarkerClusterer({ markers, map });
+  new MarkerClusterer(map, markers,
+    {zoomOnClick: false, imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+  
 
  });
 

@@ -171,8 +171,8 @@ class Issue(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
     author = models.CharField(max_length=100, default="user")
-    latitude = models.DecimalField(max_digits=3, decimal_places=0)
-    longitude = models.DecimalField(max_digits=3, decimal_places=0)
+    latitude = models.DecimalField(max_digits=9, decimal_places=4)
+    longitude = models.DecimalField(max_digits=9, decimal_places=4)
 
     def __str__(self):
         return self.title
