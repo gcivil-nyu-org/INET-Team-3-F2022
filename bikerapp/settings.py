@@ -38,8 +38,8 @@ ALLOWED_HOSTS = [
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
-    "bikingapp-env.eba-hkiejaja.us-west-2.elasticbeanstalk.com",
     "bikingapp-env.eba-kry8eqbf.us-west-2.elasticbeanstalk.com",
+    "bikingapp-environ.eba-mxperzpm.us-west-2.elasticbeanstalk.com",
 ]
 
 
@@ -131,7 +131,7 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"  # new
 EMAIL_HOST = "smtp.gmail.com"  # new
 EMAIL_PORT = 587  # new
 EMAIL_HOST_USER = "mg060894nyu@gmail.com"  # new
-EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")  # new
+EMAIL_HOST_PASSWORD = "vwlehxgaynzpbvsd"  # new
 EMAIL_USE_TLS = True  # new
 
 # ACCOUNT_EMAIL_SUBJECT_PREFIX = ""
