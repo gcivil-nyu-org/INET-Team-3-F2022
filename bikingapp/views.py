@@ -440,7 +440,7 @@ def post_event(request):
         else:
             print("Invalid Form")
 
-
+@login_required
 def event_success(request):
     """
     call success page if form successful
@@ -452,11 +452,13 @@ def event_success(request):
 
 
 def browse_events(request):
-    obj_private = models.Event.objects.order_by("id").filter(event_type="private")
+    #obj_private = models.Event.objects.order_by("id").filter(event_type="private")
     obj_public = models.Event.objects.order_by("id").filter(event_type="public")
     if request.user.is_anonymous:
         obj_invited = []
+        obj_private = []
     else:
+        obj_private = models.Event.objects.order_by("id").filter(event_type="private", created_by = request.user.username)
         obj_invited = models.EventFriendMgmt.objects.order_by("id").filter(
             friend=request.user
         )
@@ -475,7 +477,7 @@ def browse_events(request):
         }
     return render(request, "event/browse_events.html", context)
 
-
+@login_required
 def view_event(request, id1):
     obj = models.Event.objects.order_by("id").filter(id=id1)
     post = get_object_or_404(Event, id=id1)
