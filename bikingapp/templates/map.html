@@ -37,21 +37,26 @@
       <button type="button" id="btn3" class="btn btn-secondary">
         Bike Collisions
       </button>
+      <button type="button" id="btn4" class="btn btn-secondary">
+        Reported Issues
+      </button>
     </div>
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlkwD4oZWgdqKf-wptm3M1cepVjtVUM-U&callback=initMap&v=weekly"
       async
       defer
     ></script>
+    <script src="{% static 'js/markercluster.js' %}"></script>
     <script>
       // define static varibles here so map.js can access it
       var parkingGeoJson = "{% static 'json/bikeparking.geojson' %}";
       var collisionsGeoJson = "{% static 'json/bikeCollisions.geojson' %}";
       var markerpng = "{% static 'img/redsquare.png' %}";
+      var issueObjsJson = JSON.parse("{{ issueCoords|escapejs }}"); // parse JSON string
+      var issueObjsJsonPrettyStr = JSON.stringify(issueObjsJson, null, 2);
+      console.log(issueObjsJsonPrettyStr);
     </script>
-    
     <script src="{% static 'js/map.js' %}"></script>
-
     {% endblock content %}
   </body>
 </html>

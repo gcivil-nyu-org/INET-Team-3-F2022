@@ -20,6 +20,7 @@ from .models import Event, Comment, Post
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import (
     EventForm,
+    IssueForm,
     UserRegistrationForm,
     UserLoginForm,
     UserUpdateForm,
@@ -42,6 +43,7 @@ from django.views.generic import (
     DeleteView,
 )
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.core import serializers
 
 from django.views.generic.edit import FormMixin
 
@@ -564,7 +566,11 @@ def remove_friend(request):
 
 
 def display_map(request):
-    return render(request, "map.html")
+    issue_objs = models.Issue.objects.order_by("id")  # query for issues
+    data = serializers.serialize(
+        "json", issue_objs
+    )  # MUST serialize to JSON inorder to use in JS
+    return render(request, "map.html", {"issueCoords": data})
 
 
 @login_required
@@ -717,3 +723,39 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == post.author:
             return True
         return False
+
+
+def report_issue(request):
+
+    form = IssueForm(
+        {
+            "author": request.user,
+        }
+    )
+    return render(request, "issue_form.html", {"form": form})
+
+
+@login_required
+def post_issue(request):
+    """
+    Attempt POST request after user submits form
+    """
+    print("\n\nIN POST\n\n")
+    if request.method == "POST":
+        form = IssueForm(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+            return redirect(issue_success)
+        else:
+            print("Invalid Form")
+
+
+@login_required
+def issue_success(request):
+    """
+    If form is valid, display workout success page
+    """
+    obj = models.Issue.objects.order_by("id").latest("id")
+    context = {"obj1": obj}
+
+    return render(request, "issue_success.html", context)
