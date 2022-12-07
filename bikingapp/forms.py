@@ -313,7 +313,8 @@ class DiscForumCommentForm(forms.ModelForm):
     class Meta:
         model = DiscForumComment
         fields = ("body",)
-        
+
+
 class IssueForm(forms.ModelForm):
     class Meta:
         model = Issue
