@@ -82,9 +82,18 @@
                 </ul>
               </li>
               {% comment %} Map {% endcomment %}
-              <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="/map">Map</a>
-              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="/map" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Map
+                </a>
+                <ul class="dropdown-menu">
+                  {% comment %} Report Issue {% endcomment %}
+                  {% if user.is_authenticated %}
+                  <li><a class="dropdown-item" href="/issue">Report Issue</a></li>
+                  {% endif %}
+                  {% comment %} View Map {% endcomment %}
+                  <li><a class="dropdown-item" href="/map">View Map</a></li>
+                </ul>
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
               {% if user.is_authenticated %}
