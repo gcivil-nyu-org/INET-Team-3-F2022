@@ -183,3 +183,13 @@ class DiscForumComment(models.Model):
 
     def __str__(self):
         return "Comment {} by {}".format(self.post.title, self.author.username)
+        
+class Issue(models.Model):
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    author = models.CharField(max_length=100, default="user")
+    latitude = models.DecimalField(max_digits=9, decimal_places=4)
+    longitude = models.DecimalField(max_digits=9, decimal_places=4)
+
+    def __str__(self):
+        return self.title

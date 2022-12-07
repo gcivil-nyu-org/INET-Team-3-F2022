@@ -4,7 +4,7 @@ import json
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from bikingapp import models
-from django.http import HttpResponseRedirect, HttpResponseForbidden
+from django.http import HttpResponseRedirect
 
 # from typing import Protocol
 from django.contrib.auth import login, logout, authenticate, get_user_model
@@ -20,6 +20,7 @@ from .models import Event, Comment, Post
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import (
     EventForm,
+    IssueForm,
     UserRegistrationForm,
     UserLoginForm,
     UserUpdateForm,
@@ -35,19 +36,14 @@ from .forms import (
 from .decorators import user_not_authenticated
 from .tokens import account_activation_token
 from django.views.generic import (
-    View,
     ListView,
     DetailView,
     CreateView,
     UpdateView,
     DeleteView,
-    FormView,
 )
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-
-from django.views.generic.detail import SingleObjectMixin
-
-from django.urls import reverse
+from django.core import serializers
 
 from django.views.generic.edit import FormMixin
 
@@ -289,6 +285,7 @@ def profile(request, username):
                 if (
                     models.CustomUser.objects.filter(username=friend_username).first()
                     is not None
+                    and friend_username != request.user.username
                 ):
                     obj = models.FriendMgmt(
                         from_user=request.user,
@@ -443,7 +440,7 @@ def post_event(request):
         else:
             print("Invalid Form")
 
-
+@login_required
 def event_success(request):
     """
     call success page if form successful
@@ -455,11 +452,13 @@ def event_success(request):
 
 
 def browse_events(request):
-    obj_private = models.Event.objects.order_by("id").filter(event_type="private")
+    #obj_private = models.Event.objects.order_by("id").filter(event_type="private")
     obj_public = models.Event.objects.order_by("id").filter(event_type="public")
     if request.user.is_anonymous:
         obj_invited = []
+        obj_private = []
     else:
+        obj_private = models.Event.objects.order_by("id").filter(event_type="private", created_by = request.user.username)
         obj_invited = models.EventFriendMgmt.objects.order_by("id").filter(
             friend=request.user
         )
@@ -478,7 +477,7 @@ def browse_events(request):
         }
     return render(request, "event/browse_events.html", context)
 
-
+@login_required
 def view_event(request, id1):
     obj = models.Event.objects.order_by("id").filter(id=id1)
     post = get_object_or_404(Event, id=id1)
@@ -569,7 +568,11 @@ def remove_friend(request):
 
 
 def display_map(request):
-    return render(request, "map.html")
+    issue_objs = models.Issue.objects.order_by("id")  # query for issues
+    data = serializers.serialize(
+        "json", issue_objs
+    )  # MUST serialize to JSON inorder to use in JS
+    return render(request, "map.html", {"issueCoords": data})
 
 
 @login_required
@@ -662,6 +665,7 @@ class PostDetailView(FormMixin, DetailView):
         context["comments"] = models.DiscForumComment.objects.order_by("id").filter(
             post=self.object
         )
+        context["userLoggedIn"] = not self.request.user.is_anonymous
         return context
 
     def get_success_url(self):
@@ -721,3 +725,39 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == post.author:
             return True
         return False
+
+
+def report_issue(request):
+
+    form = IssueForm(
+        {
+            "author": request.user,
+        }
+    )
+    return render(request, "issue_form.html", {"form": form})
+
+
+@login_required
+def post_issue(request):
+    """
+    Attempt POST request after user submits form
+    """
+    print("\n\nIN POST\n\n")
+    if request.method == "POST":
+        form = IssueForm(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+            return redirect(issue_success)
+        else:
+            print("Invalid Form")
+
+
+@login_required
+def issue_success(request):
+    """
+    If form is valid, display workout success page
+    """
+    obj = models.Issue.objects.order_by("id").latest("id")
+    context = {"obj1": obj}
+
+    return render(request, "issue_success.html", context)
