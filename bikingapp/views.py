@@ -574,9 +574,7 @@ def remove_friend(request):
 def display_map(request):
     # Public Event Objects
     obj_public = models.Event.objects.filter(event_type="public").order_by("id")
-    public_objs_json = serializers.serialize(
-        "json", obj_public
-    );
+    public_objs_json = serializers.serialize("json", obj_public)
 
     # Invited and Private Events
     if request.user.is_anonymous:
@@ -589,23 +587,18 @@ def display_map(request):
         obj_invited = models.EventFriendMgmt.objects.order_by("id").filter(
             friend=request.user
         )
-    private_objs_json = serializers.serialize(
-        "json", obj_private
-    );
-    invited_objs_json = serializers.serialize(
-        "json", obj_invited
-    );
+    private_objs_json = serializers.serialize("json", obj_private)
+    invited_objs_json = serializers.serialize("json", obj_invited)
 
     # Issue Objects
     issue_objs = models.Issue.objects.order_by("id")  # query for issues
-    issue_objs_json = serializers.serialize(
-        "json", issue_objs
-    );  # MUST serialize to JSON inorder to use in JS
+    issue_objs_json = serializers.serialize("json", issue_objs)
+    # MUST serialize to JSON inorder to use in JS
 
     # Create Context
     if request.user.is_anonymous:
         context = {
-            "private_event_objs": private_objs_json, 
+            "private_event_objs": private_objs_json,
             "public_event_objs": public_objs_json,
             "issue_objs": issue_objs_json,
         }
@@ -613,9 +606,7 @@ def display_map(request):
         obj_bookmarked = models.BookmarkEvent.objects.filter(
             user=request.user
         ).values_list("event", flat=True)
-        bookmarked_objs_json = serializers.serialize(
-        "json", obj_bookmarked
-        );
+        bookmarked_objs_json = serializers.serialize("json", obj_bookmarked)
         context = {
             "private_event_objs": private_objs_json,
             "public_event_objs": public_objs_json,
@@ -623,7 +614,7 @@ def display_map(request):
             "bookmarked_event_objs": bookmarked_objs_json,
             "issue_objs": issue_objs_json,
         }
-    
+
     return render(request, "map.html", context)
 
 
