@@ -6,21 +6,21 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('bikingapp', '0009_merge_20221205_1622'),
+        ("bikingapp", "0009_merge_20221205_1622"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='issue',
-            name='latitude',
+            model_name="issue",
+            name="latitude",
         ),
         migrations.RemoveField(
-            model_name='issue',
-            name='longitude',
+            model_name="issue",
+            name="longitude",
         ),
         migrations.AddField(
-            model_name='issue',
-            name='location',
-            field=models.CharField(default='NYU Tandon', max_length=100),
+            model_name="issue",
+            name="location",
+            field=models.CharField(default="NYU Tandon", max_length=100),
         ),
     ]
