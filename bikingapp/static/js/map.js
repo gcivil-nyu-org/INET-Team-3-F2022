@@ -28,6 +28,18 @@ btn1BikeLane.addEventListener("click", function onClick() {
   bikeLayer.setMap(map);
 });
 
+function initMap() {
+  const uluru = { lat: 40.7237, lng: -73.9898 };
+
+  map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 11,
+    center: uluru,
+  });
+
+  const bikeLayer = new google.maps.BicyclingLayer();
+  bikeLayer.setMap(map);
+}
+
 /*
   BUTTON 2: Bike Parking
 */
@@ -105,12 +117,12 @@ btn3BikeColl.addEventListener("click", function onClick() {
     );
 
     let html =
-      "<b>Crash Date:</b> " +  date + "<br>" + 
+      "<b>Crash Date:</b> " + date + "<br>" +
       "<b>Crash Time (military time):</b> " + time + "<br>" +
-      "<b>Borough:</b> " + borough + "<br>" + 
+      "<b>Borough:</b> " + borough + "<br>" +
       "<b>Zipcode:</b> " + zip + "<br>" +
-      "<b>Cyclists Injured:</b> " +  numInjured + "<br>" +
-      "<b>Cyclists Killed:</b> " +  numKilled + "<br>";
+      "<b>Cyclists Injured:</b> " + numInjured + "<br>" +
+      "<b>Cyclists Killed:</b> " + numKilled + "<br>";
     infowindow.setContent(html);
     infowindow.setPosition(event.latLng);
     infowindow.setOptions({ pixelOffset: new google.maps.Size(0, -30) });
@@ -148,53 +160,56 @@ btn4RepIssue.addEventListener("click", function onClick() {
 
   let locations = [];
   for (let i = 0; i < issueObjsJson.length; i++) {
-    let t1 = {};
-    t1['lat'] = parseFloat(issueObjsJson[i]['fields']['latitude']);
-    t1['lng'] = parseFloat(issueObjsJson[i]['fields']['longitude']);
-    locations.push(t1);
+    locations.push(issueObjsJson[i]['fields']['location']);
   }
-  console.log(locations);
 
-  const labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  let issueInfos = [];
+  for (let i = 0; i < issueObjsJson.length; i++) {
+    issueInfos.push(issueObjsJson[i]['fields']);
+  }
 
-  // Add some markers to the map.
-  var markers = locations.map((position, i) => {
-    const label = labels[i % labels.length];
-    const marker = new google.maps.Marker({
-      position,
-      label,
-    });
-
-    // markers can only be keyboard focusable when they have click listeners
-    // open info window when marker is clicked
-    marker.addListener("click", () => {
-      infoWindow.setContent(label);
-      infoWindow.open(map, marker);
-    });
-
-    return marker;
-  });
-
-  // Add a marker clusterer to manage the markers.
-  new MarkerClusterer(map, markers,
+  var geocoder;
+  geocoder = new google.maps.Geocoder();
+  var markers_temp = []
+  var markerClusterer = new MarkerClusterer(map, markers_temp,
     {zoomOnClick: false, imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-  
+  // Add some markers to the map.
+  var markers = locations.map((location, i) => {
+    const issueInfo = issueInfos[i % issueInfos.length];
 
- });
+    geocoder.geocode({ 'address': location }, function (results, status) {
+      if (status === 'OK') {
+        var marker = new google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location,
+        });
 
-
-/*
-  INITIALIZE MAP
-*/
-
-function initMap() {
-  const uluru = { lat: 40.7237, lng: -73.9898 };
-
-  map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 11,
-    center: uluru,
+        //var contentStr = issueInfo['title'] + issueInfo['content'] + issueInfo['author'] + issueInfo['location'];
+        const contentStr =
+          '<div id="content">' +
+          '<div id="siteNotice">' +
+          "</div>" +
+          '<h4 id="firstHeading" class="firstHeading">'+ issueInfo['title']+'</h4>' +
+          '<div id="bodyContent">' +
+          "<p>"+ issueInfo['content'] + "</p>" +
+          '<p>Author: '+ issueInfo['author'] +'</p>' +
+          '<p>Location: '+ issueInfo['location'] +'</p>' +
+          "</div>" +
+          "</div>";
+        var infoWindow = new google.maps.InfoWindow({
+          content: contentStr
+        });
+        marker.addListener("click", () => {
+          infoWindow.open(map, marker);
+        });
+        markers_temp.push(marker)
+        markerClusterer.addMarker(marker);
+      } 
+      
+      else {
+        console.log(location+': Geocode was not successful for the following reason: ' + status);
+      }
+    });
   });
 
-  const bikeLayer = new google.maps.BicyclingLayer();
-  bikeLayer.setMap(map);
-}
+});

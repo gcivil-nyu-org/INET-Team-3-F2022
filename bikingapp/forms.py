@@ -318,7 +318,7 @@ class DiscForumCommentForm(forms.ModelForm):
 class IssueForm(forms.ModelForm):
     class Meta:
         model = Issue
-        fields = ("title", "content", "author", "latitude", "longitude")
+        fields = ("title", "content", "author", "location")
         widgets = {
             "title": TextInput(
                 attrs={
@@ -341,16 +341,11 @@ class IssueForm(forms.ModelForm):
                     "style": "max-width: 65%; display: inline-block;",
                 }
             ),
-            "latitude": NumberInput(
+            "location": TextInput(
                 attrs={
                     "class": "form-control",
                     "style": "max-width: 92%; margin-bottom: 10px;display: inline-block;",  # noqa: E501
-                }
-            ),
-            "longitude": NumberInput(
-                attrs={
-                    "class": "form-control",
-                    "style": "max-width: 92%; margin-bottom: 10px;display: inline-block;",  # noqa: E501
+                    "placeholder": "Location",
                 }
             ),
         }
