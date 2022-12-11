@@ -1,37 +1,29 @@
 {% extends 'base.html' %}
-<!DOCTYPE html>
-<html lang="en">
-<style>
-    table,
-    th,
-    td {
-        border: 1px solid black;
-        border-collapse: collapse;
-    }
-</style>
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    {% load static %}
-    <link rel="stylesheet" href="{% static '/css/base.css' %}" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-    <title>Browse Events</title>
-</head>
-
-<body>
-    {% block content %}
-    <div style="margin-top: 120px">
-        <div style="display: flex;justify-content: space-between;">
-            <h3 style="margin-left: 20px;">Public Events</h3>
+{% block content %}
+<h3>Public Events</h3>
+<div class="row align-items-center">
+    <div class="col-1">
+        {% if obj2.has_other_pages %}
+        <div>
+            <ul class="pagination">
+                {% if obj2.has_previous %}
+                <li class="page-item"><a class="page-link"
+                        href="?public_event_page={{ obj2.previous_page_number }}">&laquo;</a>
+                </li>
+                {% else %}
+                <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+                {% endif %}
+            </ul>
         </div>
-        <div class="container d-flex flex-wrap align-items-center space-between">
+        {% endif %}
+    </div>
+    <div class="col-10">
+        <div class="d-flex flex-wrap align-items-center space-between" style="margin-left: -5%;">
             {% for obj in obj2 %}
-            <div class="card" style="margin: 15px; max-width: 25%; min-width: 25%;">
-                <h4 class="card-title" style="text-align: center; text-transform: capitalize;"><b>{{obj.title}}</b></h4>
+            <div class="card card-new" style="margin: 0.5%; max-width: 23%;min-width: 23%;">
+                <h4 class="card-title" style="text-align: center; text-transform: capitalize;">
+                    <b>{{obj.title}}</b>
+                </h4>
                 <a href="/browse_events/{{obj.id}}" style="text-decoration: none; color: black;">
                     <ul class="card-body list-group list-group-flush">
                         <li class="list-group-item"><b>Location:</b> {{obj.location}}</li>
@@ -43,8 +35,8 @@
                 </a>
                 {% if bookmarked_events is not None %}
                 {% if obj.id not in bookmarked_events %}
-                <button data-event="{{obj.id}}" data-action="bookmark"
-                    class="btn btn-success add-btn event-bookmark">Bookmark this event</button>
+                <button data-event="{{obj.id}}" data-action="bookmark" class="btn btn-success add-btn event-bookmark"
+                    style="background-color:#324f94;">Bookmark this event</button>
                 {% else%}
                 <button data-event="{{obj.id}}" data-action="unbookmark"
                     class="btn btn-danger add-btn event-bookmark">Unbookmark</button>
@@ -56,16 +48,46 @@
             {% endfor %}
         </div>
     </div>
-    {% if bookmarked_events is not None %}
-    <div style="margin-top: 120px">
-        <div style="display: flex;justify-content: space-between;">
-            <h3 style="margin-left: 20px;">Private Events</h3>
+    <div class="col-1">
+        {% if obj2.has_other_pages %}
+        <ul class="pagination">
+            {% if obj2.has_next %}
+            <li class="page-item"><a class="page-link" href="?public_event_page={{ obj2.next_page_number }}">&raquo;</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+            {% endif %}
+        </ul>
+        {% endif %}
+    </div>
+</div>
+<hr>
+{% if obj1 %}
+<h3>Private Events</h3>
+<div class="row align-items-center">
+    <div class="col-1">
+        {% if obj1.has_other_pages %}
+        <div>
+            <ul class="pagination">
+                {% if obj1.has_previous %}
+                <li class="page-item"><a class="page-link"
+                        href="?private_event_page={{ obj1.previous_page_number }}">&laquo;</a>
+                </li>
+                {% else %}
+                <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+                {% endif %}
+            </ul>
         </div>
-        <div class="container d-flex flex-wrap align-items-center space-between">
+        {% endif %}
+    </div>
+    <div class="col-10">
+        <div class=" d-flex flex-wrap align-items-center space-between" style="margin-left: -5%;">
             {% for obj in obj1 %}
-            <!-- <li> -->
-            <div class="card card1 custom" style="margin: 15px; max-width: 25%; min-width: 25%;">
-                <h4 class="card-title" style="text-align: center; text-transform: capitalize;"><b>{{obj.title}}</b></h4>
+            <div class="card card-new" style="margin: 0.5%; max-width: 23%;min-width: 23%;">
+                <!-- <div class="card card1 custom" style="margin: 15px; max-width: 25%; min-width: 25%;"> -->
+                <h4 class="card-title" style="text-align: center; text-transform: capitalize;">
+                    <b>{{obj.title}}</b>
+                </h4>
                 <a href="/browse_events/{{obj.id}}" style="text-decoration: none; color: black;">
                     <ul class="card-body list-group list-group-flush">
                         <li class="list-group-item"><b>Location:</b> {{obj.location}}</li>
@@ -76,31 +98,58 @@
                     </ul>
                 </a>
                 {% if obj.id not in bookmarked_events %}
-                <button data-event="{{obj.id}}" data-action="bookmark"
-                    class="btn btn-success add-btn event-bookmark">Bookmark this
+                <button data-event="{{obj.id}}" data-action="bookmark" class="btn btn-success add-btn event-bookmark"
+                    style="background-color:#324f94;">Bookmark this
                     event</button>
                 {% else%}
                 <button data-event="{{obj.id}}" data-action="unbookmark"
                     class="btn btn-danger add-btn event-bookmark">Unbookmark</button>
                 {% endif %}
             </div>
-            <!-- </li> -->
             {% endfor %}
         </div>
     </div>
-    {% endif %}
-
-    {% if bookmarked_events is not None %}
-    <div style="margin-top: 120px">
-        <div style="display: flex;justify-content: space-between;">
-            <h3 style="margin-left: 20px;">Invited Events</h3>
+    <div class="col-1">
+        {% if obj1.has_other_pages %}
+        <ul class="pagination">
+            {% if obj1.has_next %}
+            <li class="page-item"><a class="page-link"
+                    href="?private_event_page={{ obj1.next_page_number }}">&raquo;</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+            {% endif %}
+        </ul>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
+<hr>
+{% if obj3 %}
+<h3 style="margin-left: 20px;">Invited Events</h3>
+<div class="row align-items-center">
+    <div class="col-1">
+        {% if obj3.has_other_pages %}
+        <div>
+            <ul class="pagination">
+                {% if obj3.has_previous %}
+                <li class="page-item"><a class="page-link"
+                        href="?public_event_page={{ obj3.previous_page_number }}">&laquo;</a>
+                </li>
+                {% else %}
+                <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+                {% endif %}
+            </ul>
         </div>
-        <div class="container d-flex flex-wrap align-items-center space-between">
+        {% endif %}
+    </div>
+    <div class="col-10">
+        <div class=" d-flex flex-wrap align-items-center space-between" style="margin-left: -5%;">
             {% for obj in obj3 %}
-            <!-- <li> -->
-            <div class="card card1 custom" style="margin: 15px; max-width: 25%; min-width: 25%;">
+            <div class="card card-new" style="margin: 0.5%; max-width: 23%;min-width: 23%;">
                 <h4 class="card-title" style="text-align: center; text-transform: capitalize;">
-                    <b>{{obj.event.title}}</b></h4>
+                    <b>{{obj.event.title}}</b>
+                </h4>
                 <a href="/browse_events/{{obj.event.id}}" style="text-decoration: none; color: black;">
                     <ul class="card-body list-group list-group-flush">
                         <li class="list-group-item"><b>Location:</b> {{obj.event.location}}</li>
@@ -109,24 +158,34 @@
                         <li class="list-group-item"><b>Event Time:</b> {{obj.event.time}}</li>
                         <li class="list-group-item"><b>Created By:</b> {{obj.event.created_by}}</li>
                         <li class="list-group-item"><b>Event Type:</b> {{obj.event.event_type}}</li>
-                        
+
                     </ul>
                 </a>
                 {% if obj.event.id not in bookmarked_events %}
                 <button data-event="{{obj.event.id}}" data-action="bookmark"
-                    class="btn btn-success add-btn event-bookmark">Bookmark this
+                    class="btn btn-success add-btn event-bookmark" style="background-color:#324f94;">Bookmark this
                     event</button>
                 {% else%}
                 <button data-event="{{obj.event.id}}" data-action="unbookmark"
                     class="btn btn-danger add-btn event-bookmark">Unbookmark</button>
                 {% endif %}
             </div>
-            <!-- </li> -->
             {% endfor %}
         </div>
     </div>
-    {% endif %}
-    {% endblock content %}
-</body>
-
-</html>
+    <div class="col-1">
+        {% if obj3.has_other_pages %}
+        <ul class="pagination">
+            {% if obj3.has_next %}
+            <li class="page-item"><a class="page-link"
+                    href="?private_event_page={{ obj3.next_page_number }}">&raquo;</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+            {% endif %}
+        </ul>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
+{% endblock content %}

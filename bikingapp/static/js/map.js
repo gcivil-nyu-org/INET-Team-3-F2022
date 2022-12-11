@@ -172,7 +172,7 @@ btn4RepIssue.addEventListener("click", function onClick() {
   geocoder = new google.maps.Geocoder();
   var markers_temp = []
   var markerClusterer = new MarkerClusterer(map, markers_temp,
-    {zoomOnClick: false, imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+    { zoomOnClick: false, imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m' });
   // Add some markers to the map.
   var markers = locations.map((location, i) => {
     const issueInfo = issueInfos[i % issueInfos.length];
@@ -189,11 +189,11 @@ btn4RepIssue.addEventListener("click", function onClick() {
           '<div id="content">' +
           '<div id="siteNotice">' +
           "</div>" +
-          '<h4 id="firstHeading" class="firstHeading">'+ issueInfo['title']+'</h4>' +
+          '<h4 id="firstHeading" class="firstHeading">' + issueInfo['title'] + '</h4>' +
           '<div id="bodyContent">' +
-          "<p>"+ issueInfo['content'] + "</p>" +
-          '<p>Author: '+ issueInfo['author'] +'</p>' +
-          '<p>Location: '+ issueInfo['location'] +'</p>' +
+          "<p>" + issueInfo['content'] + "</p>" +
+          '<p>Author: ' + issueInfo['author'] + '</p>' +
+          '<p>Location: ' + issueInfo['location'] + '</p>' +
           "</div>" +
           "</div>";
         var infoWindow = new google.maps.InfoWindow({
@@ -204,10 +204,10 @@ btn4RepIssue.addEventListener("click", function onClick() {
         });
         markers_temp.push(marker)
         markerClusterer.addMarker(marker);
-      } 
-      
+      }
+
       else {
-        console.log(location+': Geocode was not successful for the following reason: ' + status);
+        console.log(location + ': Geocode was not successful for the following reason: ' + status);
       }
     });
   });

@@ -1,32 +1,3 @@
-header {
-    background-color: rgb(28, 70, 114);
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    z-index: 999;
-}
-
-header * {
-    display: inline;
-}
-
-header li {
-    margin: 20px;
-}
-
-header li a {
-    color: rgb(235, 235, 235);
-    text-decoration: none;
-}
-
-header li a:hover {
-    text-decoration: underline;
-    color: whitesmoke;
-}
 
 .profile-image {
     width: 125px;
@@ -49,7 +20,7 @@ header li a:hover {
 }
   
 a.article-title:hover {
-    color: #428bca;
+    color: #324f94;
     text-decoration: none;
 }
   
@@ -103,3 +74,4 @@ a.article-title:hover {
 .text-center {
     text-align: center;
 }
+

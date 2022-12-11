@@ -47,6 +47,7 @@ from django.core import serializers
 
 from django.views.generic.edit import FormMixin
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def home(request):
     return render(request, "home.html")
@@ -455,9 +456,19 @@ def event_success(request):
 def browse_events(request):
     # obj_private = models.Event.objects.order_by("id").filter(event_type="private")
     obj_public = models.Event.objects.order_by("id").filter(event_type="public")
+    public_event_page = request.GET.get('public_event_page', 1)
+    private_event_page = request.GET.get('private_event_page', 1)
+    invited_event_page = request.GET.get('invited_event_page', 1)
+    paginator = Paginator(obj_public, 4)
+    try:
+        obj_public = paginator.page(public_event_page)
+    except PageNotAnInteger:
+        obj_public = paginator.page(1)
+    except EmptyPage:
+        obj_public = paginator.page(paginator.num_pages)
     if request.user.is_anonymous:
-        obj_invited = []
-        obj_private = []
+        obj_invited = None
+        obj_private = None
     else:
         obj_private = models.Event.objects.order_by("id").filter(
             event_type="private", created_by=request.user.username
@@ -465,9 +476,25 @@ def browse_events(request):
         obj_invited = models.EventFriendMgmt.objects.order_by("id").filter(
             friend=request.user
         )
+        if obj_private:
+            paginator1 = Paginator(obj_private, 4)
+            try:
+                obj_private = paginator1.page(private_event_page)
+            except PageNotAnInteger:
+                obj_private = paginator1.page(1)
+            except EmptyPage:
+                obj_private = paginator1.page(paginator1.num_pages)
+        if obj_invited:
+            paginator2 = Paginator(obj_invited, 4)
+            try:
+                obj_invited = paginator2.page(invited_event_page)
+            except PageNotAnInteger:
+                obj_invited = paginator2.page(1)
+            except EmptyPage:
+                obj_invited = paginator2.page(paginator2.num_pages)
 
     if request.user.is_anonymous:
-        context = {"obj1": obj_private, "obj2": obj_public}
+        context = {"obj2": obj_public}
     else:
         bookmarked_events = models.BookmarkEvent.objects.filter(
             user=request.user
@@ -627,9 +654,16 @@ def workout_history(request):
     """
     display workouts created by that user in sequential order
     """
-    obj = models.Workout.objects.filter(created_by=request.user).order_by("id")
-    context = {"obj1": obj}
-    return render(request, "workout/workout_history.html", context)
+    obj = models.Workout.objects.filter(created_by=request.user).order_by("-date")
+    page = request.GET.get('page', 1)
+    paginator = Paginator(obj, 5)
+    try:
+        obj = paginator.page(page)
+    except PageNotAnInteger:
+        obj = paginator.page(1)
+    except EmptyPage:
+        obj = paginator.page(paginator.num_pages)
+    return render(request, "workout/workout_history.html", {"obj1": obj})
 
 
 def view_workout(request, id1):

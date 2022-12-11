@@ -1,62 +1,52 @@
 {% extends 'base.html' %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    {% load static %}
-    <link rel="stylesheet" href="{% static '/css/base.css' %}" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
-    />
-    <title>Maps</title>
-  </head>
 
-  <body>
-    {% block content %}
-    <div
-      id="map"
-      style="height: 80vh; width: 100vw; margin-top: 80px; margin-left: 0%"
-    ></div>
-    <div style="margin-top: 15px; margin-left: 10%">
-      <button type="button" id="btn1" class="btn btn-primary">
-        Bike Lanes
-      </button>
-      <button type="button" id="btn2" class="btn btn-secondary">
-        Bike Parking
-      </button>
-      <button type="button" id="btn3" class="btn btn-secondary">
-        Bike Collisions
-      </button>
-      <button type="button" id="btn4" class="btn btn-secondary">
-        Reported Issues
-      </button>
-    </div>
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlkwD4oZWgdqKf-wptm3M1cepVjtVUM-U&callback=initMap&v=weekly"
-      async
-      defer
-    ></script>
-    <script src="{% static 'js/markercluster.js' %}"></script>
-    <script>
-      // define static varibles here so map.js can access it
-      var parkingGeoJson = "{% static 'json/bikeparking.geojson' %}";
-      var collisionsGeoJson = "{% static 'json/bikeCollisions.geojson' %}";
-      var markerpng = "{% static 'img/redsquare.png' %}";
-      var issueObjsJson = JSON.parse("{{ issueCoords|escapejs }}"); // parse JSON string
-      var issueObjsJsonPrettyStr = JSON.stringify(issueObjsJson, null, 2);
-      console.log(issueObjsJsonPrettyStr);
-    </script>
-    <script src="{% static 'js/map.js' %}"></script>
-    {% endblock content %}
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+  {% load static %}
+  <link rel="stylesheet" href="{% static '/css/base.css' %}" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css" />
+  <title>Maps</title>
+</head>
+
+<body>
+  {% block content %}
+  <div id="map" style="height: 80vh; width: 100vw; margin-left: -2.7vw;margin-top: -1vh;"></div>
+  <div style="margin-top: 15px; margin-left: 10%">
+    <button type="button" id="btn1" class="btn btn-primary">
+      Bike Lanes
+    </button>
+    <button type="button" id="btn2" class="btn btn-secondary">
+      Bike Parking
+    </button>
+    <button type="button" id="btn3" class="btn btn-secondary">
+      Bike Collisions
+    </button>
+    <button type="button" id="btn4" class="btn btn-secondary">
+      Reported Issues
+    </button>
+  </div>
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlkwD4oZWgdqKf-wptm3M1cepVjtVUM-U&callback=initMap&v=weekly"
+    async defer></script>
+  <script src="{% static 'js/markercluster.js' %}"></script>
+  <script>
+    // define static varibles here so map.js can access it
+    var parkingGeoJson = "{% static 'json/bikeparking.geojson' %}";
+    var collisionsGeoJson = "{% static 'json/bikeCollisions.geojson' %}";
+    var markerpng = "{% static 'img/redsquare.png' %}";
+    var issueObjsJson = JSON.parse("{{ issueCoords|escapejs }}"); // parse JSON string
+    var issueObjsJsonPrettyStr = JSON.stringify(issueObjsJson, null, 2);
+    console.log(issueObjsJsonPrettyStr);
+  </script>
+  <script src="{% static 'js/map.js' %}"></script>
+  {% endblock content %}
+</body>
+
 </html>
