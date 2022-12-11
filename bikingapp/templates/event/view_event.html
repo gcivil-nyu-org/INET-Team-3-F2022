@@ -22,66 +22,56 @@
 <body>
   {% extends 'base.html' %}
   {% block content %}
-  <div style="margin-top: 120px">
-    <div class="col">
+  <div>
+    <div class="col" style="margin-top: 5vh;">
       {% for obj in obj1 %}
-      <div class="alert alert-primary col-lg-6" role="alert" style="margin-left: 25px;text-transform: capitalize;">
-        {{obj.title}}
-      </div>
-      <div class="card col-lg-6" style="margin: 25px;">
-        <ul class="list-group list-group-flush card-body">
-          <li class="list-group-item"><b>Location:</b> {{obj.location}}</li>
-          <li class="list-group-item"><b>Borough:</b> {{obj.borough}}</li>
-          <li class="list-group-item"><b>State:</b> {{obj.state}}</li>
-          <li class="list-group-item"><b>Zip:</b> {{obj.zipcode}}</li>
-          <li class="list-group-item"><b>Event Date:</b> {{obj.date}}</li>
-          <li class="list-group-item"><b>Event Time:</b> {{obj.time}}</li>
-          <li class="list-group-item"><b>Created Date:</b> {{obj.date_created}}</li>
-          <li class="list-group-item"><b>Event Type:</b> {{obj.event_type}}</li>
-          <li class="list-group-item"><b>Description:</b> {{obj.description}}</li>
-          <li class="list-group-item"><b>Created By:</b> {{obj.created_by}}</li>
-        </ul>
-      </div>
-      {% endfor %}
-    </div>
-  </div>
-
-  <div class="container">
-    <div class="row">
-      <!--<div class="col-md-8 card mb-4  mt-3 left  top">
-              <p class=" text-muted">{{ post.author }} | {{ post.created_on }}</p>
-              <p class="card-text ">{{ post.content | safe }}</p>
+      <div class="row">
+        <div class="card col-6" style="margin-left: 3vw ;">
+          <h2 style="margin:25px;text-transform: capitalize;">
+            {{obj.title}}
+          </h2>
+          <ul class="list-group list-group-flush card-body">
+            <li class="list-group-item"><b>Location:</b> {{obj.location}}</li>
+            <li class="list-group-item"><b>Borough:</b> {{obj.borough}}</li>
+            <li class="list-group-item"><b>State:</b> {{obj.state}}</li>
+            <li class="list-group-item"><b>Zip:</b> {{obj.zipcode}}</li>
+            <li class="list-group-item"><b>Event Date:</b> {{obj.date}}</li>
+            <li class="list-group-item"><b>Event Time:</b> {{obj.time}}</li>
+            <li class="list-group-item"><b>Created Date:</b> {{obj.date_created}}</li>
+            <li class="list-group-item"><b>Event Type:</b> {{obj.event_type}}</li>
+            <li class="list-group-item"><b>Description:</b> {{obj.description}}</li>
+            <li class="list-group-item"><b>Created By:</b> {{obj.created_by}}</li>
+          </ul>
+        </div>
+        {% endfor %}
+        <div class="col-5">
+          <div class="alert alert-primary" role="alert" style="margin-left: 25px;text-transform: capitalize;">
+            Leave a Comment
+            <form method="post" style="margin-top: 1.3em;">
+              {{ comment_form.body }}
+              {% csrf_token %}
+              <button type="submit" class="btn" style="background-color:#324f94;color:#efefef;">Submit</button>
+            </form>
+            <br>
+            <h5>{{ comments.count }} comments</h5>
+            {% for comment in comments %}
+            <div class="comments" style="padding: 10px;">
+              <p class="font-weight-bold">
+                {{ comment.name }}
+                <span class=" text-muted font-weight-normal">
+                  {{ comment.created_on }}
+                </span>
+              </p>
+              {{ comment.body | linebreaks }}
+              <hr>
             </div>
-          </div>-->
-      <div class="col-md-8 card mb-4  mt-3 ">
-        <div class="card-body">
-          <!-- comments -->
-          <h2>{{ comments.count }} comments</h2>
-
-          {% for comment in comments %}
-          <div class="comments" style="padding: 10px;">
-            <p class="font-weight-bold">
-              {{ comment.name }}
-              <span class=" text-muted font-weight-normal">
-                {{ comment.created_on }}
-              </span>
-            </p>
-            {{ comment.body | linebreaks }}
+            {% endfor %}
           </div>
-          {% endfor %}
         </div>
       </div>
-
-      <div class="alert alert-primary col-lg-6" role="alert" style="margin-left: 25px;text-transform: capitalize;">
-        Leave a Comment!!
-        <form method="post" style="margin-top: 1.3em;">
-          {{ comment_form.as_p }}
-          {% csrf_token %}
-          <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
-        </form>
-      </div>
     </div>
-    {% endblock content %}
+  </div>
+  {% endblock content %}
 </body>
 
 </html>

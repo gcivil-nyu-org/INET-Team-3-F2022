@@ -307,12 +307,30 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ("body",)
+        widgets = {
+            "body": Textarea(
+                attrs={
+                    "class": "form-control",
+                    "rows": 2,
+                    "style": "max-width: 100%; margin-bottom: 10px;",
+                }
+            ),
+        }
 
 
 class DiscForumCommentForm(forms.ModelForm):
     class Meta:
         model = DiscForumComment
         fields = ("body",)
+        widgets = {
+            "body": Textarea(
+                attrs={
+                    "class": "form-control",
+                    "rows": 2,
+                    "style": "max-width: 100%; margin-bottom: 10px;",
+                }
+            ),
+        }
 
 
 class IssueForm(forms.ModelForm):

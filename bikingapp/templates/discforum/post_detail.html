@@ -19,10 +19,10 @@
         <article class="media">
           <img class="rounded-circle article-img" src="{{ object.author.image.url }}">
       </div>
-      <div class="col-6">
+      <div class="col-9">
         <div class="media-body">
           <div class="article-metadata">
-            <a class="mr-2" href="#">{{ object.author }}</a>
+            <a class="mr-2" href="{% url 'profile' object.author %}">{{ object.author }}</a>
             <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
             {% if object.author == user %}
             <div>
@@ -33,44 +33,45 @@
           </div>
           <h2 class="article-title">{{ object.title }}</h2>
           <p class="article-content">{{ object.content }}</p>
-          <br>
-         {% if userLoggedIn == True %}
-          <h2>Leave a Comment</h2>
-          <form action="" method="post">
-            {% csrf_token %}
-            {{form}}
-            <input type="submit" value="Submit">
-          </form>
-        {% endif %}
-          <br>
-
         </div>
-        </article>
-        <div class="col-md-8 card mb-4  mt-3 ">
-          <div class="card-body">
-            <!-- comments -->
-            <h2>{{ comments.count }} comments</h2>
-    
-            {% for comment in comments %}
-            <div class="comments" style="padding: 10px;">
-              <p class="font-weight-bold">
-              <h3>{{ comment.author }}</h3>
-              <span class=" text-muted font-weight-normal">
-                {{ comment.created_on }}
-              </span>
-              </p>
-              {{ comment.body | linebreaks }}
+      </div>
+      <hr>
+      {% if userLoggedIn == True %}
+      <div class="row">
+        <h5>Leave a Comment</h5>
+        <form action="" method="post">
+          <div class="row">
+            <div class="col-11">
+              {% csrf_token %}
+              {{form.body}}
             </div>
-            <br>
-            {% endfor %}
-    
+            <div class="col-1" style="margin-top: 1vh ;margin-left: -1vw;">
+              <input class="btn" style="background-color:#324f94;color:#efefef;" type="submit" value="Submit">
+            </div>
           </div>
+        </form>
+        {% endif %}
+        <br>
+      </div>
+
+      <div class="col-12 ">
+        <div class="card-body">
+          <!-- comments -->
+          <h5>{{ comments.count }} comments</h5>
+          {% for comment in comments %}
+          <div class="comments" style="padding: 10px;">
+            <h5>{{ comment.author }}</h5>
+            <span class=" text-muted font-weight-normal">
+              {{ comment.created_on }}
+            </span>
+            {{ comment.body | linebreaks }}
+          </div>
+          <hr>
+          {% endfor %}
         </div>
       </div>
     </div>
   </div>
-
-
   {% endblock content %}
 
 
