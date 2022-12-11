@@ -17,7 +17,8 @@
 
 <body>
   {% block content %}
-  <div id="map" style="height: 80vh; width: 100vw; margin-left: -2.7vw;margin-top: -1vh;"></div>
+  <div id="map" style="height: 80vh; width: 100vw; margin-left: -2.7vw;margin-top: -1vh;">
+  </div>
   <div style="margin-top: 15px; margin-left: 10%">
     <button type="button" id="btn1" class="btn btn-primary">
       Bike Lanes
@@ -31,19 +32,54 @@
     <button type="button" id="btn4" class="btn btn-secondary">
       Reported Issues
     </button>
+    <button type="button" id="btn5" class="btn btn-secondary">
+      Events
+    </button>
   </div>
   <script
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlkwD4oZWgdqKf-wptm3M1cepVjtVUM-U&callback=initMap&v=weekly"
     async defer></script>
   <script src="{% static 'js/markercluster.js' %}"></script>
   <script>
-    // define static varibles here so map.js can access it
+    {% comment %} define static varibles here so map.js can access it {% endcomment %}
+
+    // GEO JSONs
     var parkingGeoJson = "{% static 'json/bikeparking.geojson' %}";
     var collisionsGeoJson = "{% static 'json/bikeCollisions.geojson' %}";
+
+    // MARKERS
     var markerpng = "{% static 'img/redsquare.png' %}";
-    var issueObjsJson = JSON.parse("{{ issueCoords|escapejs }}"); // parse JSON string
+
+    // Issue Objects
+    var issueObjsJson = JSON.parse("{{ issue_objs|escapejs }}");
     var issueObjsJsonPrettyStr = JSON.stringify(issueObjsJson, null, 2);
+
+    // Private Objects
+    var privateObjsJson = JSON.parse("{{ private_event_objs|escapejs }}");
+    var privateObjsJsonPrettyStr = JSON.stringify(privateObjsJson, null, 2);
+
+    // Public Objects
+    var publicObjsJson = JSON.parse("{{ public_event_objs|escapejs }}");
+    var publicObjsJsonPrettyStr = JSON.stringify(publicObjsJson, null, 2);
+
+    // Invited Objects
+    var invitedObjsJson = JSON.parse("{{ invited_event_objs|escapejs }}");
+    var invitedObjsJsonPrettyStr = JSON.stringify(invitedObjsJson, null, 2);
+
+    // Bookmarked Objects
+    var bookmarkedObjsJson = JSON.parse("{{ bookmarked_event_objs|escapejs }}");
+    var bookmarkedObjsJsonPrettyStr = JSON.stringify(bookmarkedObjsJson, null, 2);
+
+    console.log("=====   ISSUE OBJECTS   =====");
     console.log(issueObjsJsonPrettyStr);
+    console.log("=====   PRIVATE OBJECTS   =====");
+    console.log(privateObjsJsonPrettyStr);
+    console.log("=====   PUBLIC OBJECTS   =====");
+    console.log(publicObjsJsonPrettyStr);
+    console.log("=====   BOOKMARKED OBJECTS   =====");
+    console.log(bookmarkedObjsJsonPrettyStr);
+    console.log("=====   INVITED OBJECTS   =====");
+    console.log(invitedObjsJsonPrettyStr);
   </script>
   <script src="{% static 'js/map.js' %}"></script>
   {% endblock content %}
