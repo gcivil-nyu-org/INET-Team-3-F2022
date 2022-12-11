@@ -49,6 +49,7 @@ from django.views.generic.edit import FormMixin
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+
 def home(request):
     return render(request, "home.html")
 
@@ -456,9 +457,9 @@ def event_success(request):
 def browse_events(request):
     # obj_private = models.Event.objects.order_by("id").filter(event_type="private")
     obj_public = models.Event.objects.order_by("id").filter(event_type="public")
-    public_event_page = request.GET.get('public_event_page', 1)
-    private_event_page = request.GET.get('private_event_page', 1)
-    invited_event_page = request.GET.get('invited_event_page', 1)
+    public_event_page = request.GET.get("public_event_page", 1)
+    private_event_page = request.GET.get("private_event_page", 1)
+    invited_event_page = request.GET.get("invited_event_page", 1)
     paginator = Paginator(obj_public, 4)
     try:
         obj_public = paginator.page(public_event_page)
@@ -633,12 +634,11 @@ def display_map(request):
         obj_bookmarked = models.BookmarkEvent.objects.filter(
             user=request.user
         ).values_list("event", flat=True)
-        bookmarked_objs_json = serializers.serialize("json", obj_bookmarked)
+        print("obj_bookmarked", obj_bookmarked)
         context = {
             "private_event_objs": private_objs_json,
             "public_event_objs": public_objs_json,
             "invited_event_objs": invited_objs_json,
-            "bookmarked_event_objs": bookmarked_objs_json,
             "issue_objs": issue_objs_json,
         }
 
@@ -694,7 +694,7 @@ def workout_history(request):
     display workouts created by that user in sequential order
     """
     obj = models.Workout.objects.filter(created_by=request.user).order_by("-date")
-    page = request.GET.get('page', 1)
+    page = request.GET.get("page", 1)
     paginator = Paginator(obj, 5)
     try:
         obj = paginator.page(page)

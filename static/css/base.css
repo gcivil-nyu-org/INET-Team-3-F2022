@@ -75,3 +75,6 @@ a.article-title:hover {
     text-align: center;
 }
 
+div.card-new:hover{
+  border: 2px solid #444444;
+}
