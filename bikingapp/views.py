@@ -149,7 +149,7 @@ def custom_login(request):
                 messages.success(
                     request, f"Hello <b>{user.username}</b>! You have been logged in"
                 )
-                return redirect("homepage")
+                return redirect("profile/" + user.username)
 
         else:
             for key, error in list(form.errors.items()):
