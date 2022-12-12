@@ -45,7 +45,7 @@ ALLOWED_HOSTS = [
 
 
 # Application definition
-
+# test comment
 INSTALLED_APPS = [
     "bikingapp.apps.BikingappConfig",
     "django.contrib.admin",
