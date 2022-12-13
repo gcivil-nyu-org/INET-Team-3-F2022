@@ -14,19 +14,22 @@
   {% extends 'base.html' %}
   {% load crispy_forms_tags %}
   {% block content %}
-  <div class="content-section col-lg-12">
-    <div class="col-9">
-      <form method="POST">
-        {% csrf_token %}
-        <fieldset class="form-group">
-          <legend class="border-bottom mb-4">Blog Post</legend>
-          {{ form|crispy }}
-        </fieldset>
-        <br>
-        <div class="form-group">
-          <button class="btn" style="background-color: #324f94; color:#efefef" type="submit">Post</button>
-        </div>
-      </form>
+  <div class="container">
+
+    <div class="content-section col-lg-12" style="margin-top: 4vh;">
+      <div class="col-9">
+        <form method="POST">
+          {% csrf_token %}
+          <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Blog Post</legend>
+            {{ form|crispy }}
+          </fieldset>
+          <br>
+          <div class="form-group">
+            <button class="btn" style="background-color: #324f94; color:#efefef" type="submit">Post</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
   {% endblock content %}

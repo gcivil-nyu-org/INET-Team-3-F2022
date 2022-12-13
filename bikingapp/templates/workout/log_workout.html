@@ -13,7 +13,7 @@
 <body>
   {% extends 'base.html' %}
   {% block content %}
-  <div class="row">
+  <div class="row" style="margin-top: 4vh;">
     <div class="col-10 offset-2">
       <form method="post" action=log_workout/post_workout>
         {% csrf_token %}
