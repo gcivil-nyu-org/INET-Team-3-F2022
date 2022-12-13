@@ -1,85 +1,84 @@
-
 .profile-image {
     width: 125px;
     height: 125px;
     padding: 5px;
-}
-
-.content-section2 {
+  }
+  
+  .content-section2 {
     background: #ffffff;
     padding: 10px 20px;
     border: 1px solid #dddddd;
     border-radius: 3px;
     margin-bottom: 20px;
     margin-left: 25%;
-}
+  }
   
-.article-title {
+  .article-title {
     color: #444444;
     text-decoration: none;
-}
+  }
   
-a.article-title:hover {
+  a.article-title:hover {
     color: #324f94;
     text-decoration: none;
-}
+  }
   
-.article-content {
+  .article-content {
     white-space: pre-line;
-}
+  }
   
-.article-img {
+  .article-img {
     height: 125px;
     width: 125px;
     padding: 5px;
-}
+  }
   
-.article-metadata {
+  .article-metadata {
     padding-bottom: 1px;
     margin-bottom: 4px;
     border-bottom: 1px solid #e3e3e3;
     text-decoration: none;
-}
+  }
   
-.article-metadata a:hover {
+  .article-metadata a:hover {
     color: #333;
     text-decoration: none;
-}
+  }
   
-.article-svg {
+  .article-svg {
     width: 25px;
     height: 25px;
     vertical-align: middle;
-}
+  }
   
-.account-img {
+  .account-img {
     height: 125px;
     width: 125px;
     margin-right: 20px;
     margin-bottom: 16px;
-}
+  }
   
-.account-heading {
+  .account-heading {
     font-size: 2.5rem;
-}
+  }
   
-.text-left {
+  .text-left {
     text-align: left;
-}
+  }
   
-.text-right {
+  .text-right {
     text-align: right;
-}
+  }
   
-.text-center {
+  .text-center {
     text-align: center;
-}
-
-div.card-new:hover{
-  border: 2px solid #444444;
-}
-
-.backgrnd{
+  }
+  
+  div.card-new:hover {
+    border: 2px solid #444444;
+  }
+  
+  .backgrnd {
     height: 100%;
     width: 100%;
     background-image: url("/media/home-bg-op-1.jpg");
@@ -95,4 +94,26 @@ div.card-new:hover{
     opacity: 0.9;
     margin-top: 120px;
     margin-bottom: -10px;
+  }
+  
+  .carousel-inner {
+    overflow: hidden;
+    height: 500px;
+    background: #252525;
+  }
+  
+  .carousel-inner img {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .carousel-item {
+    height: 500px;
+  }
+  
+  .carousel-caption {
+    position: relative;
+    left: auto;
+    right: auto;
   }
