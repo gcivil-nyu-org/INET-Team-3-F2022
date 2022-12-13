@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="content-section">
+<div class="container" style="margin-top: 4vh;">
+    <div class="content-section col-5">
         <form method="POST">
             {% csrf_token %}
             <fieldset class="form-group">
@@ -12,7 +13,7 @@
             By registering, you accept the Terms of Service and Privacy Notice
 
             <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Sign Up</button>
+                <button class="btn" style="background-color: #324f94 ; color:#efefef" type="submit">Sign Up</button>
             </div>
         </form>
         <div class="border-top pt-3">
@@ -21,4 +22,5 @@
             </small>
         </div>
     </div>
+</div>
 {% endblock content %}
