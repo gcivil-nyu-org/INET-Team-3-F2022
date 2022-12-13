@@ -1,134 +1,140 @@
 .profile-image {
-    width: 125px;
-    height: 125px;
-    padding: 5px;
-  }
-  
-  .content-section2 {
-    background: #ffffff;
-    padding: 10px 20px;
-    border: 1px solid #dddddd;
-    border-radius: 3px;
-    margin-bottom: 20px;
-    margin-left: 25%;
-  }
-  
-  .article-title {
-    color: #444444;
-    text-decoration: none;
-  }
-  
-  a.article-title:hover {
-    color: #324f94;
-    text-decoration: none;
-  }
-  
-  .article-content {
-    white-space: pre-line;
-  }
-  
-  .article-img {
-    height: 125px;
-    width: 125px;
-    padding: 5px;
-  }
-  
-  .article-metadata {
-    padding-bottom: 1px;
-    margin-bottom: 4px;
-    border-bottom: 1px solid #e3e3e3;
-    text-decoration: none;
-  }
-  
-  .article-metadata a:hover {
-    color: #333;
-    text-decoration: none;
-  }
-  
-  .article-svg {
-    width: 25px;
-    height: 25px;
-    vertical-align: middle;
-  }
-  
-  .account-img {
-    height: 125px;
-    width: 125px;
-    margin-right: 20px;
-    margin-bottom: 16px;
-  }
-  
-  .account-heading {
-    font-size: 2.5rem;
-  }
-  
-  .text-left {
-    text-align: left;
-  }
-  
-  .text-right {
-    text-align: right;
-  }
-  
-  .text-center {
-    text-align: center;
-  }
-  
-  div.card-new:hover {
-    border: 2px solid #444444;
-  }
-  
-  .backgrnd {
-    height: 100%;
-    width: 100%;
-    background-image: url("/media/home-bg-op-1.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-  }
-  
-  .center-logo {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-    opacity: 0.9;
-    margin-top: 120px;
-    margin-bottom: -10px;
-  }
-  
-  .carousel-inner {
-    overflow: hidden;
-    height: 500px;
-    background: #252525;
-  }
-  
-  .carousel-inner img {
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  
-  .carousel-item {
-    height: 500px;
-  }
-  
-  .carousel-caption {
-    position: relative;
-    left: auto;
-    right: auto;
-  }
+  width: 125px;
+  height: 125px;
+  padding: 5px;
+}
 
-  .center-map-buttons {
-    margin: auto;
-    width: 100%;
-    text-align: center;
-    padding: 30px;
-    background: #253b6e;
-    margin-left: -2.7vw;
-  }
+.content-section2 {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+  margin-left: 25%;
+}
 
-  .center-map-buttons button {
-    margin: auto;
-    width: 0%;
-    padding: 10px;
-  }
+.article-title {
+  color: #444444;
+  text-decoration: none;
+}
+
+a.article-title:hover {
+  color: #324f94;
+  text-decoration: none;
+}
+
+.article-content {
+  white-space: pre-line;
+}
+
+.article-img {
+  height: 125px;
+  width: 125px;
+  padding: 5px;
+}
+
+.article-metadata {
+  padding-bottom: 1px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid #e3e3e3;
+  text-decoration: none;
+}
+
+.article-metadata a:hover {
+  color: #333;
+  text-decoration: none;
+}
+
+.article-svg {
+  width: 25px;
+  height: 25px;
+  vertical-align: middle;
+}
+
+.account-img {
+  height: 125px;
+  width: 125px;
+  margin-right: 20px;
+  margin-bottom: 16px;
+}
+
+.account-heading {
+  font-size: 2.5rem;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+div.card-new:hover {
+  border: 2px solid #444444;
+}
+
+.backgrnd {
+  height: 100%;
+  width: 100%;
+  background-image: url("/media/home-bg-op-1.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.center-logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  opacity: 0.9;
+  margin-top: 120px;
+  margin-bottom: -10px;
+}
+
+.carousel-inner {
+  overflow: hidden;
+  height: 500px;
+  background: #252525;
+}
+
+.carousel-inner img {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.carousel-item {
+  height: 500px;
+}
+
+.carousel-caption {
+  position: relative;
+  left: auto;
+  right: auto;
+}
+
+.center-map-buttons {
+  margin: auto;
+  width: 100%;
+  text-align: center;
+  padding: 30px;
+  background: #253b6e;
+}
+
+.center-map-buttons button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  text-align: center;
+}
+
+.center-map-buttons button:hover {
+  background-color: #ff0000; /* Green */
+  color: white;
+  border: none;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
