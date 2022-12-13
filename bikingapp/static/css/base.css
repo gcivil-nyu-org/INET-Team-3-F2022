@@ -117,3 +117,25 @@ div.card-new:hover {
   left: auto;
   right: auto;
 }
+
+.center-map-buttons {
+  margin: auto;
+  width: 100%;
+  text-align: center;
+  padding: 30px;
+  background: #253b6e;
+  margin-left: -2.7vw;
+}
+
+.center-map-buttons button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  text-align: center;
+}
+
+.center-map-buttons button:hover {
+  background-color: #ff0000; /* Green */
+  color: white;
+  border: none;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
