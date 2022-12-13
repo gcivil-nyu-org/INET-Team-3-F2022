@@ -249,6 +249,7 @@ btn5SeeEvnts.addEventListener("click", function onClick() {
   var geocoder;
   geocoder = new google.maps.Geocoder();
   var markers_temp = []
+  let hmap = {};
   var markerClusterer = new MarkerClusterer(map, markers_temp,
     {zoomOnClick: false, imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
   // Add some markers to the map.
@@ -281,6 +282,28 @@ btn5SeeEvnts.addEventListener("click", function onClick() {
           infoWindow.open(map, marker);
         });
         markers_temp.push(marker)
+        let latLngCheck = marker.getPosition().lat() + "," + marker.getPosition().lng();
+        let lat1 = marker.getPosition().lat();
+        let lng1 = marker.getPosition().lng();
+        latLngCheck = lat1 + "," + lng1;
+        if(hmap[latLngCheck])
+        {
+          while(hmap[latLngCheck])
+          {
+            lat1 += 0.0005;
+            lng1 += 0.0005;
+            latLngCheck = lat1 + "," + lng1;
+            if(!hmap[latLngCheck])
+            {
+              marker.setPosition(new google.maps.LatLng(lat1, lng1));
+              hmap[latLngCheck] = 1;
+              break;
+            }
+          }
+        }
+        else{
+          hmap[latLngCheck] = 1;
+        }
         markerClusterer.addMarker(marker);
       } 
       
