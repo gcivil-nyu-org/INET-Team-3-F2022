@@ -805,10 +805,11 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 
 def report_issue(request):
-
+    tz_NY = pytz.timezone("America/New_York")
     form = IssueForm(
         {
             "author": request.user,
+            "date": datetime.now(tz_NY),
         }
     )
     return render(request, "issue_form.html", {"form": form})

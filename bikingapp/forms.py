@@ -336,7 +336,7 @@ class DiscForumCommentForm(forms.ModelForm):
 class IssueForm(forms.ModelForm):
     class Meta:
         model = Issue
-        fields = ("title", "content", "author", "location")
+        fields = ("title", "content", "author", "location", "date")
         widgets = {
             "title": TextInput(
                 attrs={
@@ -364,6 +364,13 @@ class IssueForm(forms.ModelForm):
                     "class": "form-control",
                     "style": "max-width: 92%; margin-bottom: 10px;display: inline-block;",  # noqa: E501
                     "placeholder": "Location",
+                }
+            ),
+            "date": DatePickerInput(
+                attrs={
+                    "readonly": "readonly",
+                    "class": "form-control",
+                    "style": "max-width: 30%; margin-bottom: 10px;display: inline-block;",  # noqa: E501
                 }
             ),
         }

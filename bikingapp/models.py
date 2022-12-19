@@ -190,6 +190,7 @@ class Issue(models.Model):
     content = models.TextField()
     author = models.CharField(max_length=100, default="user")
     location = models.CharField(max_length=100, default="NYU Tandon")
+    date = models.DateField(default=timezone.now)
 
     def __str__(self):
         return self.title
