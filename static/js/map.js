@@ -160,8 +160,10 @@ btn4RepIssue.addEventListener("click", function onClick() {
   });
 
   let locations = [];
+  let dates = [];
   for (let i = 0; i < issueObjsJson.length; i++) {
     locations.push(issueObjsJson[i]['fields']['location']);
+    dates.push(issueObjsJson[i]['fields']['date']);
   }
 
   let issueInfos = [];
@@ -180,35 +182,40 @@ btn4RepIssue.addEventListener("click", function onClick() {
 
     geocoder.geocode({ 'address': location }, function (results, status) {
       if (status === 'OK') {
-        var marker = new google.maps.Marker({
-          map: map,
-          position: results[0].geometry.location,
-        });
+        let currDate = new Date();
+        let issueDate = new Date(dates[i]);
+        issueDate.setDate(issueDate.getDate()+1);
+        if(issueDate.getTime() >= currDate.getTime())
+        {
+          var marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location,
+          });
 
-        const contentStr =
-          '<div id="content">' +
-          '<div id="siteNotice">' +
-          "</div>" +
-          '<h4 id="firstHeading" class="firstHeading">' + issueInfo['title'] + '</h4>' +
-          '<div id="bodyContent">' +
-          "<p>" + issueInfo['content'] + "</p>" +
-          '<p>Author: ' + issueInfo['author'] + '</p>' +
-          '<p>Location: ' + issueInfo['location'] + '</p>' +
-          "</div>" +
-          "</div>";
-        var infoWindow = new google.maps.InfoWindow({
-          content: contentStr
-        });
-        marker.addListener("click", () => {
-          infoWindow.open(map, marker);
-        });
-        markers_temp.push(marker)
-        markerClusterer.addMarker(marker);
+          const contentStr =
+            '<div id="content">' +
+            '<div id="siteNotice">' +
+            "</div>" +
+            '<h4 id="firstHeading" class="firstHeading">' + issueInfo['title'] + '</h4>' +
+            '<div id="bodyContent">' +
+            "<p>" + issueInfo['content'] + "</p>" +
+            '<p>Author: ' + issueInfo['author'] + '</p>' +
+            '<p>Location: ' + issueInfo['location'] + '</p>' +
+            "</div>" +
+            "</div>";
+          var infoWindow = new google.maps.InfoWindow({
+            content: contentStr
+          });
+          marker.addListener("click", () => {
+            infoWindow.open(map, marker);
+          });
+          markers_temp.push(marker)
+          markerClusterer.addMarker(marker);
+        }
       }
-
-      else {
-        console.log(location + ': Geocode was not successful for the following reason: ' + status);
-      }
+        else {
+          console.log(location + ': Geocode was not successful for the following reason: ' + status);
+        }
     });
   });
 
@@ -237,8 +244,10 @@ btn5SeeEvnts.addEventListener("click", function onClick() {
   });
 
   let locations = [];
+  let dates = [];
   for (let i = 0; i < publicObjsJson.length; i++) {
     locations.push(publicObjsJson[i]['fields']['location']);
+    dates.push(publicObjsJson[i]['fields']['date']);
   }
 
   let publicEventInfos = [];
@@ -258,52 +267,59 @@ btn5SeeEvnts.addEventListener("click", function onClick() {
 
     geocoder.geocode({ 'address': location }, function (results, status) {
       if (status === 'OK') {
-        var marker = new google.maps.Marker({
-          map: map,
-          position: results[0].geometry.location,
-        });
+        let currDate = new Date();
+        let issueDate = new Date(dates[i]);
+        if(issueDate.getTime() >= currDate.getTime())
+        {
+          var marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location,
+          });
 
-        const contentStr =
-          '<div id="content">' +
-          '<div id="siteNotice">' +
-          "</div>" +
-          '<h4 id="firstHeading" class="firstHeading">' + publicEventInfo['title'] + '</h4>' +
-          '<div id="bodyContent">' +
-          "<p>" + publicEventInfo['description'] + "</p>" +
-          "<p>Event Type: " + publicEventInfo['event_type'] + "</p>" +
-          '<p>Author: ' + publicEventInfo['created_by'] + '</p>' +
-          '<p>Location: ' + publicEventInfo['location'] + '</p>' +
-          "</div>" +
-          "</div>";
-        var infoWindow = new google.maps.InfoWindow({
-          content: contentStr
-        });
-        marker.addListener("click", () => {
-          infoWindow.open(map, marker);
-        });
-        markers_temp.push(marker)
-        let latLngCheck = marker.getPosition().lat() + "," + marker.getPosition().lng();
-        let lat1 = marker.getPosition().lat();
-        let lng1 = marker.getPosition().lng();
-        latLngCheck = lat1 + "," + lng1;
-        if (hmap[latLngCheck]) {
-          while (hmap[latLngCheck]) {
-            lat1 += 0.0005;
-            lng1 += 0.0005;
-            latLngCheck = lat1 + "," + lng1;
-            if (!hmap[latLngCheck]) {
-              marker.setPosition(new google.maps.LatLng(lat1, lng1));
-              hmap[latLngCheck] = 1;
-              break;
+          const contentStr =
+            '<div id="content">' +
+            '<div id="siteNotice">' +
+            "</div>" +
+            '<h4 id="firstHeading" class="firstHeading">'+ publicEventInfo['title']+'</h4>' +
+            '<div id="bodyContent">' +
+            "<p>"+ publicEventInfo['description'] + "</p>" +
+            "<p>Event Type: "+ publicEventInfo['event_type'] + "</p>" +
+            '<p>Author: '+ publicEventInfo['created_by'] +'</p>' +
+            '<p>Location: '+ publicEventInfo['location'] +'</p>' +
+            "</div>" +
+            "</div>";
+          var infoWindow = new google.maps.InfoWindow({
+            content: contentStr
+          });
+          marker.addListener("click", () => {
+            infoWindow.open(map, marker);
+          });
+          markers_temp.push(marker)
+          let latLngCheck = marker.getPosition().lat() + "," + marker.getPosition().lng();
+          let lat1 = marker.getPosition().lat();
+          let lng1 = marker.getPosition().lng();
+          latLngCheck = lat1 + "," + lng1;
+          if(hmap[latLngCheck])
+          {
+            while(hmap[latLngCheck])
+            {
+              lat1 += 0.0005;
+              lng1 += 0.0005;
+              latLngCheck = lat1 + "," + lng1;
+              if(!hmap[latLngCheck])
+              {
+                marker.setPosition(new google.maps.LatLng(lat1, lng1));
+                hmap[latLngCheck] = 1;
+                break;
+              }
             }
           }
+          else{
+            hmap[latLngCheck] = 1;
+          }
+          markerClusterer.addMarker(marker);
         }
-        else {
-          hmap[latLngCheck] = 1;
-        }
-        markerClusterer.addMarker(marker);
-      }
-
+      } 
       else {
         console.log(location + ': Geocode was not successful for the following reason: ' + status);
       }
