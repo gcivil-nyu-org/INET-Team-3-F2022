@@ -60,11 +60,18 @@
           <h5>{{ comments.count }} comments</h5>
           {% for comment in comments %}
           <div class="comments" style="padding: 10px;">
-            <h5>{{ comment.author }}</h5>
-            <span class=" text-muted font-weight-normal">
-              {{ comment.created_on }}
-            </span>
-            {{ comment.body | linebreaks }}
+            <div class="row">
+              <div class="col-2">
+                <img width="80px" height="80px" class="rounded-circle " src="{{ comment.author.image.url }}">
+              </div>
+              <div class="col-10">
+                <h5>{{ comment.author }}</h5>
+                <span class=" text-muted font-weight-normal">
+                  {{ comment.created_on }}
+                </span>
+                {{ comment.body | linebreaks }}
+              </div>
+            </div>
           </div>
           <hr>
           {% endfor %}
