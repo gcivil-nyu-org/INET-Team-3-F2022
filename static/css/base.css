@@ -125,6 +125,25 @@ div.card-new:hover {
   padding: 30px;
   background: #253b6e;
 }
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 130px;
+  padding: 15px;
+  background-color: #253b63;
+}
+
+.sticky {
+  min-height: calc(100vh - 800px)
+}
+
+.footer p {
+  text-align: justify;
+}
+
 /* 
 .center-map-buttons button {
   background-color: #4CAF50; 
