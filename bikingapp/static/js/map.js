@@ -269,6 +269,10 @@ btn5SeeEvnts.addEventListener("click", function onClick() {
       if (status === 'OK') {
         let currDate = new Date();
         let issueDate = new Date(dates[i]);
+        issueDate.setDate(issueDate.getDate()+1);
+        console.log(currDate);
+        console.log(issueDate);
+        console.log(location);
         if(issueDate.getTime() >= currDate.getTime())
         {
           var marker = new google.maps.Marker({
