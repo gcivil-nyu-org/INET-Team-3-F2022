@@ -739,9 +739,9 @@ class PostDetailView(FormMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["form"] = DiscForumCommentForm
-        context["comments"] = models.DiscForumComment.objects.order_by("id").filter(
-            post=self.object
-        )
+        context["comments"] = models.DiscForumComment.objects.order_by(
+            "-created_on"
+        ).filter(post=self.object)
         context["userLoggedIn"] = not self.request.user.is_anonymous
         return context
 
