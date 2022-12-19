@@ -143,13 +143,14 @@ btn3BikeColl.addEventListener("click", function onClick() {
 btn4RepIssue.addEventListener("click", function onClick() {
   btn4RepIssue.classList.remove("btn-secondary");
   btn4RepIssue.classList.add("btn-primary");
-  btn3BikeColl.classList.remove("btn-secondary");
   btn1BikeLane.classList.remove("btn-primary");
   btn2BikePark.classList.remove("btn-primary");
   btn3BikeColl.classList.remove("btn-primary");
+  btn5SeeEvnts.classList.remove("btn-primary");
   btn1BikeLane.classList.add("btn-secondary");
   btn2BikePark.classList.add("btn-secondary");
   btn3BikeColl.classList.add("btn-secondary");
+  btn5SeeEvnts.classList.add("btn-secondary");
 
   const uluru = { lat: 40.7237, lng: -73.9898 };
 
@@ -219,7 +220,6 @@ btn4RepIssue.addEventListener("click", function onClick() {
 btn5SeeEvnts.addEventListener("click", function onClick() {
   btn5SeeEvnts.classList.remove("btn-secondary");
   btn5SeeEvnts.classList.add("btn-primary");
-  btn3BikeColl.classList.remove("btn-secondary");
   btn1BikeLane.classList.remove("btn-primary");
   btn2BikePark.classList.remove("btn-primary");
   btn3BikeColl.classList.remove("btn-primary");
@@ -251,7 +251,7 @@ btn5SeeEvnts.addEventListener("click", function onClick() {
   var markers_temp = []
   let hmap = {};
   var markerClusterer = new MarkerClusterer(map, markers_temp,
-    {zoomOnClick: false, imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+    { zoomOnClick: false, imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m' });
   // Add some markers to the map.
   var markers = locations.map((location, i) => {
     const publicEventInfo = publicEventInfos[i % publicEventInfos.length];
@@ -267,12 +267,12 @@ btn5SeeEvnts.addEventListener("click", function onClick() {
           '<div id="content">' +
           '<div id="siteNotice">' +
           "</div>" +
-          '<h4 id="firstHeading" class="firstHeading">'+ publicEventInfo['title']+'</h4>' +
+          '<h4 id="firstHeading" class="firstHeading">' + publicEventInfo['title'] + '</h4>' +
           '<div id="bodyContent">' +
-          "<p>"+ publicEventInfo['description'] + "</p>" +
-          "<p>Event Type: "+ publicEventInfo['event_type'] + "</p>" +
-          '<p>Author: '+ publicEventInfo['created_by'] +'</p>' +
-          '<p>Location: '+ publicEventInfo['location'] +'</p>' +
+          "<p>" + publicEventInfo['description'] + "</p>" +
+          "<p>Event Type: " + publicEventInfo['event_type'] + "</p>" +
+          '<p>Author: ' + publicEventInfo['created_by'] + '</p>' +
+          '<p>Location: ' + publicEventInfo['location'] + '</p>' +
           "</div>" +
           "</div>";
         var infoWindow = new google.maps.InfoWindow({
@@ -286,29 +286,26 @@ btn5SeeEvnts.addEventListener("click", function onClick() {
         let lat1 = marker.getPosition().lat();
         let lng1 = marker.getPosition().lng();
         latLngCheck = lat1 + "," + lng1;
-        if(hmap[latLngCheck])
-        {
-          while(hmap[latLngCheck])
-          {
+        if (hmap[latLngCheck]) {
+          while (hmap[latLngCheck]) {
             lat1 += 0.0005;
             lng1 += 0.0005;
             latLngCheck = lat1 + "," + lng1;
-            if(!hmap[latLngCheck])
-            {
+            if (!hmap[latLngCheck]) {
               marker.setPosition(new google.maps.LatLng(lat1, lng1));
               hmap[latLngCheck] = 1;
               break;
             }
           }
         }
-        else{
+        else {
           hmap[latLngCheck] = 1;
         }
         markerClusterer.addMarker(marker);
-      } 
-      
+      }
+
       else {
-        console.log(location+': Geocode was not successful for the following reason: ' + status);
+        console.log(location + ': Geocode was not successful for the following reason: ' + status);
       }
     });
   });
