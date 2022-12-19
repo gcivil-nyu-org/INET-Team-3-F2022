@@ -25,12 +25,12 @@ after_success: coveralls
 
 deploy:
   provider: elasticbeanstalk
-  access_key_id: $ACCESSKEYIDMG
-  secret_access_key: $SECRETACCESSKEYMG
+  access_key_id: $ACCESSKEYID
+  secret_access_key: $SECRETACCESSKEY
   region: "us-west-2"
-  app: "bikingapp-develop"
-  env: "bikingapp-environ"
-  bucket_name: "elasticbeanstalk-us-west-2-032360129501"
+  app: "bikingapp-master"
+  env: "bikingapp-master-env"
+  bucket_name: "elasticbeanstalk-us-west-2-434236253957"
   on:
     repo: gcivil-nyu-org/INET-Team-3-F2022
-    branch: develop
+    branch: master
